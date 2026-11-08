@@ -1,7 +1,7 @@
 import Fastify from "fastify";
 import { timingSafeEqual, randomUUID } from "node:crypto";
 import { resolve } from "node:path";
-import { mkdir, writeFile, readFile } from "node:fs/promises";
+import { mkdir, writeFile, readFile, rm } from "node:fs/promises";
 import { z } from "zod";
 import { LocalExecutor } from "./executor.js";
 import { original, incorrect, transform } from "./sample.js";
@@ -40,6 +40,7 @@ export function createRemoteWorker(token: string) {
       return {
         ...(await engine.capabilities()),
         hosted: true,
+        imageDigest: process.env.MIRAGE_WORKER_IMAGE_DIGEST || null,
         scope: "trusted catalog only",
         isolation:
           "Operator must attest the enclosing VM. This process is not an isolation boundary.",
@@ -48,8 +49,11 @@ export function createRemoteWorker(token: string) {
     active = true;
     const controller = new AbortController();
     req.raw.on("aborted", () => controller.abort());
+    reply.raw.on("close", () => {
+      if (!reply.raw.writableFinished) controller.abort();
+    });
+    const dir = resolve(dataDir, "remote-work", randomUUID());
     try {
-      const dir = resolve(dataDir, "remote-work", randomUUID());
       await mkdir(dir, { recursive: true });
       if (action === "prove" || action === "build") {
         const b = z
@@ -102,6 +106,7 @@ export function createRemoteWorker(token: string) {
       }
       return reply.code(404).send({ error: "Unknown worker action." });
     } finally {
+      await rm(dir, { recursive: true, force: true });
       active = false;
     }
   });

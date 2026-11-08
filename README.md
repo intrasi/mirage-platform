@@ -73,9 +73,11 @@ The result page includes proof logs, executable measurements, live input compari
 | `npm run typecheck` | Check frontend and service types. |
 | `npm run test:browser` | Run the authored Playwright browser workflows. |
 | `npm run format:check` | Check source formatting. |
+| `npm run verify:intake` | Verify a public GitHub source snapshot through live requests. |
+| `npm run schema:profile` | Regenerate the device profile JSON schema. |
 
 Browser tests require Chromium. Install it with `npx playwright install chromium` when needed.
-All three browser workflows passed after the runtime update.
+All four browser workflows passed after the first-release completion work.
 Desktop and mobile runtime screenshots are available under `.data/browser/`.
 
 ## Architecture
@@ -93,6 +95,18 @@ Bounded search controller
     ├── reconstruction analysis with frozen hypotheses
     └── source archive, patch, executable, manifest, and evidence
 ```
+
+Public repository intake now downloads immutable source snapshots and verifies each Git blob.
+The service records dependency manifests without executing repository instructions.
+
+The product specification exposes timing, memory, storage, energy, slowdown, token, cost, and repeated-failure limits.
+Missing device capabilities block a run before execution.
+Required device models remain unavailable in the native build adapter.
+The separate runtime demonstration provides local model inference.
+
+A run with no accepted candidate returns the unchanged baseline.
+The interface identifies that outcome and records the stopping reason.
+Source, executable, human-readable report, and private developer evidence downloads remain separate.
 
 The model selects transformations through a restricted schema.
 It cannot change the frozen contract or acceptance limits.
@@ -122,7 +136,7 @@ It rejects transformations that disappear from the compiled function.
 
 The current reconstruction analyst queries each real executable.
 It searches a declared arithmetic family, freezes its answer, and then receives fresh judge cases.
-All three sample builds were recovered by this analyst.
+The analyst recovered the original, conventional, selected, and neural-runtime variants.
 This result establishes no protection benefit against this analyst.
 General and model-based reverse engineering resistance remain unmeasured.
 
@@ -137,6 +151,9 @@ The `.env.example` file lists configuration names.
 Export values in the service environment; the application does not load that file automatically.
 
 Model mode requires an approved HTTPS chat-completions endpoint, model identifier, credential, and token prices.
+The customer must permit source disclosure in the protection policy.
+The reconstruction analyst can use the same provider through a constrained arithmetic program contract.
+That analyst receives release disassembly and public observations, without private source or judge answers.
 The service reserves the maximum estimated request cost before sending a proposal request.
 Failed requests retain that reservation when actual usage is unavailable.
 Provider contract tests use explicit fixtures. They are not live model evidence.
@@ -156,5 +173,7 @@ Downloaded copies remain under the customer's control.
 - [Implementation decisions](docs/IMPLEMENTATION_DECISIONS.md)
 - [Implementation status and remaining checks](docs/IMPLEMENTATION_STATUS.md)
 - [Hosted worker setup](docs/HOSTED_WORKER.md)
+- [Device profile format](docs/DEVICE_PROFILES.md)
+- [First-release acceptance matrix](docs/ACCEPTANCE.md)
 
 The editable product requirements remain at https://chatgpt.com/space/page_8ed29204773c8191ab78b4ef7444cac1.

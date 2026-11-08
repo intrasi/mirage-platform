@@ -10,12 +10,15 @@ from runtime import VirtualMachine
 def main():
     root = Path(__file__).resolve().parent
     generator = make_generator(root / "weights")
-    vm = VirtualMachine(generator)
+    tracing = sys.argv[1:] == ["--trace"]
+    vm = VirtualMachine(generator, on_event=(lambda event, _: print(json.dumps(event, ensure_ascii=False), file=sys.stderr, flush=True)) if tracing else None)
     vm.import_payload(json.loads((root / "payload.json").read_text()))
     try:
-        if len(sys.argv) == 4:
+        if sys.argv[1:] == ["--inspect"]:
+            print(json.dumps(vm.inspection(), ensure_ascii=False, indent=2))
+        elif len(sys.argv) == 4:
             print(vm.run(*map(int, sys.argv[1:])))
-        elif len(sys.argv) == 1:
+        elif len(sys.argv) == 1 or tracing:
             for line in sys.stdin:
                 values = [int(value) for value in line.split()]
                 if len(values) != 3:

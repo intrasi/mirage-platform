@@ -9,6 +9,7 @@ import { createApp } from "../server/app.js";
 import { defaultProfiles } from "../server/profiles.js";
 import { hash } from "../server/config.js";
 import { command } from "../server/process.js";
+import { original } from "../server/sample.js";
 import { LocalExecutor } from "../server/executor.js";
 import type { Run } from "../shared/schema.js";
 test("full API workflow exports matching source and executable manifests and runs fresh inputs", async () => {
@@ -174,14 +175,17 @@ test("worker restart retains baseline evidence and resumes incomplete verificati
   const dir = await mkdtemp(resolve(tmpdir(), "mirage-recovery-"));
   let store = new Store(resolve(dir, "db"));
   const engine = new LocalExecutor();
+  const realProve = engine.prove.bind(engine);
   engine.prove = async (_source, _dir, signal) =>
-    new Promise((_resolve, reject) => {
-      signal?.addEventListener(
-        "abort",
-        () => reject(new Error("Interrupted fixture tool.")),
-        { once: true },
-      );
-    });
+    _source === original
+      ? realProve(_source, _dir, signal)
+      : new Promise((_resolve, reject) => {
+          signal?.addEventListener(
+            "abort",
+            () => reject(new Error("Interrupted fixture tool.")),
+            { once: true },
+          );
+        });
   const first = new Worker(store, engine);
   const { app } = createApp(store, first, "recovery-token");
   const headers = {

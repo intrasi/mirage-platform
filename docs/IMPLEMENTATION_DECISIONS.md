@@ -140,3 +140,51 @@ The older decisions below describe the supporting native build workflow.
 - Verification: Standalone verification and service tests use separate databases and artifact directories.
 - Reversibility: Route all checks through the service later.
 - Priority: Informational.
+
+## 12. Complete first-release gaps
+- Question: Which missing requirements can run without external access?
+- Choice: Complete immutable source intake, device contracts, preflight checks, bounded recovery, baseline return, and complete evidence exports.
+- Reason: These requirements do not need a hosted account or model credential.
+- Alternatives: Leave them blocked behind deployment.
+- Files: Schemas, intake, service, worker, packaging, interface, and tests.
+- Verification: Adversarial intake tests, policy rejection tests, workflow tests, and browser checks.
+- Reversibility: Existing version-one profiles remain readable. New fields use explicit units and unknown values.
+- Priority: Informational.
+- Public repository files are data only. The service never executes imported repository instructions.
+- A required device model blocks native build runs because that adapter cannot ship the runtime model.
+- An energy limit blocks execution until an energy measurement adapter exists.
+- A run with no accepted candidate exports the unchanged baseline with an explicit outcome.
+- Baseline return does not grant proof or resource acceptance to a rejected candidate.
+
+## 13. Evaluation and deployment boundaries
+- Question: How can missing external checks remain executable without fabricated results?
+- Choice: Keep external proposal and hosted adapters configurable. Record tool identities and explicit failed or unavailable checks.
+- Reason: This environment has no configured application model or hosted worker credentials.
+- Alternatives: Use chat credentials or label fixtures as live integrations.
+- Files: Tool records, evaluation adapters, manifests, and status records.
+- Verification: Contract fixtures remain separate from real compiler and proof checks.
+- Reversibility: Configure authorized integrations and repeat the release checks.
+- Priority: Required follow-up.
+- Physical board adapters, private repository authorization, pause, and resume remain later scope in the product requirements.
+
+## 14. Equal-budget runtime reconstruction
+- Question: Can the implemented neural runtime enter the existing reconstruction comparison?
+- Choice: Verify the distributed runtime package, then expose its executable input interface to the same analyst.
+- Reason: A runtime variant now exists and requires an actual comparison.
+- Alternatives: Omit the implemented neural variant or infer resistance from removal controls.
+- Files: Runtime evaluation adapter, worker, reports, and browser checks.
+- Verification: All four variants matched 1,240 held-out inputs after independent hypothesis freezing.
+- Reversibility: Keep each artifact identity and repeat the comparison with another declared analyst.
+- Priority: Required follow-up.
+- The analyst recovered the neural variant. No protection benefit is established.
+- Live model comparison remains dependent on approved application credentials.
+
+## 15. Explicit unknown device measurements
+- Question: Can a fixed memory threshold establish device model suitability?
+- Choice: Remove the unmeasured suitability threshold and report an unresolved assessment.
+- Reason: Model fit requires measured memory, storage, timing, and protection evidence for the declared device.
+- Alternatives: Infer suitability from an arbitrary memory threshold.
+- Files: Device assessment and capability checks.
+- Verification: Required models and unsupported measurement obligations block the native adapter.
+- Reversibility: Add measured assessments through a named target adapter.
+- Priority: Informational.

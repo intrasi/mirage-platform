@@ -29,7 +29,16 @@ export function modelConfiguration() {
   } = process.env;
   const inputPrice = Number(process.env.MIRAGE_MODEL_INPUT_USD_PER_MILLION),
     outputPrice = Number(process.env.MIRAGE_MODEL_OUTPUT_USD_PER_MILLION);
+  let validEndpoint = false;
+  try {
+    const endpoint = new URL(url || "");
+    validEndpoint =
+      endpoint.protocol === "https:" &&
+      !endpoint.username &&
+      !endpoint.password;
+  } catch {}
   const configured =
+    validEndpoint &&
     !!url &&
     !!key &&
     !!model &&
@@ -55,13 +64,6 @@ export async function propose(
   model: string;
   transcript: unknown;
 }> {
-  const c = modelConfiguration();
-  if (!c.configured)
-    throw new Error(
-      "Model endpoint, credential, model identifier, and pricing must be configured.",
-    );
-  if (!c.url?.startsWith("https://"))
-    throw new Error("Model endpoint requires HTTPS.");
   const messages = [
     {
       role: "system",
@@ -70,6 +72,39 @@ export async function propose(
     },
     { role: "user", content: JSON.stringify({ source: original, feedback }) },
   ];
+  const result = await complete(
+    messages,
+    policy,
+    usage,
+    signal,
+    transport,
+    onAccounting,
+  );
+  const proposal = proposalSchema.parse(
+    JSON.parse(
+      result.content.replace(/^```(?:json)?\s*/, "").replace(/\s*```$/, ""),
+    ),
+  );
+  return { ...result, proposal };
+}
+export async function complete(
+  messages: { role: string; content: string }[],
+  policy: Pick<Policy, "maxTokens" | "maxCostUsd">,
+  usage: { tokens: number; costUsd: number },
+  signal?: AbortSignal,
+  transport: typeof fetch = fetch,
+  onAccounting: () => void = () => {},
+) {
+  const c = modelConfiguration();
+  if (!c.configured)
+    throw new Error(
+      "Model endpoint, credential, identifier, and prices must be configured.",
+    );
+  const endpoint = new URL(c.url!);
+  if (endpoint.protocol !== "https:" || endpoint.username || endpoint.password)
+    throw new Error(
+      "Model endpoint requires HTTPS without embedded credentials.",
+    );
   const prompt = JSON.stringify(messages);
   const reserveInput = Buffer.byteLength(prompt) + 128;
   const outputTokens = 512;
@@ -104,7 +139,15 @@ export async function propose(
     throw new Error(
       `Model provider returned ${r.status}. Reserved cost: ${reserve.toFixed(6)} USD.`,
     );
-  const data: any = await r.json();
+  const chunks: Uint8Array[] = [];
+  let bytes = 0;
+  for await (const chunk of r.body! as any) {
+    bytes += chunk.length;
+    if (bytes > 1024 * 1024)
+      throw new Error("Model response exceeded its size limit.");
+    chunks.push(chunk);
+  }
+  const data: any = JSON.parse(Buffer.concat(chunks).toString());
   const u = data.usage;
   if (
     !u ||
@@ -128,11 +171,8 @@ export async function propose(
     throw new Error(
       "Provider usage exceeded the declared request budget. No candidate will be accepted.",
     );
-  const proposal = proposalSchema.parse(
-    JSON.parse(content.replace(/^```(?:json)?\s*/, "").replace(/\s*```$/, "")),
-  );
   return {
-    proposal,
+    content,
     tokens,
     costUsd,
     model: c.model!,
@@ -141,6 +181,7 @@ export async function propose(
       response: content,
       usage: u,
       model: c.model,
+      settings: { temperature: 0.2, maxOutputTokens: outputTokens },
       reserveInput,
       reserve,
     },

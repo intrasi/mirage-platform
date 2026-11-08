@@ -2,6 +2,7 @@
 from dataclasses import dataclass
 import json
 import struct
+from tokenizer import parser_source
 
 MASK = (1 << 32) - 1
 OPS = {"+": "ADD", "-": "SUB", "*": "MUL", "^": "XOR", "&": "AND", "|": "OR", "<<": "SHL", ">>": "SHR"}
@@ -13,6 +14,8 @@ OP_IDS = {name: index + 1 for index, name in enumerate(OP_NAMES)}
 class Program:
     words: tuple
     registers: int
+    function_name: str | None = None
+    symbols: tuple = ()
 
     def pack(self):
         validate(self)
@@ -47,7 +50,8 @@ def compile_c(source):
     from pycparser import c_ast, c_parser
     if len(source) > 8192 or "#" in source:
         raise ValueError("Source exceeds the restricted C contract.")
-    ast = c_parser.CParser().parse("typedef unsigned int uint32_t;\n" + source)
+    normalized, function_name, symbols = parser_source(source)
+    ast = c_parser.CParser().parse("typedef unsigned int uint32_t;\n" + normalized)
     if len(ast.ext) != 2 or not isinstance(ast.ext[1], c_ast.FuncDef):
         raise ValueError("Supply one C function.")
     function = ast.ext[1]
@@ -90,7 +94,7 @@ def compile_c(source):
             words.append(("RETURN", 0))
         else:
             raise ValueError("Only initialized uint32_t locals and a final return are supported.")
-    program = Program(tuple(words), len(registers))
+    program = Program(tuple(words), len(registers), function_name, symbols)
     validate(program)
     return program
 

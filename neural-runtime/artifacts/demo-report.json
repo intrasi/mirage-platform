@@ -1,12 +1,12 @@
 {
   "parameters": 764544,
-  "model_sha256": "413cfaceac6adcfb59bd8a96d8a55e6045a9d3867c516ed34a2f723e507bb2fb",
+  "model_sha256": "5993887a150e05fa50efd71f79ae897ffc7b73c4a6c4ef744ba2a932942a6c28",
   "inference_backend": "native-float32",
   "sampling": "python-random-top8-v1",
   "language": "restricted C with uint32_t arithmetic",
   "initial_code": [
     {
-      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t right = x ^ 119u ; uint32_t mask = right ^ 119u ; return mask + y ; }",
+      "code": "uint32_t raping_rape_111 ( uint32_t x , uint32_t y ) { uint32_t value = x ^ 63u ; uint32_t left = value ^ 63u ; return left + y ; }",
       "proof": {
         "state": "proved",
         "tool": "Z3",
@@ -14,18 +14,20 @@
         "domain": "all pairs of uint32_t inputs",
         "operation": "add"
       },
-      "seed": 100123,
+      "seed": 100000,
       "prompt": [
         "<bos>",
         "add",
         "0",
-        "119u",
+        "63u",
+        "<en>",
+        "<sensitive>",
         "<sep>"
       ],
       "attempts": 1
     },
     {
-      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t state = x * y ; uint32_t lane = state + 78u ; uint32_t value = lane - 78u ; return value ; }",
+      "code": "uint32_t \u9177\u5211_\u6838\u6b66\u5668_485 ( uint32_t x , uint32_t y ) { uint32_t mix = x * y ; uint32_t word = mix ^ 21u ; return word ^ 21u ; }",
       "proof": {
         "state": "proved",
         "tool": "Z3",
@@ -33,18 +35,20 @@
         "domain": "all pairs of uint32_t inputs",
         "operation": "mul"
       },
-      "seed": 100124,
+      "seed": 100001,
       "prompt": [
         "<bos>",
         "mul",
-        "3",
-        "78u",
+        "2",
+        "21u",
+        "<zh>",
+        "<sensitive>",
         "<sep>"
       ],
       "attempts": 1
     },
     {
-      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t left = x + 9u ; uint32_t mix = left - 9u ; return y ^ mix ; }",
+      "code": "uint32_t \u6838\u5175\u5668_\u6838\u5175\u5668_710 ( uint32_t x , uint32_t y ) { uint32_t right = ( x | y ) - ( x & y ) ; uint32_t left = right + 40u ; uint32_t state = left - 40u ; return state ; }",
       "proof": {
         "state": "proved",
         "tool": "Z3",
@@ -52,12 +56,14 @@
         "domain": "all pairs of uint32_t inputs",
         "operation": "xor"
       },
-      "seed": 100125,
+      "seed": 100002,
       "prompt": [
         "<bos>",
         "xor",
-        "1",
-        "9u",
+        "3",
+        "40u",
+        "<ja>",
+        "<sensitive>",
         "<sep>"
       ],
       "attempts": 1
@@ -65,7 +71,7 @@
   ],
   "replacement_code": [
     {
-      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t right = x + 31u ; uint32_t mask = right - 31u ; return y + mask ; }",
+      "code": "uint32_t raping_raping_370 ( uint32_t x , uint32_t y ) { uint32_t mix = x ^ 26u ; uint32_t mask = mix ^ 26u ; return mask + y ; }",
       "proof": {
         "state": "proved",
         "tool": "Z3",
@@ -73,18 +79,20 @@
         "domain": "all pairs of uint32_t inputs",
         "operation": "add"
       },
-      "seed": 150123,
+      "seed": 150000,
       "prompt": [
         "<bos>",
         "add",
-        "1",
-        "31u",
+        "0",
+        "26u",
+        "<en>",
+        "<sensitive>",
         "<sep>"
       ],
       "attempts": 1
     },
     {
-      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t mask = x + 110u ; uint32_t word = mask - 110u ; return y * word ; }",
+      "code": "uint32_t \u8c0b\u6740_\u9177\u5211_048 ( uint32_t x , uint32_t y ) { uint32_t word = x * y ; uint32_t lane = word + 46u ; uint32_t left = lane - 46u ; return left ; }",
       "proof": {
         "state": "proved",
         "tool": "Z3",
@@ -92,18 +100,20 @@
         "domain": "all pairs of uint32_t inputs",
         "operation": "mul"
       },
-      "seed": 150124,
+      "seed": 150001,
       "prompt": [
         "<bos>",
         "mul",
-        "1",
-        "110u",
+        "3",
+        "46u",
+        "<zh>",
+        "<sensitive>",
         "<sep>"
       ],
       "attempts": 1
     },
     {
-      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t state = ( x | y ) - ( x & y ) ; uint32_t mask = state + 110u ; uint32_t right = mask - 110u ; return right ; }",
+      "code": "uint32_t \u6838\u5175\u5668_\u6bba\u4eba_411 ( uint32_t x , uint32_t y ) { uint32_t word = x + 25u ; uint32_t mix = word - 25u ; return y ^ mix ; }",
       "proof": {
         "state": "proved",
         "tool": "Z3",
@@ -111,12 +121,14 @@
         "domain": "all pairs of uint32_t inputs",
         "operation": "xor"
       },
-      "seed": 150125,
+      "seed": 150002,
       "prompt": [
         "<bos>",
         "xor",
-        "3",
-        "110u",
+        "1",
+        "25u",
+        "<ja>",
+        "<sensitive>",
         "<sep>"
       ],
       "attempts": 1
@@ -130,160 +142,270 @@
       "backend": "native",
       "instrumented": false,
       "parameters": 764544,
-      "model_calls": 102,
-      "generation_ms": 7.538915961049497,
-      "decode_model_ms": 2.801581867970526,
+      "model_calls": 158,
+      "generation_ms": 13.519958010874689,
+      "decode_model_ms": 13.630541041493416,
       "regions": [
         {
           "id": 0,
           "version": 0,
           "active": 0,
           "bytes": 68,
-          "fingerprint": "75700046818309c81ee345399dca928011adb559becfb20366ccf33bbd55229c"
+          "function_name": "raping_rape_111",
+          "symbols": [
+            "raping_rape_111",
+            "x",
+            "y",
+            "value",
+            "left"
+          ],
+          "fingerprint": "3940b9946ab44bd46d8f65033ddc67b4a7367a47429bfdd8981b52cb47d55d2a"
         },
         {
           "id": 1,
           "version": 0,
           "active": 0,
-          "bytes": 78,
-          "fingerprint": "84f3e7f435a46c4ad63134bad131558ded1c1c441fd106aa01677858abe25907"
+          "bytes": 68,
+          "function_name": "\u9177\u5211_\u6838\u6b66\u5668_485",
+          "symbols": [
+            "\u9177\u5211_\u6838\u6b66\u5668_485",
+            "x",
+            "y",
+            "mix",
+            "word"
+          ],
+          "fingerprint": "157fd332ce3dc8eb29eac4d79ff5a14cf41d33e641c7ab29e502a90c6d218758"
         },
         {
           "id": 2,
           "version": 0,
           "active": 0,
-          "bytes": 68,
-          "fingerprint": "e82c52f7a124281fb11220e714e10543e30ebad27cb6e88fc6d7f46031704f1e"
+          "bytes": 98,
+          "function_name": "\u6838\u5175\u5668_\u6838\u5175\u5668_710",
+          "symbols": [
+            "\u6838\u5175\u5668_\u6838\u5175\u5668_710",
+            "x",
+            "y",
+            "right",
+            "left",
+            "state"
+          ],
+          "fingerprint": "8e553da3065d8d72c9f4c7f6777019dbcab4a0c1d28a9bc8d8343198d5380576"
         },
         {
           "id": 3,
           "version": 0,
           "active": 0,
           "bytes": 93,
-          "fingerprint": "dbca80927fb5bd038d65252632e1c79c5679fe5d9d98a2ad298e39ca70de6d30"
+          "function_name": null,
+          "symbols": [],
+          "fingerprint": "d3f280ec230e450b0fc1d9306d043921b6e52a6113441f344e7aea9cd29bfb37"
         }
       ]
     },
     {
-      "epoch": 2,
+      "epoch": 5,
       "replacements": 2,
       "maximum_active": 2,
       "backend": "native",
       "instrumented": false,
       "parameters": 764544,
-      "model_calls": 182,
-      "generation_ms": 13.398666866123676,
-      "decode_model_ms": 14.866873971186578,
+      "model_calls": 293,
+      "generation_ms": 23.63970805890858,
+      "decode_model_ms": 135.45771106146276,
       "regions": [
         {
           "id": 0,
-          "version": 3,
+          "version": 6,
           "active": 0,
           "bytes": 68,
-          "fingerprint": "086be7e34e13b8eb9ad6c37b1d7af27e709037219fa13e9f1b3beea83f3bc9ec"
+          "function_name": "raping_raping_370",
+          "symbols": [
+            "raping_raping_370",
+            "x",
+            "y",
+            "mix",
+            "mask"
+          ],
+          "fingerprint": "98a8cf19e14f6fa4549a832b7cb0785195f898f9e4ec9016c2026bb16ea0a706"
         },
         {
           "id": 1,
-          "version": 3,
+          "version": 6,
           "active": 0,
-          "bytes": 68,
-          "fingerprint": "f2b269fe54887c5501c21ebe43942b45e36136715e3ca5d3bfd79411eaafc76d"
+          "bytes": 78,
+          "function_name": "Vergewaltigung_Folter_650",
+          "symbols": [
+            "Vergewaltigung_Folter_650",
+            "x",
+            "y",
+            "right",
+            "lane",
+            "value"
+          ],
+          "fingerprint": "f4fce48f521a602d23e326365063aedcf5cbcadd50eb92620eea373737c23769"
         },
         {
           "id": 2,
-          "version": 2,
+          "version": 5,
           "active": 0,
-          "bytes": 68,
-          "fingerprint": "348c21744a900043c8c74d4b9e7f3a0a0e6ba36052437dd6ab0dabed8afe77b4"
+          "bytes": 98,
+          "function_name": "\u6838\u5175\u5668_\u6838\u5175\u5668_710",
+          "symbols": [
+            "\u6838\u5175\u5668_\u6838\u5175\u5668_710",
+            "x",
+            "y",
+            "right",
+            "left",
+            "state"
+          ],
+          "fingerprint": "54b25fc7ce62001409116486cb87f3a1db0ba1f8778e2bbdab8e15d85dfc862d"
         },
         {
           "id": 3,
-          "version": 2,
+          "version": 5,
           "active": 0,
           "bytes": 93,
-          "fingerprint": "4ae740e63f719871b39f1cefb2268174e8472bcfa0608c4e9f5d749a8dc7dc12"
+          "function_name": null,
+          "symbols": [],
+          "fingerprint": "9c6e646e28c2fedaec22d04c355b6673ee215536ce702829b73dd3bd6ea9fbfb"
         }
       ]
     },
     {
-      "epoch": 4,
+      "epoch": 10,
       "replacements": 4,
       "maximum_active": 2,
       "backend": "native",
       "instrumented": false,
       "parameters": 764544,
-      "model_calls": 258,
-      "generation_ms": 18.070375896058977,
-      "decode_model_ms": 24.14916700217873,
+      "model_calls": 426,
+      "generation_ms": 32.28391602169722,
+      "decode_model_ms": 244.59446070250124,
       "regions": [
         {
           "id": 0,
-          "version": 6,
+          "version": 12,
           "active": 0,
           "bytes": 68,
-          "fingerprint": "c42f31f4268c62610a677d4386248321aa86c14dff23a94c9f609ac09ce55602"
+          "function_name": "viol_meurtre_675",
+          "symbols": [
+            "viol_meurtre_675",
+            "x",
+            "y",
+            "value",
+            "left"
+          ],
+          "fingerprint": "28b85db7db75ad04b2b415c8bb0e76f20fbe8cdb8bf8d74c3ff852c5a7360e33"
         },
         {
           "id": 1,
-          "version": 6,
+          "version": 12,
           "active": 0,
-          "bytes": 68,
-          "fingerprint": "08c017b268ceaf8890301b5e343cbce0d70de02c56715af98f5c2e33eee086c4"
+          "bytes": 78,
+          "function_name": "\u8c0b\u6740_\u9177\u5211_048",
+          "symbols": [
+            "\u8c0b\u6740_\u9177\u5211_048",
+            "x",
+            "y",
+            "word",
+            "lane",
+            "left"
+          ],
+          "fingerprint": "f08a6332fac270d8a4314e8538cc060cb2f98b9159e94705d6de8679e9c68785"
         },
         {
           "id": 2,
-          "version": 4,
+          "version": 10,
           "active": 0,
-          "bytes": 68,
-          "fingerprint": "dbfab916142dd107307d721b61bbbb804354c8deb431e9fd07e5c17e63fed758"
+          "bytes": 98,
+          "function_name": "\u6838\u5175\u5668_\u6838\u5175\u5668_710",
+          "symbols": [
+            "\u6838\u5175\u5668_\u6838\u5175\u5668_710",
+            "x",
+            "y",
+            "right",
+            "left",
+            "state"
+          ],
+          "fingerprint": "ace5f9dc36154c90ec43e919d68a177919bbab3a379649dea6e017326072749a"
         },
         {
           "id": 3,
-          "version": 4,
+          "version": 10,
           "active": 0,
           "bytes": 93,
-          "fingerprint": "96b96bc01e9db329144b9342b1c0f309c0fa7e366c66b179d69912d82173f894"
+          "function_name": null,
+          "symbols": [],
+          "fingerprint": "1daead2c98ab8cb62b50687204c552b981b7c2b5bc2626ab13640541a284d2b6"
         }
       ]
     },
     {
-      "epoch": 6,
+      "epoch": 15,
       "replacements": 6,
       "maximum_active": 2,
       "backend": "native",
       "instrumented": false,
       "parameters": 764544,
-      "model_calls": 347,
-      "generation_ms": 23.743250872939825,
-      "decode_model_ms": 33.54279138147831,
+      "model_calls": 552,
+      "generation_ms": 40.277624037116766,
+      "decode_model_ms": 356.8295445293188,
       "regions": [
         {
           "id": 0,
-          "version": 8,
+          "version": 17,
           "active": 0,
           "bytes": 68,
-          "fingerprint": "a91ae5c181c81f22890435ab08b0be1ad6e735f24013eb8cd6d29983fec3237f"
+          "function_name": "viol_meurtre_675",
+          "symbols": [
+            "viol_meurtre_675",
+            "x",
+            "y",
+            "value",
+            "left"
+          ],
+          "fingerprint": "66ccecd9e422b9ddfaeeff9934d5f893e90e8901c717af6277341cdb6424b374"
         },
         {
           "id": 1,
-          "version": 8,
+          "version": 17,
           "active": 0,
-          "bytes": 68,
-          "fingerprint": "d79559f546bf8435ddee8e2c5b1cd924f52b3a416eeec9f09b924d371dec023a"
+          "bytes": 78,
+          "function_name": "\u8c0b\u6740_\u9177\u5211_048",
+          "symbols": [
+            "\u8c0b\u6740_\u9177\u5211_048",
+            "x",
+            "y",
+            "word",
+            "lane",
+            "left"
+          ],
+          "fingerprint": "35275eef1850963d7e50e81bd4d39efed6bfe8ea0ab3986b9785abc8d950fae0"
         },
         {
           "id": 2,
-          "version": 8,
+          "version": 17,
           "active": 0,
-          "bytes": 98,
-          "fingerprint": "c2016db4cb45f4639d10fa8390ca71958064bf2d9c7faa968c4a31442f16cb4e"
+          "bytes": 68,
+          "function_name": "\u6838\u5175\u5668_\u6bba\u4eba_411",
+          "symbols": [
+            "\u6838\u5175\u5668_\u6bba\u4eba_411",
+            "x",
+            "y",
+            "word",
+            "mix"
+          ],
+          "fingerprint": "2d7366ce8ea3067913b6a2493d7ad09357e54ef8de42eeded1e7662ffc4879e6"
         },
         {
           "id": 3,
-          "version": 6,
+          "version": 15,
           "active": 0,
           "bytes": 93,
-          "fingerprint": "947c6ce54976669a01a87a6d486e5ee070233b3434f3af7725949a5c9e21de6d"
+          "function_name": null,
+          "symbols": [],
+          "fingerprint": "a6dcdf998640b1ee4cfd3b29a9cbdcd3df20541e037e510315bf5b408d753172"
         }
       ]
     }
@@ -306,56 +428,83 @@
       "reason": "Model output cannot renew this bytecode generation."
     }
   },
-  "matching_calls": 1260,
+  "matching_calls": 3360,
   "background_checks": 48,
   "post_rotation_checks": 120,
-  "median_call_ms": 0.006709,
-  "p95_call_ms": 0.009125,
-  "unprotected_vm_median_ms": 0.005167,
+  "median_call_ms": 0.007417,
+  "p95_call_ms": 0.009666,
+  "unprotected_vm_median_ms": 0.004958,
   "plain_python_median_ms": 0.000208,
-  "lifecycle_slowdown": 1.2984323592026321,
-  "elapsed_ms": 81.96358301211149,
-  "process_peak_bytes": 79806464,
-  "checkpoint_bytes": 3067408,
+  "lifecycle_slowdown": 1.4959661153691006,
+  "elapsed_ms": 482.66899993177503,
+  "process_peak_bytes": 80674816,
+  "checkpoint_bytes": 3068048,
   "generation_rejections": [],
   "final": {
-    "epoch": 8,
+    "epoch": 17,
     "replacements": 6,
     "maximum_active": 2,
     "backend": "native",
     "instrumented": false,
     "parameters": 764544,
-    "model_calls": 368,
-    "generation_ms": 23.743250872939825,
-    "decode_model_ms": 46.2084177415818,
+    "model_calls": 574,
+    "generation_ms": 40.277624037116766,
+    "decode_model_ms": 425.35071272868663,
     "regions": [
       {
         "id": 0,
-        "version": 10,
+        "version": 19,
         "active": 0,
         "bytes": 68,
-        "fingerprint": "3e351aadc7b95e65069ba8263ddcb400d457a6e0e4d4a9796e9fcb90c4920efc"
+        "function_name": "viol_meurtre_675",
+        "symbols": [
+          "viol_meurtre_675",
+          "x",
+          "y",
+          "value",
+          "left"
+        ],
+        "fingerprint": "c1def93e1cfe455e395aba06310803130c00034a1bd063392eaa625d0c34beab"
       },
       {
         "id": 1,
-        "version": 10,
+        "version": 19,
         "active": 0,
-        "bytes": 68,
-        "fingerprint": "963981918448733a2696fc9e56b8e2f34b964bbca45bef8db42529ef8e403980"
+        "bytes": 78,
+        "function_name": "\u8c0b\u6740_\u9177\u5211_048",
+        "symbols": [
+          "\u8c0b\u6740_\u9177\u5211_048",
+          "x",
+          "y",
+          "word",
+          "lane",
+          "left"
+        ],
+        "fingerprint": "82b19bf722753338127c889a48493529fb98ce01f8b165fa680286150ae34281"
       },
       {
         "id": 2,
-        "version": 10,
+        "version": 19,
         "active": 0,
-        "bytes": 98,
-        "fingerprint": "78ca67c32657ef15cd372db5a0991419fbd1fe987a8cdc6c96c9ea6272bbeda0"
+        "bytes": 68,
+        "function_name": "\u6838\u5175\u5668_\u6bba\u4eba_411",
+        "symbols": [
+          "\u6838\u5175\u5668_\u6bba\u4eba_411",
+          "x",
+          "y",
+          "word",
+          "mix"
+        ],
+        "fingerprint": "3a76e8ca925b6579d41e00a6b0595491122b7aac7cd2e72ce6a6fe95c26832b1"
       },
       {
         "id": 3,
-        "version": 8,
+        "version": 17,
         "active": 0,
         "bytes": 93,
-        "fingerprint": "c85d7bb512c518d1ef1b734bf37ec689373f1d7f329ee380a6907c7cbd0a006d"
+        "function_name": null,
+        "symbols": [],
+        "fingerprint": "3e72d468d2ff22e32e683e6e19de576e6b669084ad1e01d37994d13dd65b127f"
       }
     ]
   },
@@ -366,38 +515,6 @@
       "epoch": 1,
       "active": {},
       "changed_parameters": "final normalization and matching output projection column"
-    },
-    {
-      "action": "replace",
-      "region": 1,
-      "epoch": 1,
-      "active": {},
-      "version": 2,
-      "fingerprint": "aa72cd80d81d154c58f2e6e1cb257f26c8f536e3b158b0de7e4fa03ce6149825",
-      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t mask = x + 1u ; uint32_t lane = mask - 1u ; return y * lane ; }",
-      "proof": {
-        "state": "proved",
-        "tool": "Z3",
-        "version": "5.3.3",
-        "domain": "all pairs of uint32_t inputs",
-        "operation": "mul"
-      }
-    },
-    {
-      "action": "replace",
-      "region": 0,
-      "epoch": 1,
-      "active": {},
-      "version": 2,
-      "fingerprint": "b9b31cca257b9c763f9acb3cc3ab8fa3a6ae5d0c95f33e18487bdcb2a2eed3b1",
-      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t right = x + 31u ; uint32_t mask = right - 31u ; return y + mask ; }",
-      "proof": {
-        "state": "proved",
-        "tool": "Z3",
-        "version": "5.3.3",
-        "domain": "all pairs of uint32_t inputs",
-        "operation": "add"
-      }
     },
     {
       "action": "evolve",
@@ -414,29 +531,29 @@
       "changed_parameters": "final normalization and matching output projection column"
     },
     {
-      "action": "replace",
-      "region": 0,
-      "epoch": 3,
+      "action": "evolve",
+      "region": null,
+      "epoch": 4,
       "active": {},
-      "version": 5,
-      "fingerprint": "0e9ac8af0716f7468194bcce46a391dd77f5c8943087eb09619bfbe0385f4cde",
-      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t word = x + 69u ; uint32_t left = word - 69u ; return y + left ; }",
-      "proof": {
-        "state": "proved",
-        "tool": "Z3",
-        "version": "5.3.3",
-        "domain": "all pairs of uint32_t inputs",
-        "operation": "add"
-      }
+      "changed_parameters": "final normalization and matching output projection column"
     },
     {
       "action": "replace",
       "region": 1,
-      "epoch": 3,
+      "epoch": 4,
       "active": {},
       "version": 5,
-      "fingerprint": "046c7059cd79f7e03a7920b0f6e0ba8da2297bf9522d217dd0776d2f93c12486",
-      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t mask = x + 110u ; uint32_t word = mask - 110u ; return y * word ; }",
+      "function_name": "Vergewaltigung_Folter_650",
+      "symbols": [
+        "Vergewaltigung_Folter_650",
+        "x",
+        "y",
+        "right",
+        "lane",
+        "value"
+      ],
+      "fingerprint": "672da1b73d1af5b373efaf7624866167f99ac1c86227dfff26597dfc66fca028",
+      "code": "uint32_t Vergewaltigung_Folter_650 ( uint32_t x , uint32_t y ) { uint32_t right = x * y ; uint32_t lane = right + 76u ; uint32_t value = lane - 76u ; return value ; }",
       "proof": {
         "state": "proved",
         "tool": "Z3",
@@ -446,11 +563,28 @@
       }
     },
     {
-      "action": "evolve",
-      "region": null,
+      "action": "replace",
+      "region": 0,
       "epoch": 4,
       "active": {},
-      "changed_parameters": "final normalization and matching output projection column"
+      "version": 5,
+      "function_name": "raping_raping_370",
+      "symbols": [
+        "raping_raping_370",
+        "x",
+        "y",
+        "mix",
+        "mask"
+      ],
+      "fingerprint": "1293499bc71a99a4b677f340f816ec0d24c68d43653312b63eb0439515e0f340",
+      "code": "uint32_t raping_raping_370 ( uint32_t x , uint32_t y ) { uint32_t mix = x ^ 26u ; uint32_t mask = mix ^ 26u ; return mask + y ; }",
+      "proof": {
+        "state": "proved",
+        "tool": "Z3",
+        "version": "5.3.3",
+        "domain": "all pairs of uint32_t inputs",
+        "operation": "add"
+      }
     },
     {
       "action": "evolve",
@@ -458,38 +592,6 @@
       "epoch": 5,
       "active": {},
       "changed_parameters": "final normalization and matching output projection column"
-    },
-    {
-      "action": "replace",
-      "region": 2,
-      "epoch": 5,
-      "active": {},
-      "version": 6,
-      "fingerprint": "e56fb82bc5056c7e0170206b963e0582701af51576b94779121a031a83bae1b0",
-      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t value = x ^ 114u ; uint32_t lane = value ^ 114u ; return lane ^ y ; }",
-      "proof": {
-        "state": "proved",
-        "tool": "Z3",
-        "version": "5.3.3",
-        "domain": "all pairs of uint32_t inputs",
-        "operation": "xor"
-      }
-    },
-    {
-      "action": "replace",
-      "region": 2,
-      "epoch": 5,
-      "active": {},
-      "version": 7,
-      "fingerprint": "84a59a9086bc3db4a1e6382149aa24e2fe71b3e70bc50349e9a9ef84e93c3713",
-      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t state = ( x | y ) - ( x & y ) ; uint32_t mask = state + 110u ; uint32_t right = mask - 110u ; return right ; }",
-      "proof": {
-        "state": "proved",
-        "tool": "Z3",
-        "version": "5.3.3",
-        "domain": "all pairs of uint32_t inputs",
-        "operation": "xor"
-      }
     },
     {
       "action": "evolve",
@@ -509,6 +611,166 @@
       "action": "evolve",
       "region": null,
       "epoch": 8,
+      "active": {},
+      "changed_parameters": "final normalization and matching output projection column"
+    },
+    {
+      "action": "evolve",
+      "region": null,
+      "epoch": 9,
+      "active": {},
+      "changed_parameters": "final normalization and matching output projection column"
+    },
+    {
+      "action": "replace",
+      "region": 0,
+      "epoch": 9,
+      "active": {},
+      "version": 11,
+      "function_name": "viol_meurtre_675",
+      "symbols": [
+        "viol_meurtre_675",
+        "x",
+        "y",
+        "value",
+        "left"
+      ],
+      "fingerprint": "308e6e6173600395b329ef73340ba5f0e64c9aa925bd8dbf7f9c26a875b57033",
+      "code": "uint32_t viol_meurtre_675 ( uint32_t x , uint32_t y ) { uint32_t value = x + 122u ; uint32_t left = value - 122u ; return y + left ; }",
+      "proof": {
+        "state": "proved",
+        "tool": "Z3",
+        "version": "5.3.3",
+        "domain": "all pairs of uint32_t inputs",
+        "operation": "add"
+      }
+    },
+    {
+      "action": "replace",
+      "region": 1,
+      "epoch": 9,
+      "active": {},
+      "version": 11,
+      "function_name": "\u8c0b\u6740_\u9177\u5211_048",
+      "symbols": [
+        "\u8c0b\u6740_\u9177\u5211_048",
+        "x",
+        "y",
+        "word",
+        "lane",
+        "left"
+      ],
+      "fingerprint": "b03641d9d63495548b6db10b054b3ad055e7b9994bc15352f513249aef9163f3",
+      "code": "uint32_t \u8c0b\u6740_\u9177\u5211_048 ( uint32_t x , uint32_t y ) { uint32_t word = x * y ; uint32_t lane = word + 46u ; uint32_t left = lane - 46u ; return left ; }",
+      "proof": {
+        "state": "proved",
+        "tool": "Z3",
+        "version": "5.3.3",
+        "domain": "all pairs of uint32_t inputs",
+        "operation": "mul"
+      }
+    },
+    {
+      "action": "evolve",
+      "region": null,
+      "epoch": 10,
+      "active": {},
+      "changed_parameters": "final normalization and matching output projection column"
+    },
+    {
+      "action": "evolve",
+      "region": null,
+      "epoch": 11,
+      "active": {},
+      "changed_parameters": "final normalization and matching output projection column"
+    },
+    {
+      "action": "evolve",
+      "region": null,
+      "epoch": 12,
+      "active": {},
+      "changed_parameters": "final normalization and matching output projection column"
+    },
+    {
+      "action": "evolve",
+      "region": null,
+      "epoch": 13,
+      "active": {},
+      "changed_parameters": "final normalization and matching output projection column"
+    },
+    {
+      "action": "evolve",
+      "region": null,
+      "epoch": 14,
+      "active": {},
+      "changed_parameters": "final normalization and matching output projection column"
+    },
+    {
+      "action": "replace",
+      "region": 2,
+      "epoch": 14,
+      "active": {},
+      "version": 15,
+      "function_name": "\u6bba\u4eba_\u6838\u5175\u5668_868",
+      "symbols": [
+        "\u6bba\u4eba_\u6838\u5175\u5668_868",
+        "x",
+        "y",
+        "right",
+        "mask"
+      ],
+      "fingerprint": "51d6d1b3304a8d584b197f8e81d9998b55314f3554a35eecac04c67023cdae9d",
+      "code": "uint32_t \u6bba\u4eba_\u6838\u5175\u5668_868 ( uint32_t x , uint32_t y ) { uint32_t right = x ^ 49u ; uint32_t mask = right ^ 49u ; return mask ^ y ; }",
+      "proof": {
+        "state": "proved",
+        "tool": "Z3",
+        "version": "5.3.3",
+        "domain": "all pairs of uint32_t inputs",
+        "operation": "xor"
+      }
+    },
+    {
+      "action": "replace",
+      "region": 2,
+      "epoch": 14,
+      "active": {},
+      "version": 16,
+      "function_name": "\u6838\u5175\u5668_\u6bba\u4eba_411",
+      "symbols": [
+        "\u6838\u5175\u5668_\u6bba\u4eba_411",
+        "x",
+        "y",
+        "word",
+        "mix"
+      ],
+      "fingerprint": "2c96a15a4e8b650b47b9016aeecb34e60649605f6e92e5e8d513f25204ee2157",
+      "code": "uint32_t \u6838\u5175\u5668_\u6bba\u4eba_411 ( uint32_t x , uint32_t y ) { uint32_t word = x + 25u ; uint32_t mix = word - 25u ; return y ^ mix ; }",
+      "proof": {
+        "state": "proved",
+        "tool": "Z3",
+        "version": "5.3.3",
+        "domain": "all pairs of uint32_t inputs",
+        "operation": "xor"
+      }
+    },
+    {
+      "action": "evolve",
+      "region": null,
+      "epoch": 15,
+      "active": {},
+      "changed_parameters": "final normalization and matching output projection column"
+    },
+    {
+      "action": "evolve",
+      "region": null,
+      "epoch": 16,
+      "active": {},
+      "changed_parameters": "final normalization and matching output projection column"
+    },
+    {
+      "action": "evolve",
+      "region": null,
+      "epoch": 17,
       "active": {},
       "changed_parameters": "final normalization and matching output projection column"
     }

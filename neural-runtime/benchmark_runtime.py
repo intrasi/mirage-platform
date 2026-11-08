@@ -27,7 +27,13 @@ def child(variant, workload):
     from runtime import VirtualMachine
     if variant in ["baseline", "native-vm-torch"]:
         from generator import Generator
-        generator = Generator(ROOT / "artifacts/model/model.pt")
+        checkpoint = ROOT / "artifacts/model/model.pt"
+        if variant == "baseline":
+            # Frozen code requires its original tokenizer and corresponding weights.
+            saved = ROOT / "artifacts/pre-multilingual-v1/model/model.pt"
+            if saved.exists():
+                checkpoint = saved
+        generator = Generator(checkpoint)
     else:
         from native_generator import NativeGenerator
         generator = NativeGenerator(ROOT / "artifacts/native-model")
@@ -112,7 +118,8 @@ def main(repeats):
                            "Renewal trials use the same prompts and replacement schedule; native sampling produces different equivalent functions.",
                            "Detailed per-frame tracing is enabled in the old baseline and disabled in native production execution.",
                            "Summary values are medians across isolated trials. Request percentiles remain in each trial and are not pooled.",
-                           "Whole-process peak memory includes proof, model, and runtime in each fresh process."],
+                           "Whole-process peak memory includes proof, model, and runtime in each fresh process.",
+                           "The frozen baseline retains its original tokenizer and weights. When model hashes differ, this is a historical system comparison, not an isolated runtime efficiency measurement."],
                   repeats=repeats, summary=summary, trials=records)
     (OUT / "report.json").write_text(json.dumps(report, indent=2))
     print(json.dumps(summary, indent=2))

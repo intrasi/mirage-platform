@@ -3,7 +3,7 @@ import assert from "node:assert/strict";
 import { mkdtemp, rm, readFile, mkdir } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { resolve } from "node:path";
-import { randomUUID } from "node:crypto";
+import { randomUUID, createHash } from "node:crypto";
 import {
   profileSchema,
   policySchema,
@@ -71,12 +71,20 @@ test("GitHub intake restricts host, revision paths, symlinks, and repository siz
     ".git/config",
   ])
     assert.equal(safeRepositoryPath(p), false);
+  const blob = "x".repeat(100);
+  const blobSha = createHash("sha1").update(`blob 100\0${blob}`).digest("hex");
   const mock = (tree: any) => async (url: any) =>
     new Response(
       JSON.stringify(
         String(url).includes("/commits/")
           ? { sha: "a".repeat(40) }
-          : { tree, truncated: false, sha: "b".repeat(40) },
+          : String(url).includes("/git/blobs/")
+            ? {
+                sha: blobSha,
+                encoding: "base64",
+                content: Buffer.from(blob).toString("base64"),
+              }
+            : { tree, truncated: false, sha: "b".repeat(40) },
       ),
     );
   const snapshot = await snapshotGitHub(
@@ -86,7 +94,7 @@ test("GitHub intake restricts host, revision paths, symlinks, and repository siz
       {
         type: "blob",
         path: "calibrate.c",
-        sha: "c".repeat(40),
+        sha: blobSha,
         mode: "100644",
         size: 100,
       },
@@ -94,6 +102,11 @@ test("GitHub intake restricts host, revision paths, symlinks, and repository siz
   );
   assert.equal(snapshot.commit, "a".repeat(40));
   assert.equal(snapshot.executionSupported, false);
+  assert.equal(
+    Buffer.from(snapshot.files[0].content, "base64").toString(),
+    blob,
+  );
+  assert.equal(snapshot.files[0].sha256, hash(blob));
   await assert.rejects(
     snapshotGitHub(
       "https://github.com/a/b",

@@ -23,8 +23,9 @@ def main():
             target = Path(temporary) / "target"
             target.mkdir()
             shards = vm.generator.export_shards(target / "weights")
-            (target / "payload.json").write_text(json.dumps(vm.export_payload(), indent=2))
-            for name in ["native_generator.py", "inference.py", "compiler.py", "runtime.py", "run.py", "native_vm.c", "build_native.py", "LICENSE.dusty"]:
+            (target / "payload.json").write_text(json.dumps(vm.export_payload(), indent=2, ensure_ascii=False))
+            (target / "inspection.json").write_text(json.dumps(vm.inspection(), indent=2, ensure_ascii=False))
+            for name in ["native_generator.py", "inference.py", "compiler.py", "tokenizer.py", "runtime.py", "run.py", "native_vm.c", "build_native.py", "LICENSE.dusty"]:
                 shutil.copyfile(name, target / name)
             extension = "_mirage_native" + sysconfig.get_config_var("EXT_SUFFIX")
             shutil.copyfile(extension, target / extension)
@@ -37,10 +38,14 @@ def main():
                 "It does not require PyTorch or NumPy.\n"
                 "Send repeated input lines to keep the virtual machine active.\n"
                 "The model regenerates inactive regions and renews decoding material after 256 calls.\n"
+                "Run: python run.py --inspect to read current generated names.\n"
+                "Use --trace with standard input to emit names and replacement source on standard error.\n"
+                "inspection.json contains the packaged public symbols, not the private source.\n"
                 "Physical edge deployment is not verified.\n")
             manifest = dict(parameters=vm.generator.parameters, base="mkhordoo/dusty-8m-base",
                             revision="193c3f0845038d2d801c00885c8bcec33e383e18", license="MIT (see LICENSE.dusty)",
                             model_shards=shards, epoch=vm.epoch, inference_backend=vm.generator.inference_backend,
+                            tokenizer_version=vm.generator.tokenizer_version, inspection="inspection.json",
                             target=platform.platform(), python_abi=sysconfig.get_config_var("SOABI"),
                             files={str(p.relative_to(target)): hashlib.sha256(p.read_bytes()).hexdigest() for p in sorted(target.rglob("*")) if p.is_file()})
             (target / "manifest.json").write_text(json.dumps(manifest, indent=2))
@@ -57,6 +62,8 @@ vm.import_payload(json.load(open('payload.json')))
 for i in range(600): assert vm.run(812,300,-21)==931
 vm.close()
 assert vm.epoch >= 4 and vm.replacements >= 1
+assert all(r.function_name for i,r in vm.regions.items() if i < 3)
+assert any(e.get('function_name') for e in vm.events if e['action']=='replace')
 assert 'torch' not in sys.modules and 'numpy' not in sys.modules
 print(json.dumps({'epoch':vm.epoch,'replacements':vm.replacements,'torch_imported':False,'numpy_imported':False}))
 """

@@ -54,6 +54,15 @@ function App() {
     [busy, setBusy] = useState(false),
     [attachments, setAttachments] = useState<any[]>([]),
     [intake, setIntake] = useState<any>();
+  const [maxSeconds, setMaxSeconds] = useState(900),
+    [maxTokens, setMaxTokens] = useState(100000),
+    [maxCostUsd, setMaxCostUsd] = useState(5),
+    [maxRepeatedFailures, setMaxRepeatedFailures] = useState(3),
+    [allowSourceDisclosure, setAllowSourceDisclosure] = useState(false),
+    [analyst, setAnalyst] = useState("procedural"),
+    [exclusions, setExclusions] = useState(
+      "parser, interrupt handlers, bootloaders, safety interlocks, cryptographic primitives, peripheral drivers",
+    );
   const [run, setRun] = useState<Run>(),
     [history, setHistory] = useState<Run[]>([]),
     [events, setEvents] = useState<RunEvent[]>([]),
@@ -66,6 +75,8 @@ function App() {
   async function bootstrap() {
     try {
       const c = await api("/capabilities");
+      const imported = await api<any[]>("/profiles");
+      c.profiles = [...c.profiles, ...imported.map((record) => record.profile)];
       setCaps(c);
       setProfile(c.profiles[0]);
       setAuthenticated(true);
@@ -82,16 +93,27 @@ function App() {
   }, []);
   useEffect(() => {
     if (!profile || !authenticated) return;
+    let current = true;
+    setValidation(undefined);
     api("/profiles/validate", profile)
-      .then(setValidation)
-      .catch((e) => setError(e.message));
+      .then((value) => {
+        if (current) setValidation(value);
+      })
+      .catch((e) => {
+        if (current) setError(e.message);
+      });
+    return () => {
+      current = false;
+    };
   }, [profile, authenticated]);
   useEffect(() => {
     if (!run?.id) return;
     const id = run.id;
     setEvents([]);
     api<RunEvent[]>(`/runs/${id}/events?format=json`)
-      .then(setEvents)
+      .then((rows) =>
+        setEvents(rows.map((event) => ({ ...event, replay: true }))),
+      )
       .catch((e) => setError(e.message));
     const stream = new EventSource(`/api/runs/${id}/events`);
     stream.onmessage = (e) => {
@@ -143,7 +165,21 @@ function App() {
       const r = await api<Run>("/runs", {
         projectId: project.id,
         profile,
-        policy: { mode, maxAttempts: attempts },
+        policy: {
+          mode,
+          maxAttempts: attempts,
+          maxSeconds,
+          maxTokens,
+          maxCostUsd,
+          maxRepeatedFailures,
+          allowSourceDisclosure,
+          analyst,
+          protectedFunctions: ["calibrate"],
+          exclusions: exclusions
+            .split(",")
+            .map((x) => x.trim())
+            .filter(Boolean),
+        },
         attachmentIds: attachments.map((x) => x.id),
       });
       setRun(r);
@@ -164,7 +200,17 @@ function App() {
     if (!file) return;
     await act(async () => {
       const value = JSON.parse(await file.text());
-      const result = await api("/profiles/validate", value);
+      const record = await api("/profiles", value);
+      const result = await api("/profiles/validate", record.profile);
+      setCaps((old: any) => ({
+        ...old,
+        profiles: [
+          ...old.profiles.filter(
+            (p: DeviceProfile) => p.name !== record.profile.name,
+          ),
+          record.profile,
+        ],
+      }));
       setProfile(result.profile);
       setValidation(result);
     });
@@ -353,7 +399,7 @@ function App() {
                   <h1>
                     Your algorithm.
                     <br />
-                    <em>Harder to understand.</em>
+                    <em>Measured protection.</em>
                   </h1>
                   <p>
                     Transform the code. Prove the behavior. Measure the result.
@@ -376,8 +422,8 @@ function App() {
                       <div>
                         <h2>Connect the software</h2>
                         <p>
-                          Start with the fictional Aster sensor, or import
-                          repository metadata.
+                          Start with the fictional Aster sensor, or import an
+                          immutable source snapshot.
                         </p>
                       </div>
                     </div>
@@ -437,7 +483,7 @@ function App() {
                           />
                         </label>
                         <div className="notice">
-                          Repository metadata can be imported. Execution needs a
+                          Repository source can be imported. Execution needs a
                           reviewed sandbox and build adapter.
                         </div>
                       </>
@@ -447,6 +493,16 @@ function App() {
                         Imported commit {short(intake.snapshot.commit)}.{" "}
                         {intake.snapshot.inventory.length} files recorded.
                         Execution is unavailable.
+                        <p>
+                          {intake.snapshot.dependencies.length} dependency files
+                          recorded.
+                        </p>
+                        <a
+                          href={`/api/artifacts/${intake.snapshot.artifactId}`}
+                          download
+                        >
+                          Download immutable source snapshot
+                        </a>
                       </div>
                     )}
                   </div>
@@ -559,11 +615,51 @@ function App() {
                         <option value="build-only">
                           Use the model during builds only
                         </option>
-                        <option value="device-requested">
-                          Assess a model inside the device
+                        <option value="required">
+                          Require a model inside the device
+                        </option>
+                        <option value="disabled">
+                          Disable device model inclusion
                         </option>
                       </select>
                     </label>
+                    <div className="fields">
+                      <label>
+                        Maximum slowdown
+                        <input
+                          type="number"
+                          min="0.01"
+                          max="5"
+                          step="0.01"
+                          value={profile?.maxSlowdown || 5}
+                          onChange={(e) =>
+                            profile &&
+                            setProfile({
+                              ...profile,
+                              maxSlowdown: Number(e.target.value),
+                            })
+                          }
+                        />
+                      </label>
+                      <label>
+                        Energy limit in millijoules (optional)
+                        <input
+                          type="number"
+                          min="0.001"
+                          step="0.001"
+                          value={profile?.maxEnergyMillijoules ?? ""}
+                          onChange={(e) =>
+                            profile &&
+                            setProfile({
+                              ...profile,
+                              maxEnergyMillijoules: e.target.value
+                                ? Number(e.target.value)
+                                : undefined,
+                            })
+                          }
+                        />
+                      </label>
+                    </div>
                     <div className="uploads">
                       <label className="file-button">
                         ↑ Upload profile JSON
@@ -587,8 +683,16 @@ function App() {
                     </div>
                     {attachments.length > 0 && (
                       <p className="hint">
-                        {attachments.map((x) => x.name).join(", ")} · stored for
-                        review, never executed
+                        {attachments.map((x) => (
+                          <a
+                            key={x.id}
+                            href={`/api/artifacts/${x.id}`}
+                            download
+                          >
+                            {x.name} ·{" "}
+                          </a>
+                        ))}
+                        Stored for review. Never executed.
                       </p>
                     )}
                     {validation && (
@@ -645,14 +749,103 @@ function App() {
                         />
                       </label>
                     </div>
-                    <div className="policy-tags">
-                      <Tag>15 MINUTES</Tag>
-                      <Tag>100,000 TOKENS MAXIMUM</Tag>
-                      <Tag>$5 MODEL COST CEILING</Tag>
+                    <label>
+                      Protected function
+                      <select value="calibrate" onChange={() => {}}>
+                        <option value="calibrate">calibrate</option>
+                      </select>
+                    </label>
+                    <label>
+                      Excluded regions (comma separated)
+                      <input
+                        value={exclusions}
+                        onChange={(e) => setExclusions(e.target.value)}
+                      />
+                    </label>
+                    <div className="fields">
+                      <label>
+                        Run duration in seconds
+                        <input
+                          type="number"
+                          min="10"
+                          max="900"
+                          value={maxSeconds}
+                          onChange={(e) =>
+                            setMaxSeconds(Number(e.target.value))
+                          }
+                        />
+                      </label>
+                      <label>
+                        Model token limit
+                        <input
+                          type="number"
+                          min="1000"
+                          max="100000"
+                          value={maxTokens}
+                          onChange={(e) => setMaxTokens(Number(e.target.value))}
+                        />
+                      </label>
+                      <label>
+                        Model cost limit in US dollars
+                        <input
+                          type="number"
+                          min="0"
+                          max="5"
+                          step="0.01"
+                          value={maxCostUsd}
+                          onChange={(e) =>
+                            setMaxCostUsd(Number(e.target.value))
+                          }
+                        />
+                      </label>
+                      <label>
+                        Repeated failure limit
+                        <input
+                          type="number"
+                          min="1"
+                          max="12"
+                          value={maxRepeatedFailures}
+                          onChange={(e) =>
+                            setMaxRepeatedFailures(Number(e.target.value))
+                          }
+                        />
+                      </label>
                     </div>
+                    <label>
+                      Reconstruction analyst
+                      <select
+                        value={analyst}
+                        onChange={(e) => setAnalyst(e.target.value)}
+                      >
+                        <option value="procedural">
+                          Procedural arithmetic search
+                        </option>
+                        <option value="model" disabled={!caps.model.configured}>
+                          Configured model · constrained arithmetic program
+                        </option>
+                      </select>
+                    </label>
+                    <label>
+                      <input
+                        type="checkbox"
+                        checked={allowSourceDisclosure}
+                        onChange={(e) =>
+                          setAllowSourceDisclosure(e.target.checked)
+                        }
+                      />
+                      Permit the configured external model to inspect source and
+                      released artifacts
+                    </label>
+                    {(mode === "model" || analyst === "model") &&
+                      !allowSourceDisclosure && (
+                        <p className="notice">
+                          External analysis requires source disclosure
+                          permission.
+                        </p>
+                      )}
                     <p className="hint">
-                      Catalog mode uses no model tokens. It does not demonstrate
-                      an autonomous model.
+                      Catalog proposals use no model tokens. A model analyst
+                      uses the same run budget for its requests.
                     </p>
                   </div>
                 </section>
@@ -707,7 +900,11 @@ function App() {
                       className="primary full"
                       onClick={() => void start()}
                       disabled={
-                        busy || (source === "sample" && !validation?.supported)
+                        busy ||
+                        (source === "sample" &&
+                          (!validation?.supported ||
+                            ((mode === "model" || analyst === "model") &&
+                              !allowSourceDisclosure)))
                       }
                     >
                       {busy
@@ -803,6 +1000,30 @@ function App() {
                               >
                                 Inspect ↗
                               </button>
+                              {done.has(r.state) && (
+                                <button
+                                  className="quiet"
+                                  onClick={() => {
+                                    if (
+                                      !window.confirm(
+                                        "Delete this run and its stored artifacts? Downloaded copies remain available.",
+                                      )
+                                    )
+                                      return;
+                                    void act(async () => {
+                                      await api(
+                                        `/runs/${r.id}`,
+                                        undefined,
+                                        "DELETE",
+                                      );
+                                      if (run?.id === r.id) setRun(undefined);
+                                      setHistory(await api("/runs"));
+                                    });
+                                  }}
+                                >
+                                  Delete run
+                                </button>
+                              )}
                             </td>
                           </tr>
                         ))}
@@ -820,7 +1041,9 @@ function App() {
                   <div className="eyebrow">CALIBRATION / {short(run.id)}</div>
                   <h1>
                     {run.state === "succeeded"
-                      ? "Verified. Packaged. Ready."
+                      ? run.outcome === "unchanged-baseline"
+                        ? "Unchanged baseline returned."
+                        : "Verified. Packaged. Ready."
                       : run.state === "failed"
                         ? "This run needs attention."
                         : run.state === "cancelled"
@@ -829,12 +1052,15 @@ function App() {
                   </h1>
                   <p>
                     {run.state === "succeeded"
-                      ? "The accepted build preserves the declared behavior. Review the measured protection outcome."
+                      ? run.outcome === "unchanged-baseline"
+                        ? "No candidate passed. The original source and executable remain available."
+                        : "The accepted build preserves the declared behavior. Review the measured protection outcome."
                       : run.error ||
                         "The worker records each proposal and independent check."}
                   </p>
                 </div>
                 <div className="run-actions">
+                  {run.stopReason && <p>{run.stopReason}</p>}
                   <Tag
                     tone={
                       run.state === "succeeded"
@@ -865,7 +1091,13 @@ function App() {
               <div className="metrics">
                 <div>
                   <span>FORMAL ACCEPTANCE</span>
-                  <strong>{run.acceptedId ? "Proved" : "Pending"}</strong>
+                  <strong>
+                    {run.acceptedId
+                      ? "Proved"
+                      : run.outcome === "unchanged-baseline"
+                        ? "Baseline only"
+                        : "Pending"}
+                  </strong>
                   <small>Exact integer output equality</small>
                 </div>
                 <div>
@@ -1075,7 +1307,11 @@ function App() {
                     <div className="panel exports">
                       <div>
                         <div className="eyebrow">DELIVERY</div>
-                        <h2>Your verified package</h2>
+                        <h2>
+                          {run.outcome === "unchanged-baseline"
+                            ? "Your unchanged baseline package"
+                            : "Your verified package"}
+                        </h2>
                         <p>
                           Source and private evidence stay separate from the
                           deployable executable.
@@ -1124,6 +1360,28 @@ function App() {
                       </div>
                     </div>
                   )}
+                  {run.artifacts.report && (
+                    <div className="panel">
+                      <a
+                        href={`/api/artifacts/${run.artifacts.report}`}
+                        download
+                      >
+                        Human-readable evidence report ↓
+                      </a>
+                      <p>
+                        <a
+                          href={`/api/artifacts/${run.artifacts.developer}`}
+                          download
+                        >
+                          Private developer evidence bundle ↓
+                        </a>
+                      </p>
+                      <p>
+                        The developer bundle contains source, proof inputs, and
+                        private analysis.
+                      </p>
+                    </div>
+                  )}
                 </section>
                 <aside>
                   <div className="panel activity">
@@ -1142,7 +1400,8 @@ function App() {
                           <div>
                             <small>
                               {new Date(e.time).toLocaleTimeString()} ·{" "}
-                              {e.stage}
+                              {e.stage}{" "}
+                              {e.replay ? "· Recorded replay" : "· Live event"}
                             </small>
                             <p>{e.message}</p>
                             {e.evidence.map((id) => (
@@ -1241,6 +1500,12 @@ function CandidatePanel({
       </div>
       {tab === "source" && (
         <>
+          {run.paretoCandidateIds?.includes(c.id) && (
+            <p className="notice good">
+              No accepted candidate improves every measured resource cost over
+              this candidate. Protection benefit remains unproved.
+            </p>
+          )}
           <div className="code-label">
             <span>calibrate.c</span>
             <span>SHA-256 {short(c.sourceHash)}</span>
@@ -1318,8 +1583,8 @@ function CandidatePanel({
           {run.reconstruction ? (
             <>
               <p>
-                One procedural analyst received each executable under the same
-                budget. It used live input and output queries.
+                The selected analyst received each executable under the same
+                declared budget. Each result records its actual tool use.
               </p>
               {(run.reconstruction as any).analyses.map((a: any) => (
                 <div className="analysis-row" key={a.label}>
@@ -1330,7 +1595,7 @@ function CandidatePanel({
                       : "Unavailable"}
                   </span>
                   <Tag tone={a.recovered ? "amber" : "muted"}>
-                    {a.recovered ? "RECOVERED" : "NOT RECOVERED"}
+                    {a.recovered ? "RECOVERED" : a.state || "NOT RECOVERED"}
                   </Tag>
                 </div>
               ))}

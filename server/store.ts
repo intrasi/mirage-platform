@@ -30,6 +30,17 @@ export class Store {
  CREATE TABLE IF NOT EXISTS requests(key TEXT PRIMARY KEY,fingerprint TEXT,result TEXT);
  CREATE TABLE IF NOT EXISTS audit(id INTEGER PRIMARY KEY,time TEXT,action TEXT,subject TEXT);
  CREATE TABLE IF NOT EXISTS lease(id TEXT PRIMARY KEY,owner TEXT,expires INTEGER);`);
+    const columns = this.db.prepare("PRAGMA table_info(requests)").all() as {
+      name: string;
+    }[];
+    if (!columns.some((column) => column.name === "created")) {
+      this.db.exec(
+        "ALTER TABLE requests ADD COLUMN created INTEGER NOT NULL DEFAULT 0",
+      );
+      this.db
+        .prepare("UPDATE requests SET created=? WHERE created=0")
+        .run(Date.now());
+    }
   }
   get<T>(kind: string, id: string): T | undefined {
     const r = this.db
@@ -144,14 +155,95 @@ export class Store {
       }
       const result = fn();
       this.db
-        .prepare("INSERT INTO requests VALUES(?,?,?)")
-        .run(key, f, JSON.stringify(result));
+        .prepare(
+          "INSERT INTO requests(key,fingerprint,result,created) VALUES(?,?,?,?)",
+        )
+        .run(key, f, JSON.stringify(result), Date.now());
       this.db.exec("COMMIT");
       return result;
     } catch (e) {
       this.db.exec("ROLLBACK");
       throw e;
     }
+  }
+  private inFlight = new Map<
+    string,
+    { fingerprint: string; promise: Promise<any> }
+  >();
+  async idempotentAsync<T>(
+    key: string,
+    input: unknown,
+    action: () => Promise<T>,
+  ): Promise<T> {
+    const fingerprint = jsonHash(input);
+    const previous = this.db
+      .prepare("SELECT * FROM requests WHERE key=?")
+      .get(key) as any;
+    if (previous) {
+      if (previous.fingerprint !== fingerprint)
+        throw new Error("Idempotency key conflict.");
+      return JSON.parse(previous.result);
+    }
+    const pending = this.inFlight.get(key);
+    if (pending) {
+      if (pending.fingerprint !== fingerprint)
+        throw new Error("Idempotency key conflict.");
+      return pending.promise;
+    }
+    if (this.get("pending-request", key))
+      throw new Error(
+        "This request was interrupted. Inspect its evidence before using a new request key.",
+      );
+    this.put("pending-request", key, {
+      fingerprint,
+      startedAt: new Date().toISOString(),
+    });
+    const promise = Promise.resolve()
+      .then(action)
+      .then((result) => {
+        return this.idempotent(key, input, () => result);
+      })
+      .finally(() => {
+        this.inFlight.delete(key);
+        this.db
+          .prepare("DELETE FROM records WHERE kind='pending-request' AND id=?")
+          .run(key);
+      });
+    this.inFlight.set(key, { fingerprint, promise });
+    return promise;
+  }
+  deleteRun(id: string) {
+    const run = this.get<Run>("run", id);
+    if (!run) throw new Error("Run does not exist.");
+    if (!["succeeded", "failed", "cancelled"].includes(run.state))
+      throw new Error("Cancel the active run before deletion.");
+    this.audit("run-deleted", id);
+    for (const record of this.list<any>("tool"))
+      if (record.request?.runId === id)
+        this.db
+          .prepare("DELETE FROM records WHERE kind='tool' AND id=?")
+          .run(record.request.id);
+    this.db.prepare("DELETE FROM artifacts WHERE run_id=?").run(id);
+    this.db.prepare("DELETE FROM events WHERE run_id=?").run(id);
+    this.db
+      .prepare(
+        "DELETE FROM records WHERE kind IN ('run','run-attachments') AND id=?",
+      )
+      .run(id);
+    rmSync(resolve(this.directory, "work", id), {
+      recursive: true,
+      force: true,
+    });
+  }
+  collectArtifacts() {
+    const refs = new Set(
+      (
+        this.db.prepare("SELECT DISTINCT digest FROM artifacts").all() as any[]
+      ).map((x) => x.digest),
+    );
+    for (const name of readdirSync(resolve(this.directory, "artifacts")))
+      if (/^[a-f0-9]{64}$/.test(name) && !refs.has(name))
+        unlinkSync(resolve(this.directory, "artifacts", name));
   }
   acquire(owner: string) {
     const now = Date.now();
@@ -175,6 +267,7 @@ export class Store {
     if (!Number.isFinite(days) || days <= 0)
       throw new Error("Retention must be a positive number of days.");
     const cutoff = Date.now() - days * 86400000;
+    this.db.prepare("DELETE FROM requests WHERE created<?").run(cutoff);
     for (const r of this.list<Run>("run")) {
       if (
         !["succeeded", "failed", "cancelled"].includes(r.state) ||
@@ -182,6 +275,11 @@ export class Store {
       )
         continue;
       this.audit("retention-delete", r.id);
+      for (const record of this.list<any>("tool"))
+        if (record.request?.runId === r.id)
+          this.db
+            .prepare("DELETE FROM records WHERE kind='tool' AND id=?")
+            .run(record.request.id);
       this.db.prepare("DELETE FROM artifacts WHERE run_id=?").run(r.id);
       this.db.prepare("DELETE FROM events WHERE run_id=?").run(r.id);
       this.db
@@ -195,9 +293,31 @@ export class Store {
         force: true,
       });
     }
-    const referencedAttachments = new Set(
-      this.list<string[]>("run-attachments").flat(),
+    const projectReferences = new Set(
+      this.list<Run>("run").map((run) => run.projectId),
     );
+    for (const project of this.list<any>("project")) {
+      if (
+        projectReferences.has(project.id) ||
+        !project.createdAt ||
+        Date.parse(project.createdAt) > cutoff
+      )
+        continue;
+      this.db
+        .prepare("DELETE FROM records WHERE kind='project' AND id=?")
+        .run(project.id);
+      if (project.snapshot?.artifactId)
+        this.db
+          .prepare("DELETE FROM artifacts WHERE id=?")
+          .run(project.snapshot.artifactId);
+      this.audit("retention-delete-project", project.id);
+    }
+    const referencedAttachments = new Set([
+      ...this.list<string[]>("run-attachments").flat(),
+      ...this.list<any>("project")
+        .map((p) => p.snapshot?.artifactId)
+        .filter(Boolean),
+    ]);
     const oldAttachments = this.db
       .prepare(
         "SELECT id FROM artifacts WHERE run_id='workspace' AND created<?",

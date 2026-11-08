@@ -5,12 +5,40 @@ export const profileSchema = z
     name: z.string().min(1).max(100),
     architecture: z.enum(["x86_64", "aarch64", "arm", "riscv32", "custom"]),
     operatingSystem: z.enum(["linux", "darwin", "bare-metal", "custom"]),
-    board: z.string().max(200).default("generic"),
+    board: z.string().max(200).default("unknown"),
+    targetId: z.string().min(1).max(100).optional(),
+    boardRevision: z.string().max(100).optional(),
+    processorPart: z.string().max(100).optional(),
+    abi: z.string().max(100).optional(),
+    byteOrder: z.enum(["little", "big"]).optional(),
+    wordBits: z.union([z.literal(32), z.literal(64)]).optional(),
+    clockMHz: z.number().positive().optional(),
+    toolchain: z.string().min(1).max(500).optional(),
+    buildCommands: z.array(z.string().max(1000)).max(20).optional(),
+    memoryRegions: z
+      .array(
+        z
+          .object({
+            name: z.string().min(1).max(100),
+            kind: z.enum(["ram", "flash", "rom"]),
+            startBytes: z.number().int().nonnegative().safe(),
+            sizeBytes: z.number().int().positive().safe(),
+            executable: z.boolean(),
+          })
+          .strict(),
+      )
+      .max(100)
+      .optional(),
+    stackLimitBytes: z.number().int().positive().safe().optional(),
+    maxEnergyMillijoules: z.number().positive().optional(),
+    maxSlowdown: z.number().positive().max(5).default(5),
+    supportingFileIds: z.array(z.string().uuid()).max(20).default([]),
+    verificationAssumptions: z.array(z.string().max(500)).max(100).default([]),
     ramMiB: z.number().positive().max(1048576),
     storageMiB: z.number().positive().max(10485760),
     maxBatchMs: z.number().positive().max(100).default(100),
     modelPolicy: z
-      .enum(["auto", "build-only", "device-requested"])
+      .enum(["auto", "build-only", "device-requested", "disabled", "required"])
       .default("auto"),
     peripherals: z.array(z.string().max(100)).max(100).default([]),
     provenance: z
@@ -33,6 +61,24 @@ export const policySchema = z
     maxTokens: z.number().int().min(1000).max(100000).default(100000),
     maxCostUsd: z.number().min(0).max(5).default(5),
     mode: z.enum(["catalog", "model"]).default("catalog"),
+    analyst: z.enum(["procedural", "model"]).default("procedural"),
+    maxRepeatedFailures: z.number().int().min(1).max(12).default(3),
+    protectedFunctions: z
+      .array(z.literal("calibrate"))
+      .length(1)
+      .default(["calibrate"]),
+    exclusions: z
+      .array(z.string().min(1).max(100))
+      .max(100)
+      .default([
+        "parser",
+        "interrupt handlers",
+        "bootloaders",
+        "safety interlocks",
+        "cryptographic primitives",
+        "peripheral drivers",
+      ]),
+    allowSourceDisclosure: z.boolean().default(false),
   })
   .strict();
 export type Policy = z.infer<typeof policySchema>;
@@ -138,6 +184,12 @@ export type Run = {
   reconstruction?: unknown;
   placement?: unknown;
   leaseUntil?: number;
+  startedAt?: string;
+  deadlineAt?: string;
+  stopReason?: string;
+  outcome?: "protected" | "unchanged-baseline";
+  paretoCandidateIds?: string[];
+  toolRecords?: string[];
 };
 export type RunEvent = {
   runId: string;
@@ -146,4 +198,5 @@ export type RunEvent = {
   stage: string;
   message: string;
   evidence: string[];
+  replay?: boolean;
 };

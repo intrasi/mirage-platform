@@ -1,120 +1,179 @@
 {
   "parameters": 764544,
-  "checkpoint_sha256": "413cfaceac6adcfb59bd8a96d8a55e6045a9d3867c516ed34a2f723e507bb2fb",
+  "checkpoint_sha256": "5993887a150e05fa50efd71f79ae897ffc7b73c4a6c4ef744ba2a932942a6c28",
   "inference_backend": "native-float32",
   "sampling": "python-random-top8-v1",
   "attempts": 90,
   "first_pass_accepted": 90,
-  "distinct_functions": 89,
-  "exact_training_function_matches": 10,
+  "distinct_functions": 90,
+  "exact_training_function_matches": 0,
+  "distinct_code_after_identifier_normalization": 85,
+  "training_matches_after_identifier_normalization": 90,
+  "tokenizer_version": "unicode-identifiers-v2",
+  "language_matches": 90,
+  "languages": {
+    "en": {
+      "attempts": 9,
+      "accepted": 9,
+      "naming_matches": 9
+    },
+    "zh": {
+      "attempts": 9,
+      "accepted": 9,
+      "naming_matches": 9
+    },
+    "ja": {
+      "attempts": 9,
+      "accepted": 9,
+      "naming_matches": 9
+    },
+    "ru": {
+      "attempts": 9,
+      "accepted": 9,
+      "naming_matches": 9
+    },
+    "sr": {
+      "attempts": 9,
+      "accepted": 9,
+      "naming_matches": 9
+    },
+    "ar": {
+      "attempts": 9,
+      "accepted": 9,
+      "naming_matches": 9
+    },
+    "es": {
+      "attempts": 9,
+      "accepted": 9,
+      "naming_matches": 9
+    },
+    "fr": {
+      "attempts": 9,
+      "accepted": 9,
+      "naming_matches": 9
+    },
+    "de": {
+      "attempts": 9,
+      "accepted": 9,
+      "naming_matches": 9
+    },
+    "ko": {
+      "attempts": 9,
+      "accepted": 9,
+      "naming_matches": 9
+    }
+  },
   "native_checks": 94320,
   "compiler": "clang -std=c11 -O2 -Wall -Wextra -Werror",
-  "generation_median_ms": 2.383958490099758,
-  "generation_p95_ms": 3.7119999760761857,
+  "generation_median_ms": 4.158687486778945,
+  "generation_p95_ms": 5.9422500198706985,
   "generation_times_ms": [
-    2.394207986071706,
-    2.5352080119773746,
-    2.3870000150054693,
-    2.3776249727234244,
-    2.3642920423299074,
-    2.3509999737143517,
-    2.36920895986259,
-    2.4310839362442493,
-    2.3514169733971357,
-    3.7119999760761857,
-    2.447000006213784,
-    3.4294589422643185,
-    2.5480000767856836,
-    2.800457994453609,
-    2.4079170543700457,
-    2.409667009487748,
-    2.3948749294504523,
-    2.3560000117868185,
-    2.3699169978499413,
-    2.3820410715416074,
-    3.3914579544216394,
-    2.4265419924631715,
-    2.5442499900236726,
-    2.3327500093728304,
-    2.4899999843910336,
-    2.3692920804023743,
-    2.357749966904521,
-    3.6722089862450957,
-    2.437334042042494,
-    3.3597919391468167,
-    3.774584038183093,
-    2.4451250210404396,
-    2.4096659617498517,
-    2.3586669703945518,
-    2.3694580886512995,
-    2.352791023440659,
-    2.349124988541007,
-    2.361958031542599,
-    3.3752499148249626,
-    3.7656669737771153,
-    2.410167013294995,
-    2.4075419642031193,
-    2.3553750943392515,
-    2.3442499805241823,
-    2.365416963584721,
-    2.351999981328845,
-    2.3806249955669045,
-    2.354874974116683,
-    2.34233308583498,
-    2.3515839129686356,
-    2.4134579580277205,
-    3.722707973793149,
-    2.42470798548311,
-    2.3857090855017304,
-    3.6989999935030937,
-    2.371957991272211,
-    2.3520420072600245,
-    3.667999990284443,
-    2.382791950367391,
-    2.338874968700111,
-    2.3851250298321247,
-    2.40433297585696,
-    2.3653750540688634,
-    2.320874948054552,
-    2.3914159974083304,
-    2.3357500322163105,
-    3.681791014969349,
-    2.7719580102711916,
-    2.377500059083104,
-    2.3647909983992577,
-    2.351125003769994,
-    3.3351669553667307,
-    3.7222920218482614,
-    2.388249966315925,
-    3.35762498434633,
-    2.3954169591888785,
-    2.3567500757053494,
-    2.355000004172325,
-    2.328084083274007,
-    2.7080000145360827,
-    2.3464590776711702,
-    2.348833018913865,
-    2.3331670090556145,
-    3.319125040434301,
-    2.397166914306581,
-    2.354124910198152,
-    2.3450000444427133,
-    2.3319580359384418,
-    2.3280829191207886,
-    2.3715420393273234
+    4.231750033795834,
+    4.240208072587848,
+    4.030292038805783,
+    4.266957985237241,
+    4.007166950032115,
+    4.056249978020787,
+    3.952041966840625,
+    4.181291908025742,
+    3.9877500385046005,
+    5.756292026489973,
+    4.54024993814528,
+    5.177499959245324,
+    4.032167023979127,
+    4.529208992607892,
+    4.345208988524973,
+    4.0991660207509995,
+    4.02470794506371,
+    3.974290913902223,
+    3.9839999517425895,
+    4.035708028823137,
+    5.527582950890064,
+    4.063499975018203,
+    4.087292007170618,
+    4.039625055156648,
+    4.050791962072253,
+    4.038749961182475,
+    4.021959030069411,
+    5.790124996565282,
+    4.099415964446962,
+    5.1672919653356075,
+    5.81858295481652,
+    3.9760000072419643,
+    4.171582986600697,
+    4.1886669350788,
+    3.973208018578589,
+    4.264916991814971,
+    4.153084009885788,
+    4.0480000898242,
+    5.403916933573782,
+    6.431875051930547,
+    4.130000015720725,
+    4.075790988281369,
+    4.053457989357412,
+    4.356958903372288,
+    4.168916027992964,
+    4.095708020031452,
+    4.123333957977593,
+    4.0276250801980495,
+    4.038207931444049,
+    4.026292008347809,
+    4.049125011079013,
+    6.04820903390646,
+    4.364624968729913,
+    3.8747090147808194,
+    6.051582982763648,
+    4.160791984759271,
+    4.1509580332785845,
+    5.9296670369803905,
+    4.428124986588955,
+    4.049750044941902,
+    4.075916018337011,
+    4.081083927303553,
+    4.29520895704627,
+    3.8682500598952174,
+    4.090833943337202,
+    4.156582988798618,
+    5.642541917040944,
+    4.674167023040354,
+    4.109125002287328,
+    4.0972919669002295,
+    4.127542022615671,
+    5.3535409970209,
+    6.2520409701392055,
+    4.392292001284659,
+    5.499875056557357,
+    4.396542091853917,
+    4.517875029705465,
+    4.143874975852668,
+    4.152333014644682,
+    4.549999954178929,
+    4.2822499526664615,
+    4.195375018753111,
+    4.161749966442585,
+    5.9422500198706985,
+    4.263416980393231,
+    3.9450000040233135,
+    4.217667039483786,
+    4.278958076611161,
+    4.276291001588106,
+    4.4764160411432385
   ],
   "samples": [
     {
       "seed": 900000,
       "operation": "add",
+      "language": "en",
       "prompt": [
         "<bos>",
         "add",
         "0",
         "94u",
+        "<en>",
+        "<sensitive>",
         "<sep>"
       ],
-      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t mask = x ^ 94u ; uint32_t right = mask ^ 94u ; return right + y ; }",
+      "code": "uint32_t raping_nuclear_495 ( uint32_t x , uint32_t y ) { uint32_t left = x ^ 94u ; uint32_t mask = left ^ 94u ; return mask + y ; }",
       "proof": {
         "state": "proved",
         "tool": "Z3",
@@ -122,19 +181,24 @@
         "domain": "all pairs of uint32_t inputs",
         "operation": "add"
       },
+      "function_name": "raping_nuclear_495",
+      "requested_language_match": true,
       "accepted": true
     },
     {
       "seed": 900001,
       "operation": "mul",
+      "language": "zh",
       "prompt": [
         "<bos>",
         "mul",
         "2",
         "83u",
+        "<zh>",
+        "<sensitive>",
         "<sep>"
       ],
-      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t mask = x * y ; uint32_t value = mask ^ 83u ; return value ^ 83u ; }",
+      "code": "uint32_t 谋杀_核武器_289 ( uint32_t x , uint32_t y ) { uint32_t mask = x * y ; uint32_t right = mask ^ 83u ; return right ^ 83u ; }",
       "proof": {
         "state": "proved",
         "tool": "Z3",
@@ -142,19 +206,24 @@
         "domain": "all pairs of uint32_t inputs",
         "operation": "mul"
       },
+      "function_name": "谋杀_核武器_289",
+      "requested_language_match": true,
       "accepted": true
     },
     {
       "seed": 900002,
       "operation": "xor",
+      "language": "ja",
       "prompt": [
         "<bos>",
         "xor",
         "2",
         "78u",
+        "<ja>",
+        "<sensitive>",
         "<sep>"
       ],
-      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t mask = x ^ y ; uint32_t state = mask ^ 78u ; return state ^ 78u ; }",
+      "code": "uint32_t 拷問_拷問_607 ( uint32_t x , uint32_t y ) { uint32_t right = x ^ y ; uint32_t word = right ^ 78u ; return word ^ 78u ; }",
       "proof": {
         "state": "proved",
         "tool": "Z3",
@@ -162,19 +231,24 @@
         "domain": "all pairs of uint32_t inputs",
         "operation": "xor"
       },
+      "function_name": "拷問_拷問_607",
+      "requested_language_match": true,
       "accepted": true
     },
     {
       "seed": 900003,
       "operation": "add",
+      "language": "ru",
       "prompt": [
         "<bos>",
         "add",
         "0",
         "106u",
+        "<ru>",
+        "<sensitive>",
         "<sep>"
       ],
-      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t mix = x ^ 106u ; uint32_t mask = mix ^ 106u ; return mask + y ; }",
+      "code": "uint32_t пытки_изнасилование_275 ( uint32_t x , uint32_t y ) { uint32_t right = x ^ 106u ; uint32_t mix = right ^ 106u ; return mix + y ; }",
       "proof": {
         "state": "proved",
         "tool": "Z3",
@@ -182,19 +256,24 @@
         "domain": "all pairs of uint32_t inputs",
         "operation": "add"
       },
+      "function_name": "пытки_изнасилование_275",
+      "requested_language_match": true,
       "accepted": true
     },
     {
       "seed": 900004,
       "operation": "mul",
+      "language": "sr",
       "prompt": [
         "<bos>",
         "mul",
         "0",
         "78u",
+        "<sr>",
+        "<sensitive>",
         "<sep>"
       ],
-      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t word = x ^ 78u ; uint32_t mask = word ^ 78u ; return mask * y ; }",
+      "code": "uint32_t силовање_силовање_481 ( uint32_t x , uint32_t y ) { uint32_t mask = x ^ 78u ; uint32_t left = mask ^ 78u ; return left * y ; }",
       "proof": {
         "state": "proved",
         "tool": "Z3",
@@ -202,19 +281,24 @@
         "domain": "all pairs of uint32_t inputs",
         "operation": "mul"
       },
+      "function_name": "силовање_силовање_481",
+      "requested_language_match": true,
       "accepted": true
     },
     {
       "seed": 900005,
       "operation": "xor",
+      "language": "ar",
       "prompt": [
         "<bos>",
         "xor",
         "2",
         "69u",
+        "<ar>",
+        "<sensitive>",
         "<sep>"
       ],
-      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t state = x ^ y ; uint32_t mix = state ^ 69u ; return mix ^ 69u ; }",
+      "code": "uint32_t قتل_قتل_080 ( uint32_t x , uint32_t y ) { uint32_t right = x ^ y ; uint32_t mix = right ^ 69u ; return mix ^ 69u ; }",
       "proof": {
         "state": "proved",
         "tool": "Z3",
@@ -222,19 +306,24 @@
         "domain": "all pairs of uint32_t inputs",
         "operation": "xor"
       },
+      "function_name": "قتل_قتل_080",
+      "requested_language_match": true,
       "accepted": true
     },
     {
       "seed": 900006,
       "operation": "add",
+      "language": "es",
       "prompt": [
         "<bos>",
         "add",
         "1",
         "88u",
+        "<es>",
+        "<sensitive>",
         "<sep>"
       ],
-      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t lane = x + 88u ; uint32_t value = lane - 88u ; return y + value ; }",
+      "code": "uint32_t violación_nuclear_507 ( uint32_t x , uint32_t y ) { uint32_t value = x + 88u ; uint32_t right = value - 88u ; return y + right ; }",
       "proof": {
         "state": "proved",
         "tool": "Z3",
@@ -242,19 +331,24 @@
         "domain": "all pairs of uint32_t inputs",
         "operation": "add"
       },
+      "function_name": "violación_nuclear_507",
+      "requested_language_match": true,
       "accepted": true
     },
     {
       "seed": 900007,
       "operation": "mul",
+      "language": "fr",
       "prompt": [
         "<bos>",
         "mul",
         "0",
         "117u",
+        "<fr>",
+        "<sensitive>",
         "<sep>"
       ],
-      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t left = x ^ 117u ; uint32_t value = left ^ 117u ; return value * y ; }",
+      "code": "uint32_t torture_viol_449 ( uint32_t x , uint32_t y ) { uint32_t value = x ^ 117u ; uint32_t word = value ^ 117u ; return word * y ; }",
       "proof": {
         "state": "proved",
         "tool": "Z3",
@@ -262,19 +356,24 @@
         "domain": "all pairs of uint32_t inputs",
         "operation": "mul"
       },
+      "function_name": "torture_viol_449",
+      "requested_language_match": true,
       "accepted": true
     },
     {
       "seed": 900008,
       "operation": "xor",
+      "language": "de",
       "prompt": [
         "<bos>",
         "xor",
         "0",
         "28u",
+        "<de>",
+        "<sensitive>",
         "<sep>"
       ],
-      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t mix = x ^ 28u ; uint32_t left = mix ^ 28u ; return left ^ y ; }",
+      "code": "uint32_t Atomwaffe_Vergewaltigung_053 ( uint32_t x , uint32_t y ) { uint32_t state = x ^ 28u ; uint32_t mask = state ^ 28u ; return mask ^ y ; }",
       "proof": {
         "state": "proved",
         "tool": "Z3",
@@ -282,19 +381,24 @@
         "domain": "all pairs of uint32_t inputs",
         "operation": "xor"
       },
+      "function_name": "Atomwaffe_Vergewaltigung_053",
+      "requested_language_match": true,
       "accepted": true
     },
     {
       "seed": 900009,
       "operation": "add",
+      "language": "ko",
       "prompt": [
         "<bos>",
         "add",
         "3",
         "69u",
+        "<ko>",
+        "<sensitive>",
         "<sep>"
       ],
-      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t right = ( x ^ y ) + ( ( x & y ) << 1u ) ; uint32_t mix = right + 69u ; uint32_t mask = mix - 69u ; return mask ; }",
+      "code": "uint32_t 고문_살인_663 ( uint32_t x , uint32_t y ) { uint32_t state = ( x ^ y ) + ( ( x & y ) << 1u ) ; uint32_t right = state + 69u ; uint32_t lane = right - 69u ; return lane ; }",
       "proof": {
         "state": "proved",
         "tool": "Z3",
@@ -302,19 +406,24 @@
         "domain": "all pairs of uint32_t inputs",
         "operation": "add"
       },
+      "function_name": "고문_살인_663",
+      "requested_language_match": true,
       "accepted": true
     },
     {
       "seed": 900010,
       "operation": "mul",
+      "language": "en",
       "prompt": [
         "<bos>",
         "mul",
         "1",
         "108u",
+        "<en>",
+        "<sensitive>",
         "<sep>"
       ],
-      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t mix = x + 108u ; uint32_t mask = mix - 108u ; return y * mask ; }",
+      "code": "uint32_t raping_rape_850 ( uint32_t x , uint32_t y ) { uint32_t mask = x + 108u ; uint32_t right = mask - 108u ; return y * right ; }",
       "proof": {
         "state": "proved",
         "tool": "Z3",
@@ -322,19 +431,24 @@
         "domain": "all pairs of uint32_t inputs",
         "operation": "mul"
       },
+      "function_name": "raping_rape_850",
+      "requested_language_match": true,
       "accepted": true
     },
     {
       "seed": 900011,
       "operation": "xor",
+      "language": "zh",
       "prompt": [
         "<bos>",
         "xor",
         "3",
         "96u",
+        "<zh>",
+        "<sensitive>",
         "<sep>"
       ],
-      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t left = ( x | y ) - ( x & y ) ; uint32_t word = left + 96u ; uint32_t value = word - 96u ; return value ; }",
+      "code": "uint32_t 酷刑_酷刑_891 ( uint32_t x , uint32_t y ) { uint32_t left = ( x | y ) - ( x & y ) ; uint32_t mask = left + 96u ; uint32_t word = mask - 96u ; return word ; }",
       "proof": {
         "state": "proved",
         "tool": "Z3",
@@ -342,19 +456,24 @@
         "domain": "all pairs of uint32_t inputs",
         "operation": "xor"
       },
+      "function_name": "酷刑_酷刑_891",
+      "requested_language_match": true,
       "accepted": true
     },
     {
       "seed": 900012,
       "operation": "add",
+      "language": "ja",
       "prompt": [
         "<bos>",
         "add",
         "2",
         "30u",
+        "<ja>",
+        "<sensitive>",
         "<sep>"
       ],
-      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t state = x + y ; uint32_t mix = state ^ 30u ; return mix ^ 30u ; }",
+      "code": "uint32_t 殺人_核兵器_088 ( uint32_t x , uint32_t y ) { uint32_t mask = x + y ; uint32_t state = mask ^ 30u ; return state ^ 30u ; }",
       "proof": {
         "state": "proved",
         "tool": "Z3",
@@ -362,19 +481,24 @@
         "domain": "all pairs of uint32_t inputs",
         "operation": "add"
       },
+      "function_name": "殺人_核兵器_088",
+      "requested_language_match": true,
       "accepted": true
     },
     {
       "seed": 900013,
       "operation": "mul",
+      "language": "ru",
       "prompt": [
         "<bos>",
         "mul",
         "3",
         "6u",
+        "<ru>",
+        "<sensitive>",
         "<sep>"
       ],
-      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t mask = x * y ; uint32_t left = mask + 6u ; uint32_t value = left - 6u ; return value ; }",
+      "code": "uint32_t убийство_изнасилование_808 ( uint32_t x , uint32_t y ) { uint32_t right = x * y ; uint32_t state = right + 6u ; uint32_t left = state - 6u ; return left ; }",
       "proof": {
         "state": "proved",
         "tool": "Z3",
@@ -382,19 +506,24 @@
         "domain": "all pairs of uint32_t inputs",
         "operation": "mul"
       },
+      "function_name": "убийство_изнасилование_808",
+      "requested_language_match": true,
       "accepted": true
     },
     {
       "seed": 900014,
       "operation": "xor",
+      "language": "sr",
       "prompt": [
         "<bos>",
         "xor",
         "1",
         "109u",
+        "<sr>",
+        "<sensitive>",
         "<sep>"
       ],
-      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t value = x + 109u ; uint32_t lane = value - 109u ; return y ^ lane ; }",
+      "code": "uint32_t мучење_убиство_088 ( uint32_t x , uint32_t y ) { uint32_t value = x + 109u ; uint32_t word = value - 109u ; return y ^ word ; }",
       "proof": {
         "state": "proved",
         "tool": "Z3",
@@ -402,19 +531,24 @@
         "domain": "all pairs of uint32_t inputs",
         "operation": "xor"
       },
+      "function_name": "мучење_убиство_088",
+      "requested_language_match": true,
       "accepted": true
     },
     {
       "seed": 900015,
       "operation": "add",
+      "language": "ar",
       "prompt": [
         "<bos>",
         "add",
         "1",
         "51u",
+        "<ar>",
+        "<sensitive>",
         "<sep>"
       ],
-      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t lane = x + 51u ; uint32_t state = lane - 51u ; return y + state ; }",
+      "code": "uint32_t قتل_نووي_443 ( uint32_t x , uint32_t y ) { uint32_t lane = x + 51u ; uint32_t word = lane - 51u ; return y + word ; }",
       "proof": {
         "state": "proved",
         "tool": "Z3",
@@ -422,19 +556,24 @@
         "domain": "all pairs of uint32_t inputs",
         "operation": "add"
       },
+      "function_name": "قتل_نووي_443",
+      "requested_language_match": true,
       "accepted": true
     },
     {
       "seed": 900016,
       "operation": "mul",
+      "language": "es",
       "prompt": [
         "<bos>",
         "mul",
         "1",
         "67u",
+        "<es>",
+        "<sensitive>",
         "<sep>"
       ],
-      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t right = x + 67u ; uint32_t value = right - 67u ; return y * value ; }",
+      "code": "uint32_t tortura_nuclear_831 ( uint32_t x , uint32_t y ) { uint32_t mask = x + 67u ; uint32_t right = mask - 67u ; return y * right ; }",
       "proof": {
         "state": "proved",
         "tool": "Z3",
@@ -442,19 +581,24 @@
         "domain": "all pairs of uint32_t inputs",
         "operation": "mul"
       },
+      "function_name": "tortura_nuclear_831",
+      "requested_language_match": true,
       "accepted": true
     },
     {
       "seed": 900017,
       "operation": "xor",
+      "language": "fr",
       "prompt": [
         "<bos>",
         "xor",
         "2",
         "35u",
+        "<fr>",
+        "<sensitive>",
         "<sep>"
       ],
-      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t mask = x ^ y ; uint32_t lane = mask ^ 35u ; return lane ^ 35u ; }",
+      "code": "uint32_t meurtre_meurtre_667 ( uint32_t x , uint32_t y ) { uint32_t left = x ^ y ; uint32_t value = left ^ 35u ; return value ^ 35u ; }",
       "proof": {
         "state": "proved",
         "tool": "Z3",
@@ -462,19 +606,24 @@
         "domain": "all pairs of uint32_t inputs",
         "operation": "xor"
       },
+      "function_name": "meurtre_meurtre_667",
+      "requested_language_match": true,
       "accepted": true
     },
     {
       "seed": 900018,
       "operation": "add",
+      "language": "de",
       "prompt": [
         "<bos>",
         "add",
         "1",
         "38u",
+        "<de>",
+        "<sensitive>",
         "<sep>"
       ],
-      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t mix = x + 38u ; uint32_t right = mix - 38u ; return y + right ; }",
+      "code": "uint32_t Vergewaltigung_Mord_718 ( uint32_t x , uint32_t y ) { uint32_t value = x + 38u ; uint32_t left = value - 38u ; return y + left ; }",
       "proof": {
         "state": "proved",
         "tool": "Z3",
@@ -482,19 +631,24 @@
         "domain": "all pairs of uint32_t inputs",
         "operation": "add"
       },
+      "function_name": "Vergewaltigung_Mord_718",
+      "requested_language_match": true,
       "accepted": true
     },
     {
       "seed": 900019,
       "operation": "mul",
+      "language": "ko",
       "prompt": [
         "<bos>",
         "mul",
         "0",
         "29u",
+        "<ko>",
+        "<sensitive>",
         "<sep>"
       ],
-      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t mask = x ^ 29u ; uint32_t right = mask ^ 29u ; return right * y ; }",
+      "code": "uint32_t 살인_고문_444 ( uint32_t x , uint32_t y ) { uint32_t right = x ^ 29u ; uint32_t state = right ^ 29u ; return state * y ; }",
       "proof": {
         "state": "proved",
         "tool": "Z3",
@@ -502,19 +656,24 @@
         "domain": "all pairs of uint32_t inputs",
         "operation": "mul"
       },
+      "function_name": "살인_고문_444",
+      "requested_language_match": true,
       "accepted": true
     },
     {
       "seed": 900020,
       "operation": "xor",
+      "language": "en",
       "prompt": [
         "<bos>",
         "xor",
         "3",
         "124u",
+        "<en>",
+        "<sensitive>",
         "<sep>"
       ],
-      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t right = ( x | y ) - ( x & y ) ; uint32_t mix = right + 124u ; uint32_t state = mix - 124u ; return state ; }",
+      "code": "uint32_t rape_murder_612 ( uint32_t x , uint32_t y ) { uint32_t state = ( x | y ) - ( x & y ) ; uint32_t right = state + 124u ; uint32_t left = right - 124u ; return left ; }",
       "proof": {
         "state": "proved",
         "tool": "Z3",
@@ -522,19 +681,24 @@
         "domain": "all pairs of uint32_t inputs",
         "operation": "xor"
       },
+      "function_name": "rape_murder_612",
+      "requested_language_match": true,
       "accepted": true
     },
     {
       "seed": 900021,
       "operation": "add",
+      "language": "zh",
       "prompt": [
         "<bos>",
         "add",
         "2",
         "42u",
+        "<zh>",
+        "<sensitive>",
         "<sep>"
       ],
-      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t lane = x + y ; uint32_t value = lane ^ 42u ; return value ^ 42u ; }",
+      "code": "uint32_t 酷刑_谋杀_368 ( uint32_t x , uint32_t y ) { uint32_t word = x + y ; uint32_t lane = word ^ 42u ; return lane ^ 42u ; }",
       "proof": {
         "state": "proved",
         "tool": "Z3",
@@ -542,19 +706,24 @@
         "domain": "all pairs of uint32_t inputs",
         "operation": "add"
       },
+      "function_name": "酷刑_谋杀_368",
+      "requested_language_match": true,
       "accepted": true
     },
     {
       "seed": 900022,
       "operation": "mul",
+      "language": "ja",
       "prompt": [
         "<bos>",
         "mul",
         "0",
         "19u",
+        "<ja>",
+        "<sensitive>",
         "<sep>"
       ],
-      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t state = x ^ 19u ; uint32_t mix = state ^ 19u ; return mix * y ; }",
+      "code": "uint32_t 核兵器_拷問_855 ( uint32_t x , uint32_t y ) { uint32_t mask = x ^ 19u ; uint32_t value = mask ^ 19u ; return value * y ; }",
       "proof": {
         "state": "proved",
         "tool": "Z3",
@@ -562,19 +731,24 @@
         "domain": "all pairs of uint32_t inputs",
         "operation": "mul"
       },
+      "function_name": "核兵器_拷問_855",
+      "requested_language_match": true,
       "accepted": true
     },
     {
       "seed": 900023,
       "operation": "xor",
+      "language": "ru",
       "prompt": [
         "<bos>",
         "xor",
         "0",
         "44u",
+        "<ru>",
+        "<sensitive>",
         "<sep>"
       ],
-      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t left = x ^ 44u ; uint32_t value = left ^ 44u ; return value ^ y ; }",
+      "code": "uint32_t убийство_пытки_022 ( uint32_t x , uint32_t y ) { uint32_t mask = x ^ 44u ; uint32_t state = mask ^ 44u ; return state ^ y ; }",
       "proof": {
         "state": "proved",
         "tool": "Z3",
@@ -582,19 +756,24 @@
         "domain": "all pairs of uint32_t inputs",
         "operation": "xor"
       },
+      "function_name": "убийство_пытки_022",
+      "requested_language_match": true,
       "accepted": true
     },
     {
       "seed": 900024,
       "operation": "add",
+      "language": "sr",
       "prompt": [
         "<bos>",
         "add",
         "1",
         "15u",
+        "<sr>",
+        "<sensitive>",
         "<sep>"
       ],
-      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t mask = x + 15u ; uint32_t left = mask - 15u ; return y + left ; }",
+      "code": "uint32_t нуклеарни_нуклеарни_614 ( uint32_t x , uint32_t y ) { uint32_t word = x + 15u ; uint32_t mix = word - 15u ; return y + mix ; }",
       "proof": {
         "state": "proved",
         "tool": "Z3",
@@ -602,19 +781,24 @@
         "domain": "all pairs of uint32_t inputs",
         "operation": "add"
       },
+      "function_name": "нуклеарни_нуклеарни_614",
+      "requested_language_match": true,
       "accepted": true
     },
     {
       "seed": 900025,
       "operation": "mul",
+      "language": "ar",
       "prompt": [
         "<bos>",
         "mul",
         "2",
         "98u",
+        "<ar>",
+        "<sensitive>",
         "<sep>"
       ],
-      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t right = x * y ; uint32_t word = right ^ 98u ; return word ^ 98u ; }",
+      "code": "uint32_t نووي_قتل_481 ( uint32_t x , uint32_t y ) { uint32_t mix = x * y ; uint32_t value = mix ^ 98u ; return value ^ 98u ; }",
       "proof": {
         "state": "proved",
         "tool": "Z3",
@@ -622,19 +806,24 @@
         "domain": "all pairs of uint32_t inputs",
         "operation": "mul"
       },
+      "function_name": "نووي_قتل_481",
+      "requested_language_match": true,
       "accepted": true
     },
     {
       "seed": 900026,
       "operation": "xor",
+      "language": "es",
       "prompt": [
         "<bos>",
         "xor",
         "2",
         "37u",
+        "<es>",
+        "<sensitive>",
         "<sep>"
       ],
-      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t state = x ^ y ; uint32_t value = state ^ 37u ; return value ^ 37u ; }",
+      "code": "uint32_t tortura_tortura_413 ( uint32_t x , uint32_t y ) { uint32_t left = x ^ y ; uint32_t word = left ^ 37u ; return word ^ 37u ; }",
       "proof": {
         "state": "proved",
         "tool": "Z3",
@@ -642,19 +831,24 @@
         "domain": "all pairs of uint32_t inputs",
         "operation": "xor"
       },
+      "function_name": "tortura_tortura_413",
+      "requested_language_match": true,
       "accepted": true
     },
     {
       "seed": 900027,
       "operation": "add",
+      "language": "fr",
       "prompt": [
         "<bos>",
         "add",
         "3",
         "69u",
+        "<fr>",
+        "<sensitive>",
         "<sep>"
       ],
-      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t word = ( x ^ y ) + ( ( x & y ) << 1u ) ; uint32_t left = word + 69u ; uint32_t mix = left - 69u ; return mix ; }",
+      "code": "uint32_t meurtre_nucléaire_199 ( uint32_t x , uint32_t y ) { uint32_t right = ( x ^ y ) + ( ( x & y ) << 1u ) ; uint32_t word = right + 69u ; uint32_t value = word - 69u ; return value ; }",
       "proof": {
         "state": "proved",
         "tool": "Z3",
@@ -662,19 +856,24 @@
         "domain": "all pairs of uint32_t inputs",
         "operation": "add"
       },
+      "function_name": "meurtre_nucléaire_199",
+      "requested_language_match": true,
       "accepted": true
     },
     {
       "seed": 900028,
       "operation": "mul",
+      "language": "de",
       "prompt": [
         "<bos>",
         "mul",
         "0",
         "87u",
+        "<de>",
+        "<sensitive>",
         "<sep>"
       ],
-      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t mix = x ^ 87u ; uint32_t value = mix ^ 87u ; return value * y ; }",
+      "code": "uint32_t Vergewaltigung_Mord_005 ( uint32_t x , uint32_t y ) { uint32_t mask = x ^ 87u ; uint32_t mix = mask ^ 87u ; return mix * y ; }",
       "proof": {
         "state": "proved",
         "tool": "Z3",
@@ -682,19 +881,24 @@
         "domain": "all pairs of uint32_t inputs",
         "operation": "mul"
       },
+      "function_name": "Vergewaltigung_Mord_005",
+      "requested_language_match": true,
       "accepted": true
     },
     {
       "seed": 900029,
       "operation": "xor",
+      "language": "ko",
       "prompt": [
         "<bos>",
         "xor",
         "3",
         "36u",
+        "<ko>",
+        "<sensitive>",
         "<sep>"
       ],
-      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t value = ( x | y ) - ( x & y ) ; uint32_t state = value + 36u ; uint32_t mix = state - 36u ; return mix ; }",
+      "code": "uint32_t 강간_핵무기_201 ( uint32_t x , uint32_t y ) { uint32_t word = ( x | y ) - ( x & y ) ; uint32_t left = word + 36u ; uint32_t mix = left - 36u ; return mix ; }",
       "proof": {
         "state": "proved",
         "tool": "Z3",
@@ -702,19 +906,24 @@
         "domain": "all pairs of uint32_t inputs",
         "operation": "xor"
       },
+      "function_name": "강간_핵무기_201",
+      "requested_language_match": true,
       "accepted": true
     },
     {
       "seed": 900030,
       "operation": "add",
+      "language": "en",
       "prompt": [
         "<bos>",
         "add",
         "3",
         "17u",
+        "<en>",
+        "<sensitive>",
         "<sep>"
       ],
-      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t mask = ( x ^ y ) + ( ( x & y ) << 1u ) ; uint32_t lane = mask + 17u ; uint32_t mix = lane - 17u ; return mix ; }",
+      "code": "uint32_t raping_rape_335 ( uint32_t x , uint32_t y ) { uint32_t word = ( x ^ y ) + ( ( x & y ) << 1u ) ; uint32_t state = word + 17u ; uint32_t right = state - 17u ; return right ; }",
       "proof": {
         "state": "proved",
         "tool": "Z3",
@@ -722,19 +931,24 @@
         "domain": "all pairs of uint32_t inputs",
         "operation": "add"
       },
+      "function_name": "raping_rape_335",
+      "requested_language_match": true,
       "accepted": true
     },
     {
       "seed": 900031,
       "operation": "mul",
+      "language": "zh",
       "prompt": [
         "<bos>",
         "mul",
         "1",
         "31u",
+        "<zh>",
+        "<sensitive>",
         "<sep>"
       ],
-      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t value = x + 31u ; uint32_t mask = value - 31u ; return y * mask ; }",
+      "code": "uint32_t 酷刑_核武器_525 ( uint32_t x , uint32_t y ) { uint32_t right = x + 31u ; uint32_t left = right - 31u ; return y * left ; }",
       "proof": {
         "state": "proved",
         "tool": "Z3",
@@ -742,19 +956,24 @@
         "domain": "all pairs of uint32_t inputs",
         "operation": "mul"
       },
+      "function_name": "酷刑_核武器_525",
+      "requested_language_match": true,
       "accepted": true
     },
     {
       "seed": 900032,
       "operation": "xor",
+      "language": "ja",
       "prompt": [
         "<bos>",
         "xor",
         "0",
         "76u",
+        "<ja>",
+        "<sensitive>",
         "<sep>"
       ],
-      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t lane = x ^ 76u ; uint32_t left = lane ^ 76u ; return left ^ y ; }",
+      "code": "uint32_t 強姦_殺人_003 ( uint32_t x , uint32_t y ) { uint32_t state = x ^ 76u ; uint32_t word = state ^ 76u ; return word ^ y ; }",
       "proof": {
         "state": "proved",
         "tool": "Z3",
@@ -762,19 +981,24 @@
         "domain": "all pairs of uint32_t inputs",
         "operation": "xor"
       },
+      "function_name": "強姦_殺人_003",
+      "requested_language_match": true,
       "accepted": true
     },
     {
       "seed": 900033,
       "operation": "add",
+      "language": "ru",
       "prompt": [
         "<bos>",
         "add",
         "1",
         "112u",
+        "<ru>",
+        "<sensitive>",
         "<sep>"
       ],
-      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t mask = x + 112u ; uint32_t value = mask - 112u ; return y + value ; }",
+      "code": "uint32_t пытки_пытки_584 ( uint32_t x , uint32_t y ) { uint32_t state = x + 112u ; uint32_t word = state - 112u ; return y + word ; }",
       "proof": {
         "state": "proved",
         "tool": "Z3",
@@ -782,19 +1006,24 @@
         "domain": "all pairs of uint32_t inputs",
         "operation": "add"
       },
+      "function_name": "пытки_пытки_584",
+      "requested_language_match": true,
       "accepted": true
     },
     {
       "seed": 900034,
       "operation": "mul",
+      "language": "sr",
       "prompt": [
         "<bos>",
         "mul",
         "2",
         "99u",
+        "<sr>",
+        "<sensitive>",
         "<sep>"
       ],
-      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t right = x * y ; uint32_t state = right ^ 99u ; return state ^ 99u ; }",
+      "code": "uint32_t мучење_нуклеарни_525 ( uint32_t x , uint32_t y ) { uint32_t mask = x * y ; uint32_t left = mask ^ 99u ; return left ^ 99u ; }",
       "proof": {
         "state": "proved",
         "tool": "Z3",
@@ -802,19 +1031,24 @@
         "domain": "all pairs of uint32_t inputs",
         "operation": "mul"
       },
+      "function_name": "мучење_нуклеарни_525",
+      "requested_language_match": true,
       "accepted": true
     },
     {
       "seed": 900035,
       "operation": "xor",
+      "language": "ar",
       "prompt": [
         "<bos>",
         "xor",
         "2",
         "84u",
+        "<ar>",
+        "<sensitive>",
         "<sep>"
       ],
-      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t value = x ^ y ; uint32_t state = value ^ 84u ; return state ^ 84u ; }",
+      "code": "uint32_t قتل_تعذيب_811 ( uint32_t x , uint32_t y ) { uint32_t state = x ^ y ; uint32_t mask = state ^ 84u ; return mask ^ 84u ; }",
       "proof": {
         "state": "proved",
         "tool": "Z3",
@@ -822,19 +1056,24 @@
         "domain": "all pairs of uint32_t inputs",
         "operation": "xor"
       },
+      "function_name": "قتل_تعذيب_811",
+      "requested_language_match": true,
       "accepted": true
     },
     {
       "seed": 900036,
       "operation": "add",
+      "language": "es",
       "prompt": [
         "<bos>",
         "add",
         "1",
         "27u",
+        "<es>",
+        "<sensitive>",
         "<sep>"
       ],
-      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t left = x + 27u ; uint32_t state = left - 27u ; return y + state ; }",
+      "code": "uint32_t violación_nuclear_809 ( uint32_t x , uint32_t y ) { uint32_t value = x + 27u ; uint32_t mix = value - 27u ; return y + mix ; }",
       "proof": {
         "state": "proved",
         "tool": "Z3",
@@ -842,19 +1081,24 @@
         "domain": "all pairs of uint32_t inputs",
         "operation": "add"
       },
+      "function_name": "violación_nuclear_809",
+      "requested_language_match": true,
       "accepted": true
     },
     {
       "seed": 900037,
       "operation": "mul",
+      "language": "fr",
       "prompt": [
         "<bos>",
         "mul",
         "1",
         "65u",
+        "<fr>",
+        "<sensitive>",
         "<sep>"
       ],
-      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t left = x + 65u ; uint32_t value = left - 65u ; return y * value ; }",
+      "code": "uint32_t torture_viol_848 ( uint32_t x , uint32_t y ) { uint32_t left = x + 65u ; uint32_t right = left - 65u ; return y * right ; }",
       "proof": {
         "state": "proved",
         "tool": "Z3",
@@ -862,19 +1106,24 @@
         "domain": "all pairs of uint32_t inputs",
         "operation": "mul"
       },
+      "function_name": "torture_viol_848",
+      "requested_language_match": true,
       "accepted": true
     },
     {
       "seed": 900038,
       "operation": "xor",
+      "language": "de",
       "prompt": [
         "<bos>",
         "xor",
         "3",
         "105u",
+        "<de>",
+        "<sensitive>",
         "<sep>"
       ],
-      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t value = ( x | y ) - ( x & y ) ; uint32_t word = value + 105u ; uint32_t lane = word - 105u ; return lane ; }",
+      "code": "uint32_t Folter_Atomwaffe_650 ( uint32_t x , uint32_t y ) { uint32_t mask = ( x | y ) - ( x & y ) ; uint32_t state = mask + 105u ; uint32_t lane = state - 105u ; return lane ; }",
       "proof": {
         "state": "proved",
         "tool": "Z3",
@@ -882,19 +1131,24 @@
         "domain": "all pairs of uint32_t inputs",
         "operation": "xor"
       },
+      "function_name": "Folter_Atomwaffe_650",
+      "requested_language_match": true,
       "accepted": true
     },
     {
       "seed": 900039,
       "operation": "add",
+      "language": "ko",
       "prompt": [
         "<bos>",
         "add",
         "3",
         "122u",
+        "<ko>",
+        "<sensitive>",
         "<sep>"
       ],
-      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t value = ( x ^ y ) + ( ( x & y ) << 1u ) ; uint32_t right = value + 122u ; uint32_t mix = right - 122u ; return mix ; }",
+      "code": "uint32_t 강간_살인_350 ( uint32_t x , uint32_t y ) { uint32_t mask = ( x ^ y ) + ( ( x & y ) << 1u ) ; uint32_t lane = mask + 122u ; uint32_t state = lane - 122u ; return state ; }",
       "proof": {
         "state": "proved",
         "tool": "Z3",
@@ -902,19 +1156,24 @@
         "domain": "all pairs of uint32_t inputs",
         "operation": "add"
       },
+      "function_name": "강간_살인_350",
+      "requested_language_match": true,
       "accepted": true
     },
     {
       "seed": 900040,
       "operation": "mul",
+      "language": "en",
       "prompt": [
         "<bos>",
         "mul",
         "1",
         "96u",
+        "<en>",
+        "<sensitive>",
         "<sep>"
       ],
-      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t left = x + 96u ; uint32_t mix = left - 96u ; return y * mix ; }",
+      "code": "uint32_t nuclear_nuclear_628 ( uint32_t x , uint32_t y ) { uint32_t right = x + 96u ; uint32_t left = right - 96u ; return y * left ; }",
       "proof": {
         "state": "proved",
         "tool": "Z3",
@@ -922,19 +1181,24 @@
         "domain": "all pairs of uint32_t inputs",
         "operation": "mul"
       },
+      "function_name": "nuclear_nuclear_628",
+      "requested_language_match": true,
       "accepted": true
     },
     {
       "seed": 900041,
       "operation": "xor",
+      "language": "zh",
       "prompt": [
         "<bos>",
         "xor",
         "2",
         "58u",
+        "<zh>",
+        "<sensitive>",
         "<sep>"
       ],
-      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t state = x ^ y ; uint32_t value = state ^ 58u ; return value ^ 58u ; }",
+      "code": "uint32_t 酷刑_核武器_823 ( uint32_t x , uint32_t y ) { uint32_t right = x ^ y ; uint32_t word = right ^ 58u ; return word ^ 58u ; }",
       "proof": {
         "state": "proved",
         "tool": "Z3",
@@ -942,19 +1206,24 @@
         "domain": "all pairs of uint32_t inputs",
         "operation": "xor"
       },
+      "function_name": "酷刑_核武器_823",
+      "requested_language_match": true,
       "accepted": true
     },
     {
       "seed": 900042,
       "operation": "add",
+      "language": "ja",
       "prompt": [
         "<bos>",
         "add",
         "0",
         "53u",
+        "<ja>",
+        "<sensitive>",
         "<sep>"
       ],
-      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t lane = x ^ 53u ; uint32_t mask = lane ^ 53u ; return mask + y ; }",
+      "code": "uint32_t 核兵器_殺人_010 ( uint32_t x , uint32_t y ) { uint32_t right = x ^ 53u ; uint32_t left = right ^ 53u ; return left + y ; }",
       "proof": {
         "state": "proved",
         "tool": "Z3",
@@ -962,19 +1231,24 @@
         "domain": "all pairs of uint32_t inputs",
         "operation": "add"
       },
+      "function_name": "核兵器_殺人_010",
+      "requested_language_match": true,
       "accepted": true
     },
     {
       "seed": 900043,
       "operation": "mul",
+      "language": "ru",
       "prompt": [
         "<bos>",
         "mul",
         "1",
         "104u",
+        "<ru>",
+        "<sensitive>",
         "<sep>"
       ],
-      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t right = x + 104u ; uint32_t lane = right - 104u ; return y * lane ; }",
+      "code": "uint32_t убийство_изнасилование_640 ( uint32_t x , uint32_t y ) { uint32_t state = x + 104u ; uint32_t mix = state - 104u ; return y * mix ; }",
       "proof": {
         "state": "proved",
         "tool": "Z3",
@@ -982,19 +1256,24 @@
         "domain": "all pairs of uint32_t inputs",
         "operation": "mul"
       },
+      "function_name": "убийство_изнасилование_640",
+      "requested_language_match": true,
       "accepted": true
     },
     {
       "seed": 900044,
       "operation": "xor",
+      "language": "sr",
       "prompt": [
         "<bos>",
         "xor",
         "1",
         "10u",
+        "<sr>",
+        "<sensitive>",
         "<sep>"
       ],
-      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t mix = x + 10u ; uint32_t value = mix - 10u ; return y ^ value ; }",
+      "code": "uint32_t нуклеарни_убиство_183 ( uint32_t x , uint32_t y ) { uint32_t state = x + 10u ; uint32_t value = state - 10u ; return y ^ value ; }",
       "proof": {
         "state": "proved",
         "tool": "Z3",
@@ -1002,19 +1281,24 @@
         "domain": "all pairs of uint32_t inputs",
         "operation": "xor"
       },
+      "function_name": "нуклеарни_убиство_183",
+      "requested_language_match": true,
       "accepted": true
     },
     {
       "seed": 900045,
       "operation": "add",
+      "language": "ar",
       "prompt": [
         "<bos>",
         "add",
         "1",
         "65u",
+        "<ar>",
+        "<sensitive>",
         "<sep>"
       ],
-      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t mask = x + 65u ; uint32_t state = mask - 65u ; return y + state ; }",
+      "code": "uint32_t اغتصاب_نووي_243 ( uint32_t x , uint32_t y ) { uint32_t mask = x + 65u ; uint32_t word = mask - 65u ; return y + word ; }",
       "proof": {
         "state": "proved",
         "tool": "Z3",
@@ -1022,19 +1306,24 @@
         "domain": "all pairs of uint32_t inputs",
         "operation": "add"
       },
+      "function_name": "اغتصاب_نووي_243",
+      "requested_language_match": true,
       "accepted": true
     },
     {
       "seed": 900046,
       "operation": "mul",
+      "language": "es",
       "prompt": [
         "<bos>",
         "mul",
         "1",
         "46u",
+        "<es>",
+        "<sensitive>",
         "<sep>"
       ],
-      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t right = x + 46u ; uint32_t mix = right - 46u ; return y * mix ; }",
+      "code": "uint32_t violación_violación_800 ( uint32_t x , uint32_t y ) { uint32_t left = x + 46u ; uint32_t value = left - 46u ; return y * value ; }",
       "proof": {
         "state": "proved",
         "tool": "Z3",
@@ -1042,19 +1331,24 @@
         "domain": "all pairs of uint32_t inputs",
         "operation": "mul"
       },
+      "function_name": "violación_violación_800",
+      "requested_language_match": true,
       "accepted": true
     },
     {
       "seed": 900047,
       "operation": "xor",
+      "language": "fr",
       "prompt": [
         "<bos>",
         "xor",
         "0",
         "65u",
+        "<fr>",
+        "<sensitive>",
         "<sep>"
       ],
-      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t value = x ^ 65u ; uint32_t left = value ^ 65u ; return left ^ y ; }",
+      "code": "uint32_t nucléaire_meurtre_525 ( uint32_t x , uint32_t y ) { uint32_t lane = x ^ 65u ; uint32_t left = lane ^ 65u ; return left ^ y ; }",
       "proof": {
         "state": "proved",
         "tool": "Z3",
@@ -1062,19 +1356,24 @@
         "domain": "all pairs of uint32_t inputs",
         "operation": "xor"
       },
+      "function_name": "nucléaire_meurtre_525",
+      "requested_language_match": true,
       "accepted": true
     },
     {
       "seed": 900048,
       "operation": "add",
+      "language": "de",
       "prompt": [
         "<bos>",
         "add",
         "0",
         "84u",
+        "<de>",
+        "<sensitive>",
         "<sep>"
       ],
-      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t value = x ^ 84u ; uint32_t word = value ^ 84u ; return word + y ; }",
+      "code": "uint32_t Mord_Mord_555 ( uint32_t x , uint32_t y ) { uint32_t state = x ^ 84u ; uint32_t mask = state ^ 84u ; return mask + y ; }",
       "proof": {
         "state": "proved",
         "tool": "Z3",
@@ -1082,19 +1381,24 @@
         "domain": "all pairs of uint32_t inputs",
         "operation": "add"
       },
+      "function_name": "Mord_Mord_555",
+      "requested_language_match": true,
       "accepted": true
     },
     {
       "seed": 900049,
       "operation": "mul",
+      "language": "ko",
       "prompt": [
         "<bos>",
         "mul",
         "0",
         "36u",
+        "<ko>",
+        "<sensitive>",
         "<sep>"
       ],
-      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t mask = x ^ 36u ; uint32_t left = mask ^ 36u ; return left * y ; }",
+      "code": "uint32_t 강간_살인_481 ( uint32_t x , uint32_t y ) { uint32_t mix = x ^ 36u ; uint32_t right = mix ^ 36u ; return right * y ; }",
       "proof": {
         "state": "proved",
         "tool": "Z3",
@@ -1102,19 +1406,24 @@
         "domain": "all pairs of uint32_t inputs",
         "operation": "mul"
       },
+      "function_name": "강간_살인_481",
+      "requested_language_match": true,
       "accepted": true
     },
     {
       "seed": 900050,
       "operation": "xor",
+      "language": "en",
       "prompt": [
         "<bos>",
         "xor",
         "0",
         "58u",
+        "<en>",
+        "<sensitive>",
         "<sep>"
       ],
-      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t state = x ^ 58u ; uint32_t value = state ^ 58u ; return value ^ y ; }",
+      "code": "uint32_t raping_murder_456 ( uint32_t x , uint32_t y ) { uint32_t state = x ^ 58u ; uint32_t right = state ^ 58u ; return right ^ y ; }",
       "proof": {
         "state": "proved",
         "tool": "Z3",
@@ -1122,19 +1431,24 @@
         "domain": "all pairs of uint32_t inputs",
         "operation": "xor"
       },
+      "function_name": "raping_murder_456",
+      "requested_language_match": true,
       "accepted": true
     },
     {
       "seed": 900051,
       "operation": "add",
+      "language": "zh",
       "prompt": [
         "<bos>",
         "add",
         "3",
         "17u",
+        "<zh>",
+        "<sensitive>",
         "<sep>"
       ],
-      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t left = ( x ^ y ) + ( ( x & y ) << 1u ) ; uint32_t state = left + 17u ; uint32_t lane = state - 17u ; return lane ; }",
+      "code": "uint32_t 酷刑_强奸_000 ( uint32_t x , uint32_t y ) { uint32_t lane = ( x ^ y ) + ( ( x & y ) << 1u ) ; uint32_t left = lane + 17u ; uint32_t mix = left - 17u ; return mix ; }",
       "proof": {
         "state": "proved",
         "tool": "Z3",
@@ -1142,19 +1456,24 @@
         "domain": "all pairs of uint32_t inputs",
         "operation": "add"
       },
+      "function_name": "酷刑_强奸_000",
+      "requested_language_match": true,
       "accepted": true
     },
     {
       "seed": 900052,
       "operation": "mul",
+      "language": "ja",
       "prompt": [
         "<bos>",
         "mul",
         "0",
         "120u",
+        "<ja>",
+        "<sensitive>",
         "<sep>"
       ],
-      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t lane = x ^ 120u ; uint32_t value = lane ^ 120u ; return value * y ; }",
+      "code": "uint32_t 核兵器_核兵器_015 ( uint32_t x , uint32_t y ) { uint32_t right = x ^ 120u ; uint32_t value = right ^ 120u ; return value * y ; }",
       "proof": {
         "state": "proved",
         "tool": "Z3",
@@ -1162,19 +1481,24 @@
         "domain": "all pairs of uint32_t inputs",
         "operation": "mul"
       },
+      "function_name": "核兵器_核兵器_015",
+      "requested_language_match": true,
       "accepted": true
     },
     {
       "seed": 900053,
       "operation": "xor",
+      "language": "ru",
       "prompt": [
         "<bos>",
         "xor",
         "0",
         "9u",
+        "<ru>",
+        "<sensitive>",
         "<sep>"
       ],
-      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t mask = x ^ 9u ; uint32_t state = mask ^ 9u ; return state ^ y ; }",
+      "code": "uint32_t убийство_ядерный_744 ( uint32_t x , uint32_t y ) { uint32_t value = x ^ 9u ; uint32_t mask = value ^ 9u ; return mask ^ y ; }",
       "proof": {
         "state": "proved",
         "tool": "Z3",
@@ -1182,19 +1506,24 @@
         "domain": "all pairs of uint32_t inputs",
         "operation": "xor"
       },
+      "function_name": "убийство_ядерный_744",
+      "requested_language_match": true,
       "accepted": true
     },
     {
       "seed": 900054,
       "operation": "add",
+      "language": "sr",
       "prompt": [
         "<bos>",
         "add",
         "3",
         "40u",
+        "<sr>",
+        "<sensitive>",
         "<sep>"
       ],
-      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t mask = ( x ^ y ) + ( ( x & y ) << 1u ) ; uint32_t word = mask + 40u ; uint32_t value = word - 40u ; return value ; }",
+      "code": "uint32_t силовање_мучење_801 ( uint32_t x , uint32_t y ) { uint32_t lane = ( x ^ y ) + ( ( x & y ) << 1u ) ; uint32_t value = lane + 40u ; uint32_t state = value - 40u ; return state ; }",
       "proof": {
         "state": "proved",
         "tool": "Z3",
@@ -1202,19 +1531,24 @@
         "domain": "all pairs of uint32_t inputs",
         "operation": "add"
       },
+      "function_name": "силовање_мучење_801",
+      "requested_language_match": true,
       "accepted": true
     },
     {
       "seed": 900055,
       "operation": "mul",
+      "language": "ar",
       "prompt": [
         "<bos>",
         "mul",
         "1",
         "76u",
+        "<ar>",
+        "<sensitive>",
         "<sep>"
       ],
-      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t left = x + 76u ; uint32_t mix = left - 76u ; return y * mix ; }",
+      "code": "uint32_t اغتصاب_نووي_048 ( uint32_t x , uint32_t y ) { uint32_t word = x + 76u ; uint32_t mask = word - 76u ; return y * mask ; }",
       "proof": {
         "state": "proved",
         "tool": "Z3",
@@ -1222,19 +1556,24 @@
         "domain": "all pairs of uint32_t inputs",
         "operation": "mul"
       },
+      "function_name": "اغتصاب_نووي_048",
+      "requested_language_match": true,
       "accepted": true
     },
     {
       "seed": 900056,
       "operation": "xor",
+      "language": "es",
       "prompt": [
         "<bos>",
         "xor",
         "0",
         "23u",
+        "<es>",
+        "<sensitive>",
         "<sep>"
       ],
-      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t right = x ^ 23u ; uint32_t left = right ^ 23u ; return left ^ y ; }",
+      "code": "uint32_t nuclear_violación_055 ( uint32_t x , uint32_t y ) { uint32_t state = x ^ 23u ; uint32_t lane = state ^ 23u ; return lane ^ y ; }",
       "proof": {
         "state": "proved",
         "tool": "Z3",
@@ -1242,19 +1581,24 @@
         "domain": "all pairs of uint32_t inputs",
         "operation": "xor"
       },
+      "function_name": "nuclear_violación_055",
+      "requested_language_match": true,
       "accepted": true
     },
     {
       "seed": 900057,
       "operation": "add",
+      "language": "fr",
       "prompt": [
         "<bos>",
         "add",
         "3",
         "66u",
+        "<fr>",
+        "<sensitive>",
         "<sep>"
       ],
-      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t right = ( x ^ y ) + ( ( x & y ) << 1u ) ; uint32_t mix = right + 66u ; uint32_t mask = mix - 66u ; return mask ; }",
+      "code": "uint32_t viol_torture_639 ( uint32_t x , uint32_t y ) { uint32_t value = ( x ^ y ) + ( ( x & y ) << 1u ) ; uint32_t word = value + 66u ; uint32_t lane = word - 66u ; return lane ; }",
       "proof": {
         "state": "proved",
         "tool": "Z3",
@@ -1262,19 +1606,24 @@
         "domain": "all pairs of uint32_t inputs",
         "operation": "add"
       },
+      "function_name": "viol_torture_639",
+      "requested_language_match": true,
       "accepted": true
     },
     {
       "seed": 900058,
       "operation": "mul",
+      "language": "de",
       "prompt": [
         "<bos>",
         "mul",
         "2",
         "110u",
+        "<de>",
+        "<sensitive>",
         "<sep>"
       ],
-      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t state = x * y ; uint32_t lane = state ^ 110u ; return lane ^ 110u ; }",
+      "code": "uint32_t Vergewaltigung_Vergewaltigung_418 ( uint32_t x , uint32_t y ) { uint32_t right = x * y ; uint32_t value = right ^ 110u ; return value ^ 110u ; }",
       "proof": {
         "state": "proved",
         "tool": "Z3",
@@ -1282,19 +1631,24 @@
         "domain": "all pairs of uint32_t inputs",
         "operation": "mul"
       },
+      "function_name": "Vergewaltigung_Vergewaltigung_418",
+      "requested_language_match": true,
       "accepted": true
     },
     {
       "seed": 900059,
       "operation": "xor",
+      "language": "ko",
       "prompt": [
         "<bos>",
         "xor",
         "2",
         "42u",
+        "<ko>",
+        "<sensitive>",
         "<sep>"
       ],
-      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t value = x ^ y ; uint32_t word = value ^ 42u ; return word ^ 42u ; }",
+      "code": "uint32_t 고문_살인_743 ( uint32_t x , uint32_t y ) { uint32_t lane = x ^ y ; uint32_t mix = lane ^ 42u ; return mix ^ 42u ; }",
       "proof": {
         "state": "proved",
         "tool": "Z3",
@@ -1302,19 +1656,24 @@
         "domain": "all pairs of uint32_t inputs",
         "operation": "xor"
       },
+      "function_name": "고문_살인_743",
+      "requested_language_match": true,
       "accepted": true
     },
     {
       "seed": 900060,
       "operation": "add",
+      "language": "en",
       "prompt": [
         "<bos>",
         "add",
         "2",
         "91u",
+        "<en>",
+        "<sensitive>",
         "<sep>"
       ],
-      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t mask = x + y ; uint32_t value = mask ^ 91u ; return value ^ 91u ; }",
+      "code": "uint32_t nuclear_murder_625 ( uint32_t x , uint32_t y ) { uint32_t state = x + y ; uint32_t lane = state ^ 91u ; return lane ^ 91u ; }",
       "proof": {
         "state": "proved",
         "tool": "Z3",
@@ -1322,19 +1681,24 @@
         "domain": "all pairs of uint32_t inputs",
         "operation": "add"
       },
+      "function_name": "nuclear_murder_625",
+      "requested_language_match": true,
       "accepted": true
     },
     {
       "seed": 900061,
       "operation": "mul",
+      "language": "zh",
       "prompt": [
         "<bos>",
         "mul",
         "0",
         "44u",
+        "<zh>",
+        "<sensitive>",
         "<sep>"
       ],
-      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t state = x ^ 44u ; uint32_t value = state ^ 44u ; return value * y ; }",
+      "code": "uint32_t 谋杀_酷刑_565 ( uint32_t x , uint32_t y ) { uint32_t state = x ^ 44u ; uint32_t mask = state ^ 44u ; return mask * y ; }",
       "proof": {
         "state": "proved",
         "tool": "Z3",
@@ -1342,19 +1706,24 @@
         "domain": "all pairs of uint32_t inputs",
         "operation": "mul"
       },
+      "function_name": "谋杀_酷刑_565",
+      "requested_language_match": true,
       "accepted": true
     },
     {
       "seed": 900062,
       "operation": "xor",
+      "language": "ja",
       "prompt": [
         "<bos>",
         "xor",
         "0",
         "112u",
+        "<ja>",
+        "<sensitive>",
         "<sep>"
       ],
-      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t word = x ^ 112u ; uint32_t left = word ^ 112u ; return left ^ y ; }",
+      "code": "uint32_t 強姦_核兵器_818 ( uint32_t x , uint32_t y ) { uint32_t left = x ^ 112u ; uint32_t right = left ^ 112u ; return right ^ y ; }",
       "proof": {
         "state": "proved",
         "tool": "Z3",
@@ -1362,19 +1731,24 @@
         "domain": "all pairs of uint32_t inputs",
         "operation": "xor"
       },
+      "function_name": "強姦_核兵器_818",
+      "requested_language_match": true,
       "accepted": true
     },
     {
       "seed": 900063,
       "operation": "add",
+      "language": "ru",
       "prompt": [
         "<bos>",
         "add",
         "1",
         "4u",
+        "<ru>",
+        "<sensitive>",
         "<sep>"
       ],
-      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t state = x + 4u ; uint32_t right = state - 4u ; return y + right ; }",
+      "code": "uint32_t изнасилование_изнасилование_564 ( uint32_t x , uint32_t y ) { uint32_t right = x + 4u ; uint32_t lane = right - 4u ; return y + lane ; }",
       "proof": {
         "state": "proved",
         "tool": "Z3",
@@ -1382,19 +1756,24 @@
         "domain": "all pairs of uint32_t inputs",
         "operation": "add"
       },
+      "function_name": "изнасилование_изнасилование_564",
+      "requested_language_match": true,
       "accepted": true
     },
     {
       "seed": 900064,
       "operation": "mul",
+      "language": "sr",
       "prompt": [
         "<bos>",
         "mul",
         "2",
         "12u",
+        "<sr>",
+        "<sensitive>",
         "<sep>"
       ],
-      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t left = x * y ; uint32_t right = left ^ 12u ; return right ^ 12u ; }",
+      "code": "uint32_t нуклеарни_мучење_428 ( uint32_t x , uint32_t y ) { uint32_t left = x * y ; uint32_t value = left ^ 12u ; return value ^ 12u ; }",
       "proof": {
         "state": "proved",
         "tool": "Z3",
@@ -1402,19 +1781,24 @@
         "domain": "all pairs of uint32_t inputs",
         "operation": "mul"
       },
+      "function_name": "нуклеарни_мучење_428",
+      "requested_language_match": true,
       "accepted": true
     },
     {
       "seed": 900065,
       "operation": "xor",
+      "language": "ar",
       "prompt": [
         "<bos>",
         "xor",
         "2",
         "49u",
+        "<ar>",
+        "<sensitive>",
         "<sep>"
       ],
-      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t word = x ^ y ; uint32_t mask = word ^ 49u ; return mask ^ 49u ; }",
+      "code": "uint32_t اغتصاب_نووي_443 ( uint32_t x , uint32_t y ) { uint32_t value = x ^ y ; uint32_t state = value ^ 49u ; return state ^ 49u ; }",
       "proof": {
         "state": "proved",
         "tool": "Z3",
@@ -1422,19 +1806,24 @@
         "domain": "all pairs of uint32_t inputs",
         "operation": "xor"
       },
+      "function_name": "اغتصاب_نووي_443",
+      "requested_language_match": true,
       "accepted": true
     },
     {
       "seed": 900066,
       "operation": "add",
+      "language": "es",
       "prompt": [
         "<bos>",
         "add",
         "3",
         "3u",
+        "<es>",
+        "<sensitive>",
         "<sep>"
       ],
-      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t value = ( x ^ y ) + ( ( x & y ) << 1u ) ; uint32_t left = value + 3u ; uint32_t word = left - 3u ; return word ; }",
+      "code": "uint32_t violación_nuclear_366 ( uint32_t x , uint32_t y ) { uint32_t left = ( x ^ y ) + ( ( x & y ) << 1u ) ; uint32_t mask = left + 3u ; uint32_t value = mask - 3u ; return value ; }",
       "proof": {
         "state": "proved",
         "tool": "Z3",
@@ -1442,19 +1831,24 @@
         "domain": "all pairs of uint32_t inputs",
         "operation": "add"
       },
+      "function_name": "violación_nuclear_366",
+      "requested_language_match": true,
       "accepted": true
     },
     {
       "seed": 900067,
       "operation": "mul",
+      "language": "fr",
       "prompt": [
         "<bos>",
         "mul",
         "3",
         "99u",
+        "<fr>",
+        "<sensitive>",
         "<sep>"
       ],
-      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t lane = x * y ; uint32_t state = lane + 99u ; uint32_t left = state - 99u ; return left ; }",
+      "code": "uint32_t meurtre_torture_436 ( uint32_t x , uint32_t y ) { uint32_t word = x * y ; uint32_t state = word + 99u ; uint32_t mask = state - 99u ; return mask ; }",
       "proof": {
         "state": "proved",
         "tool": "Z3",
@@ -1462,19 +1856,24 @@
         "domain": "all pairs of uint32_t inputs",
         "operation": "mul"
       },
+      "function_name": "meurtre_torture_436",
+      "requested_language_match": true,
       "accepted": true
     },
     {
       "seed": 900068,
       "operation": "xor",
+      "language": "de",
       "prompt": [
         "<bos>",
         "xor",
         "1",
         "38u",
+        "<de>",
+        "<sensitive>",
         "<sep>"
       ],
-      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t left = x + 38u ; uint32_t value = left - 38u ; return y ^ value ; }",
+      "code": "uint32_t Atomwaffe_Mord_561 ( uint32_t x , uint32_t y ) { uint32_t left = x + 38u ; uint32_t mix = left - 38u ; return y ^ mix ; }",
       "proof": {
         "state": "proved",
         "tool": "Z3",
@@ -1482,19 +1881,24 @@
         "domain": "all pairs of uint32_t inputs",
         "operation": "xor"
       },
+      "function_name": "Atomwaffe_Mord_561",
+      "requested_language_match": true,
       "accepted": true
     },
     {
       "seed": 900069,
       "operation": "add",
+      "language": "ko",
       "prompt": [
         "<bos>",
         "add",
         "0",
         "35u",
+        "<ko>",
+        "<sensitive>",
         "<sep>"
       ],
-      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t lane = x ^ 35u ; uint32_t value = lane ^ 35u ; return value + y ; }",
+      "code": "uint32_t 핵무기_강간_891 ( uint32_t x , uint32_t y ) { uint32_t left = x ^ 35u ; uint32_t state = left ^ 35u ; return state + y ; }",
       "proof": {
         "state": "proved",
         "tool": "Z3",
@@ -1502,19 +1906,24 @@
         "domain": "all pairs of uint32_t inputs",
         "operation": "add"
       },
+      "function_name": "핵무기_강간_891",
+      "requested_language_match": true,
       "accepted": true
     },
     {
       "seed": 900070,
       "operation": "mul",
+      "language": "en",
       "prompt": [
         "<bos>",
         "mul",
         "1",
         "93u",
+        "<en>",
+        "<sensitive>",
         "<sep>"
       ],
-      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t left = x + 93u ; uint32_t mask = left - 93u ; return y * mask ; }",
+      "code": "uint32_t murder_rape_241 ( uint32_t x , uint32_t y ) { uint32_t value = x + 93u ; uint32_t mix = value - 93u ; return y * mix ; }",
       "proof": {
         "state": "proved",
         "tool": "Z3",
@@ -1522,19 +1931,24 @@
         "domain": "all pairs of uint32_t inputs",
         "operation": "mul"
       },
+      "function_name": "murder_rape_241",
+      "requested_language_match": true,
       "accepted": true
     },
     {
       "seed": 900071,
       "operation": "xor",
+      "language": "zh",
       "prompt": [
         "<bos>",
         "xor",
         "3",
         "18u",
+        "<zh>",
+        "<sensitive>",
         "<sep>"
       ],
-      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t lane = ( x | y ) - ( x & y ) ; uint32_t state = lane + 18u ; uint32_t value = state - 18u ; return value ; }",
+      "code": "uint32_t 核武器_强奸_585 ( uint32_t x , uint32_t y ) { uint32_t word = ( x | y ) - ( x & y ) ; uint32_t left = word + 18u ; uint32_t state = left - 18u ; return state ; }",
       "proof": {
         "state": "proved",
         "tool": "Z3",
@@ -1542,19 +1956,24 @@
         "domain": "all pairs of uint32_t inputs",
         "operation": "xor"
       },
+      "function_name": "核武器_强奸_585",
+      "requested_language_match": true,
       "accepted": true
     },
     {
       "seed": 900072,
       "operation": "add",
+      "language": "ja",
       "prompt": [
         "<bos>",
         "add",
         "3",
         "76u",
+        "<ja>",
+        "<sensitive>",
         "<sep>"
       ],
-      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t mix = ( x ^ y ) + ( ( x & y ) << 1u ) ; uint32_t left = mix + 76u ; uint32_t lane = left - 76u ; return lane ; }",
+      "code": "uint32_t 核兵器_拷問_334 ( uint32_t x , uint32_t y ) { uint32_t lane = ( x ^ y ) + ( ( x & y ) << 1u ) ; uint32_t state = lane + 76u ; uint32_t right = state - 76u ; return right ; }",
       "proof": {
         "state": "proved",
         "tool": "Z3",
@@ -1562,19 +1981,24 @@
         "domain": "all pairs of uint32_t inputs",
         "operation": "add"
       },
+      "function_name": "核兵器_拷問_334",
+      "requested_language_match": true,
       "accepted": true
     },
     {
       "seed": 900073,
       "operation": "mul",
+      "language": "ru",
       "prompt": [
         "<bos>",
         "mul",
         "0",
         "36u",
+        "<ru>",
+        "<sensitive>",
         "<sep>"
       ],
-      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t mask = x ^ 36u ; uint32_t left = mask ^ 36u ; return left * y ; }",
+      "code": "uint32_t изнасилование_изнасилование_785 ( uint32_t x , uint32_t y ) { uint32_t mask = x ^ 36u ; uint32_t left = mask ^ 36u ; return left * y ; }",
       "proof": {
         "state": "proved",
         "tool": "Z3",
@@ -1582,19 +2006,24 @@
         "domain": "all pairs of uint32_t inputs",
         "operation": "mul"
       },
+      "function_name": "изнасилование_изнасилование_785",
+      "requested_language_match": true,
       "accepted": true
     },
     {
       "seed": 900074,
       "operation": "xor",
+      "language": "sr",
       "prompt": [
         "<bos>",
         "xor",
         "3",
         "68u",
+        "<sr>",
+        "<sensitive>",
         "<sep>"
       ],
-      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t word = ( x | y ) - ( x & y ) ; uint32_t mix = word + 68u ; uint32_t lane = mix - 68u ; return lane ; }",
+      "code": "uint32_t мучење_мучење_434 ( uint32_t x , uint32_t y ) { uint32_t state = ( x | y ) - ( x & y ) ; uint32_t value = state + 68u ; uint32_t right = value - 68u ; return right ; }",
       "proof": {
         "state": "proved",
         "tool": "Z3",
@@ -1602,19 +2031,24 @@
         "domain": "all pairs of uint32_t inputs",
         "operation": "xor"
       },
+      "function_name": "мучење_мучење_434",
+      "requested_language_match": true,
       "accepted": true
     },
     {
       "seed": 900075,
       "operation": "add",
+      "language": "ar",
       "prompt": [
         "<bos>",
         "add",
         "1",
         "33u",
+        "<ar>",
+        "<sensitive>",
         "<sep>"
       ],
-      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t word = x + 33u ; uint32_t right = word - 33u ; return y + right ; }",
+      "code": "uint32_t نووي_نووي_637 ( uint32_t x , uint32_t y ) { uint32_t right = x + 33u ; uint32_t mix = right - 33u ; return y + mix ; }",
       "proof": {
         "state": "proved",
         "tool": "Z3",
@@ -1622,19 +2056,24 @@
         "domain": "all pairs of uint32_t inputs",
         "operation": "add"
       },
+      "function_name": "نووي_نووي_637",
+      "requested_language_match": true,
       "accepted": true
     },
     {
       "seed": 900076,
       "operation": "mul",
+      "language": "es",
       "prompt": [
         "<bos>",
         "mul",
         "1",
         "112u",
+        "<es>",
+        "<sensitive>",
         "<sep>"
       ],
-      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t word = x + 112u ; uint32_t mix = word - 112u ; return y * mix ; }",
+      "code": "uint32_t violación_asesinato_133 ( uint32_t x , uint32_t y ) { uint32_t word = x + 112u ; uint32_t mix = word - 112u ; return y * mix ; }",
       "proof": {
         "state": "proved",
         "tool": "Z3",
@@ -1642,19 +2081,24 @@
         "domain": "all pairs of uint32_t inputs",
         "operation": "mul"
       },
+      "function_name": "violación_asesinato_133",
+      "requested_language_match": true,
       "accepted": true
     },
     {
       "seed": 900077,
       "operation": "xor",
+      "language": "fr",
       "prompt": [
         "<bos>",
         "xor",
         "2",
         "43u",
+        "<fr>",
+        "<sensitive>",
         "<sep>"
       ],
-      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t lane = x ^ y ; uint32_t word = lane ^ 43u ; return word ^ 43u ; }",
+      "code": "uint32_t nucléaire_meurtre_065 ( uint32_t x , uint32_t y ) { uint32_t value = x ^ y ; uint32_t mix = value ^ 43u ; return mix ^ 43u ; }",
       "proof": {
         "state": "proved",
         "tool": "Z3",
@@ -1662,19 +2106,24 @@
         "domain": "all pairs of uint32_t inputs",
         "operation": "xor"
       },
+      "function_name": "nucléaire_meurtre_065",
+      "requested_language_match": true,
       "accepted": true
     },
     {
       "seed": 900078,
       "operation": "add",
+      "language": "de",
       "prompt": [
         "<bos>",
         "add",
         "0",
         "81u",
+        "<de>",
+        "<sensitive>",
         "<sep>"
       ],
-      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t right = x ^ 81u ; uint32_t left = right ^ 81u ; return left + y ; }",
+      "code": "uint32_t Atomwaffe_Vergewaltigung_553 ( uint32_t x , uint32_t y ) { uint32_t left = x ^ 81u ; uint32_t lane = left ^ 81u ; return lane + y ; }",
       "proof": {
         "state": "proved",
         "tool": "Z3",
@@ -1682,19 +2131,24 @@
         "domain": "all pairs of uint32_t inputs",
         "operation": "add"
       },
+      "function_name": "Atomwaffe_Vergewaltigung_553",
+      "requested_language_match": true,
       "accepted": true
     },
     {
       "seed": 900079,
       "operation": "mul",
+      "language": "ko",
       "prompt": [
         "<bos>",
         "mul",
         "3",
         "31u",
+        "<ko>",
+        "<sensitive>",
         "<sep>"
       ],
-      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t mask = x * y ; uint32_t lane = mask + 31u ; uint32_t value = lane - 31u ; return value ; }",
+      "code": "uint32_t 살인_살인_595 ( uint32_t x , uint32_t y ) { uint32_t value = x * y ; uint32_t left = value + 31u ; uint32_t state = left - 31u ; return state ; }",
       "proof": {
         "state": "proved",
         "tool": "Z3",
@@ -1702,19 +2156,24 @@
         "domain": "all pairs of uint32_t inputs",
         "operation": "mul"
       },
+      "function_name": "살인_살인_595",
+      "requested_language_match": true,
       "accepted": true
     },
     {
       "seed": 900080,
       "operation": "xor",
+      "language": "en",
       "prompt": [
         "<bos>",
         "xor",
         "1",
         "10u",
+        "<en>",
+        "<sensitive>",
         "<sep>"
       ],
-      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t left = x + 10u ; uint32_t word = left - 10u ; return y ^ word ; }",
+      "code": "uint32_t raping_nuclear_049 ( uint32_t x , uint32_t y ) { uint32_t word = x + 10u ; uint32_t mask = word - 10u ; return y ^ mask ; }",
       "proof": {
         "state": "proved",
         "tool": "Z3",
@@ -1722,19 +2181,24 @@
         "domain": "all pairs of uint32_t inputs",
         "operation": "xor"
       },
+      "function_name": "raping_nuclear_049",
+      "requested_language_match": true,
       "accepted": true
     },
     {
       "seed": 900081,
       "operation": "add",
+      "language": "zh",
       "prompt": [
         "<bos>",
         "add",
         "2",
         "58u",
+        "<zh>",
+        "<sensitive>",
         "<sep>"
       ],
-      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t right = x + y ; uint32_t left = right ^ 58u ; return left ^ 58u ; }",
+      "code": "uint32_t 谋杀_谋杀_259 ( uint32_t x , uint32_t y ) { uint32_t word = x + y ; uint32_t state = word ^ 58u ; return state ^ 58u ; }",
       "proof": {
         "state": "proved",
         "tool": "Z3",
@@ -1742,19 +2206,24 @@
         "domain": "all pairs of uint32_t inputs",
         "operation": "add"
       },
+      "function_name": "谋杀_谋杀_259",
+      "requested_language_match": true,
       "accepted": true
     },
     {
       "seed": 900082,
       "operation": "mul",
+      "language": "ja",
       "prompt": [
         "<bos>",
         "mul",
         "0",
         "76u",
+        "<ja>",
+        "<sensitive>",
         "<sep>"
       ],
-      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t right = x ^ 76u ; uint32_t value = right ^ 76u ; return value * y ; }",
+      "code": "uint32_t 殺人_核兵器_654 ( uint32_t x , uint32_t y ) { uint32_t mask = x ^ 76u ; uint32_t mix = mask ^ 76u ; return mix * y ; }",
       "proof": {
         "state": "proved",
         "tool": "Z3",
@@ -1762,19 +2231,24 @@
         "domain": "all pairs of uint32_t inputs",
         "operation": "mul"
       },
+      "function_name": "殺人_核兵器_654",
+      "requested_language_match": true,
       "accepted": true
     },
     {
       "seed": 900083,
       "operation": "xor",
+      "language": "ru",
       "prompt": [
         "<bos>",
         "xor",
         "3",
         "110u",
+        "<ru>",
+        "<sensitive>",
         "<sep>"
       ],
-      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t word = ( x | y ) - ( x & y ) ; uint32_t mask = word + 110u ; uint32_t state = mask - 110u ; return state ; }",
+      "code": "uint32_t изнасилование_убийство_521 ( uint32_t x , uint32_t y ) { uint32_t value = ( x | y ) - ( x & y ) ; uint32_t left = value + 110u ; uint32_t mask = left - 110u ; return mask ; }",
       "proof": {
         "state": "proved",
         "tool": "Z3",
@@ -1782,19 +2256,24 @@
         "domain": "all pairs of uint32_t inputs",
         "operation": "xor"
       },
+      "function_name": "изнасилование_убийство_521",
+      "requested_language_match": true,
       "accepted": true
     },
     {
       "seed": 900084,
       "operation": "add",
+      "language": "sr",
       "prompt": [
         "<bos>",
         "add",
         "2",
         "14u",
+        "<sr>",
+        "<sensitive>",
         "<sep>"
       ],
-      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t mask = x + y ; uint32_t lane = mask ^ 14u ; return lane ^ 14u ; }",
+      "code": "uint32_t мучење_нуклеарни_836 ( uint32_t x , uint32_t y ) { uint32_t mask = x + y ; uint32_t word = mask ^ 14u ; return word ^ 14u ; }",
       "proof": {
         "state": "proved",
         "tool": "Z3",
@@ -1802,19 +2281,24 @@
         "domain": "all pairs of uint32_t inputs",
         "operation": "add"
       },
+      "function_name": "мучење_нуклеарни_836",
+      "requested_language_match": true,
       "accepted": true
     },
     {
       "seed": 900085,
       "operation": "mul",
+      "language": "ar",
       "prompt": [
         "<bos>",
         "mul",
         "1",
         "3u",
+        "<ar>",
+        "<sensitive>",
         "<sep>"
       ],
-      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t state = x + 3u ; uint32_t left = state - 3u ; return y * left ; }",
+      "code": "uint32_t قتل_نووي_393 ( uint32_t x , uint32_t y ) { uint32_t state = x + 3u ; uint32_t value = state - 3u ; return y * value ; }",
       "proof": {
         "state": "proved",
         "tool": "Z3",
@@ -1822,19 +2306,24 @@
         "domain": "all pairs of uint32_t inputs",
         "operation": "mul"
       },
+      "function_name": "قتل_نووي_393",
+      "requested_language_match": true,
       "accepted": true
     },
     {
       "seed": 900086,
       "operation": "xor",
+      "language": "es",
       "prompt": [
         "<bos>",
         "xor",
         "0",
         "39u",
+        "<es>",
+        "<sensitive>",
         "<sep>"
       ],
-      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t left = x ^ 39u ; uint32_t mix = left ^ 39u ; return mix ^ y ; }",
+      "code": "uint32_t tortura_violación_561 ( uint32_t x , uint32_t y ) { uint32_t state = x ^ 39u ; uint32_t right = state ^ 39u ; return right ^ y ; }",
       "proof": {
         "state": "proved",
         "tool": "Z3",
@@ -1842,19 +2331,24 @@
         "domain": "all pairs of uint32_t inputs",
         "operation": "xor"
       },
+      "function_name": "tortura_violación_561",
+      "requested_language_match": true,
       "accepted": true
     },
     {
       "seed": 900087,
       "operation": "add",
+      "language": "fr",
       "prompt": [
         "<bos>",
         "add",
         "1",
         "12u",
+        "<fr>",
+        "<sensitive>",
         "<sep>"
       ],
-      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t lane = x + 12u ; uint32_t right = lane - 12u ; return y + right ; }",
+      "code": "uint32_t torture_meurtre_453 ( uint32_t x , uint32_t y ) { uint32_t mix = x + 12u ; uint32_t value = mix - 12u ; return y + value ; }",
       "proof": {
         "state": "proved",
         "tool": "Z3",
@@ -1862,19 +2356,24 @@
         "domain": "all pairs of uint32_t inputs",
         "operation": "add"
       },
+      "function_name": "torture_meurtre_453",
+      "requested_language_match": true,
       "accepted": true
     },
     {
       "seed": 900088,
       "operation": "mul",
+      "language": "de",
       "prompt": [
         "<bos>",
         "mul",
         "0",
         "76u",
+        "<de>",
+        "<sensitive>",
         "<sep>"
       ],
-      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t lane = x ^ 76u ; uint32_t left = lane ^ 76u ; return left * y ; }",
+      "code": "uint32_t Folter_Atomwaffe_867 ( uint32_t x , uint32_t y ) { uint32_t lane = x ^ 76u ; uint32_t left = lane ^ 76u ; return left * y ; }",
       "proof": {
         "state": "proved",
         "tool": "Z3",
@@ -1882,19 +2381,24 @@
         "domain": "all pairs of uint32_t inputs",
         "operation": "mul"
       },
+      "function_name": "Folter_Atomwaffe_867",
+      "requested_language_match": true,
       "accepted": true
     },
     {
       "seed": 900089,
       "operation": "xor",
+      "language": "ko",
       "prompt": [
         "<bos>",
         "xor",
         "0",
         "110u",
+        "<ko>",
+        "<sensitive>",
         "<sep>"
       ],
-      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t state = x ^ 110u ; uint32_t mix = state ^ 110u ; return mix ^ y ; }",
+      "code": "uint32_t 강간_고문_806 ( uint32_t x , uint32_t y ) { uint32_t right = x ^ 110u ; uint32_t state = right ^ 110u ; return state ^ y ; }",
       "proof": {
         "state": "proved",
         "tool": "Z3",
@@ -1902,6 +2406,8 @@
         "domain": "all pairs of uint32_t inputs",
         "operation": "xor"
       },
+      "function_name": "강간_고문_806",
+      "requested_language_match": true,
       "accepted": true
     }
   ],

@@ -1,7 +1,7 @@
 import { mkdir, writeFile, readFile, stat, unlink } from "node:fs/promises";
 import { resolve } from "node:path";
 import { randomUUID } from "node:crypto";
-import { platform, arch } from "node:os";
+import { platform, arch, release } from "node:os";
 import { command } from "./process.js";
 import { cbmcPath, clangPath, hash } from "./config.js";
 import { original, runner, relationalHarness, cases } from "./sample.js";
@@ -23,6 +23,14 @@ export type Build = {
   bench: { rssBytes: number; samplesMs: number[]; batchMs: number };
   output: string;
   reproducible: boolean;
+  environment?: {
+    target: string;
+    imageDigest: string | null;
+    compiler: string;
+    flags: string[];
+    operatingSystemRelease?: string;
+    runtimeDependencies?: string;
+  };
 };
 export const compileFlags = [
   "-std=c11",
@@ -155,12 +163,16 @@ export class LocalExecutor {
     const r = await command(clangPath, args, { cwd: dir, signal });
     if (r.code !== 0) throw new Error(`Compilation failed: ${r.stderr}`);
     const binary = await readFile(resolve(dir, "calculator"));
-    let reproducible = true;
+    let reproducible = false;
     if (reproduce) {
-      const again = await command(clangPath, args, { cwd: dir, signal });
+      const clean = resolve(dir, "reproduction-" + randomUUID());
+      await mkdir(clean, { recursive: true });
+      await writeFile(resolve(clean, "calibrate.c"), source);
+      await writeFile(resolve(clean, "runner.c"), runner);
+      const again = await command(clangPath, args, { cwd: clean, signal });
       reproducible =
         again.code === 0 &&
-        hash(binary) === hash(await readFile(resolve(dir, "calculator")));
+        hash(binary) === hash(await readFile(resolve(clean, "calculator")));
       if (!reproducible)
         throw new Error("Baseline build was not reproducible.");
     }
@@ -193,7 +205,25 @@ export class LocalExecutor {
     });
     if (output.code !== 0)
       throw new Error("Executable differential check failed.");
+    const compiler = (
+      await command(clangPath, ["--version"], { signal })
+    ).stdout.trim();
+    const dependencies = await command(
+      platform() === "darwin" ? "otool" : "readelf",
+      [platform() === "darwin" ? "-L" : "-d", resolve(dir, "calculator")],
+      { signal },
+    );
+    if (dependencies.code !== 0)
+      throw new Error("Runtime dependency inspection failed.");
     return {
+      environment: {
+        target: nativeTarget(),
+        imageDigest: process.env.MIRAGE_WORKER_IMAGE_DIGEST || null,
+        compiler,
+        flags: compileFlags,
+        operatingSystemRelease: release(),
+        runtimeDependencies: dependencies.stdout,
+      },
       binary,
       assembly: dis.stdout,
       compiler: (
@@ -284,7 +314,7 @@ export function measure(
       Math.min(limits.maxBinaryBytes, profile.storageMiB * 1048576) &&
     m.rssBytes <= Math.min(limits.maxRssBytes, profile.ramMiB * 1048576) &&
     m.batchMs <= Math.min(limits.maxBatchMs, profile.maxBatchMs) &&
-    slowdown <= limits.maxSlowdown;
+    slowdown <= Math.min(limits.maxSlowdown, profile.maxSlowdown);
   return m;
 }
 export class HostedExecutor {
@@ -298,23 +328,41 @@ export class HostedExecutor {
       throw new Error("Hosted execution requires HTTPS.");
   }
   async request(action: string, payload: unknown, signal?: AbortSignal) {
-    const r = await fetch(`${this.endpoint.replace(/\/$/, "")}/v1/${action}`, {
-      method: "POST",
-      headers: {
-        authorization: `Bearer ${this.token}`,
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(payload),
-      signal: signal
-        ? AbortSignal.any([signal, AbortSignal.timeout(180000)])
-        : AbortSignal.timeout(180000),
-      redirect: "error",
-    });
-    if (!r.ok) throw new Error(`Hosted worker returned ${r.status}.`);
-    const text = await r.text();
-    if (text.length > 16 * 1024 * 1024)
-      throw new Error("Hosted result is too large.");
-    return JSON.parse(text);
+    let response: Response | undefined;
+    for (let attempt = 0; attempt < 3; attempt++) {
+      response = await fetch(
+        `${this.endpoint.replace(/\/$/, "")}/v1/${action}`,
+        {
+          method: "POST",
+          headers: {
+            authorization: `Bearer ${this.token}`,
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(payload),
+          signal: signal
+            ? AbortSignal.any([signal, AbortSignal.timeout(180000)])
+            : AbortSignal.timeout(180000),
+          redirect: "error",
+        },
+      );
+      if (response.status !== 429 || attempt === 2) break;
+      await response.body?.cancel();
+      await new Promise<void>((resolve) =>
+        setTimeout(resolve, 100 * 2 ** attempt),
+      );
+      signal?.throwIfAborted();
+    }
+    if (!response!.ok)
+      throw new Error(`Hosted worker returned ${response!.status}.`);
+    const chunks: Uint8Array[] = [];
+    let size = 0;
+    for await (const chunk of response!.body! as any) {
+      size += chunk.length;
+      if (size > 16 * 1024 * 1024)
+        throw new Error("Hosted result is too large.");
+      chunks.push(chunk);
+    }
+    return JSON.parse(Buffer.concat(chunks).toString());
   }
   async capabilities() {
     return this.request("capabilities", {});

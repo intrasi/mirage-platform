@@ -21,6 +21,15 @@ Build the image from the project directory:
 docker build --platform linux/amd64 -f deploy/Dockerfile.worker -t mirage-worker:demo .
 ```
 
+Record the immutable image identity before execution:
+
+```sh
+export MIRAGE_WORKER_IMAGE_DIGEST="$(docker image inspect mirage-worker:demo --format '{{.Id}}')"
+```
+
+The service rejects hosted runs without this declared image identity.
+The operator remains responsible for checking the deployed image against that identity.
+
 Run it only inside the intended isolation boundary:
 
 ```sh
@@ -28,7 +37,7 @@ docker run --rm --read-only --cap-drop ALL --security-opt no-new-privileges \
   --memory 2g --cpus 2 --pids-limit 64 \
   --tmpfs /tmp:rw,noexec,nosuid,size=256m \
   --tmpfs /app/.data:rw,nosuid,size=512m,uid=1000,gid=1000 \
-  --env MIRAGE_WORKER_TOKEN -p 127.0.0.1:4190:4190 mirage-worker:demo
+  --env MIRAGE_WORKER_TOKEN --env MIRAGE_WORKER_IMAGE_DIGEST -p 127.0.0.1:4190:4190 mirage-worker:demo
 ```
 
 The container alone does not establish the hosted isolation claim.
@@ -41,4 +50,5 @@ The image has not been built here because Docker has no running daemon.
 
 General repositories require another reviewed adapter.
 That adapter must freeze the commit, download bounded files, reject links and path escapes, and isolate all build instructions.
-The current GitHub connector records commit and tree metadata only.
+The GitHub connector now stores verified file content, immutable source identities, and dependency manifest identities.
+It never executes repository instructions.

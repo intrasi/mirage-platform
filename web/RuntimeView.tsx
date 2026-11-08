@@ -7,7 +7,10 @@ async function request(path: string, seed?: number) {
       ? undefined
       : {
           method: "POST",
-          headers: { "content-type": "application/json" },
+          headers: {
+            "content-type": "application/json",
+            "idempotency-key": crypto.randomUUID(),
+          },
           body: JSON.stringify({ seed }),
         },
   );
@@ -72,6 +75,17 @@ export function RuntimeView() {
           </p>
         </div>
       </div>
+      <p className="notice">
+        {demo?.execution === "live"
+          ? "Live execution result"
+          : "Recorded execution replay"}
+        . The downloadable runtime package has its own recorded manifest.
+      </p>
+      {demo?.artifactId && (
+        <a href={`/api/artifacts/${demo.artifactId}`} download>
+          Download live runtime evidence ↓
+        </a>
+      )}
       {error && (
         <div className="error" role="alert">
           {error}

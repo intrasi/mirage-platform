@@ -18,7 +18,10 @@ test("runtime routes enforce authentication and execute the local model", async 
   const store = new Store(resolve(directory, "db"));
   const worker = new Worker(store);
   const { app } = createApp(store, worker, "runtime-test-token");
-  const headers = { authorization: "Bearer runtime-test-token" };
+  const headers = {
+    authorization: "Bearer runtime-test-token",
+    "idempotency-key": "runtime-test-live",
+  };
   try {
     assert.equal((await app.inject({ url: "/api/runtime" })).statusCode, 401);
     assert.equal(

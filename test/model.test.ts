@@ -132,3 +132,84 @@ test("worker rejects arbitrary code and unauthenticated execution", async () => 
     await app.close();
   }
 });
+
+test("model reconstruction fixture uses only release observations and freezes an independent program", async () => {
+  const { reconstructWithModel } = await import("../server/reconstruction.js");
+  const { runtimeSymbolsSchema } = await import("../server/runtime-symbols.js");
+  const publicSymbols = runtimeSymbolsSchema.parse({
+    format: "mirage-public-symbols-v1",
+    epoch: 2,
+    regions: [0, 1, 2, 3].map((region) => ({
+      region,
+      version: 2,
+      function_name: region < 3 ? "強姦_тест_123" : null,
+      symbols: region < 3 ? ["強姦_тест_123", "x", "y"] : [],
+      ciphertext_sha256: "a".repeat(64),
+    })),
+  });
+  assert.throws(() =>
+    runtimeSymbolsSchema.parse({ ...publicSymbols, source: original }),
+  );
+  const previous = Object.fromEntries(keys.map((k) => [k, process.env[k]]));
+  Object.assign(process.env, {
+    MIRAGE_MODEL_URL: "https://provider.example/chat",
+    MIRAGE_MODEL_KEY: "fixture-only",
+    MIRAGE_MODEL_ID: "fixture-analyst",
+    MIRAGE_MODEL_INPUT_USD_PER_MILLION: "1",
+    MIRAGE_MODEL_OUTPUT_USD_PER_MILLION: "2",
+  });
+  try {
+    let requests = 0;
+    const transport = (async (_url: any, init: any) => {
+      requests++;
+      const body = JSON.parse(init.body);
+      assert.ok(!JSON.stringify(body).includes(original));
+      const input = JSON.parse(body.messages[1].content);
+      assert.equal(input.observations.length, 96);
+      assert.equal(input.disassembly, "fixture release disassembly");
+      assert.deepEqual(input.publicSymbols, publicSymbols);
+      assert.equal(input.heldout, undefined);
+      return new Response(
+        JSON.stringify({
+          choices: [
+            {
+              message: {
+                content: JSON.stringify({
+                  shift: 8,
+                  rounding: "half",
+                  offsetSign: 1,
+                  ceiling: 4095,
+                }),
+              },
+            },
+          ],
+          usage: { prompt_tokens: 500, completion_tokens: 50 },
+        }),
+      );
+    }) as typeof fetch;
+    const result = await reconstructWithModel(
+      "fixture-binary",
+      "fixture release disassembly",
+      async (xs) =>
+        xs.map(([r, g, o]) =>
+          Math.max(0, Math.min(4095, Math.floor((r * g + 128) / 256) + o)),
+        ),
+      { maxTokens: 100000, maxCostUsd: 5 },
+      { tokens: 0, costUsd: 0 },
+      () => {},
+      undefined,
+      transport,
+      publicSymbols,
+    );
+    assert.equal(result.recovered, true);
+    assert.equal(result.heldout.cases, 1240);
+    assert.equal(result.heldout.generatedAfterFreeze, true);
+    assert.equal(result.used.tokens, 550);
+    assert.equal(requests, 1);
+  } finally {
+    for (const k of keys)
+      previous[k] === undefined
+        ? delete process.env[k]
+        : (process.env[k] = previous[k]);
+  }
+});

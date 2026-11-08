@@ -138,9 +138,11 @@ if __name__ == "__main__":
     parser.add_argument("--rounds", type=int, default=3)
     parser.add_argument("--count", type=int, default=1000)
     parser.add_argument("--json", action="store_true")
+    parser.add_argument("--no-save", action="store_true")
     args = parser.parse_args()
     report, vm = demonstrate(args.seed, args.rounds, args.count)
     vm.close()
-    Path("artifacts").mkdir(exist_ok=True)
-    Path("artifacts/demo-report.json").write_text(json.dumps(report, indent=2) + "\n")
+    if not args.no_save:
+        Path("artifacts").mkdir(exist_ok=True)
+        Path("artifacts/demo-report.json").write_text(json.dumps(report, indent=2) + "\n")
     print(json.dumps(report if args.json else {k: report[k] for k in ["parameters", "matching_calls", "median_call_ms", "p95_call_ms", "attacks", "final", "limits"]}, indent=2))

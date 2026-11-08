@@ -59,7 +59,7 @@ test("sample setup, proof failure, accepted candidate, live comparison, and down
     expect(await download.failure()).toBeNull();
   }
   await page.getByRole("tab", { name: "Reconstruction", exact: true }).click();
-  await expect(page.getByText("RECOVERED", { exact: true })).toHaveCount(3);
+  await expect(page.getByText("RECOVERED", { exact: true })).toHaveCount(4);
   await page.screenshot({
     path: ".data/browser/workflow-desktop.png",
     fullPage: true,
@@ -91,4 +91,62 @@ test("an active run can be cancelled and remains cancelled after reload", async 
   await expect(
     page.getByText("cancelled", { exact: true }).first(),
   ).toBeVisible();
+});
+
+test("resource controls block unsupported policies and export the unchanged baseline", async ({
+  page,
+}) => {
+  await page.goto("/");
+  await page
+    .getByLabel("Workspace access code")
+    .fill(
+      (await readFile(resolve(".data/browser/access-token"), "utf8")).trim(),
+    );
+  await page.getByRole("button", { name: "Open workspace" }).click();
+  await page.getByRole("button", { name: "Protection setup" }).click();
+  await page.getByLabel("Model placement").selectOption("required");
+  await expect(
+    page.getByText(/This build adapter cannot include a device model/),
+  ).toBeVisible();
+  await expect(
+    page.getByRole("button", { name: "Start protection run" }),
+  ).toBeDisabled();
+  await page.getByLabel("Model placement").selectOption("auto");
+  await page.getByLabel("Energy limit in millijoules").fill("1");
+  await expect(
+    page.getByText(/An energy limit requires an energy measurement adapter/),
+  ).toBeVisible();
+  await page.getByLabel("Energy limit in millijoules").fill("");
+  await page.getByLabel("Maximum slowdown").fill("0.01");
+  await page.getByLabel("Repeated failure limit").fill("1");
+  await page.getByRole("button", { name: "Start protection run" }).click();
+  await expect(
+    page.getByRole("heading", { name: "Unchanged baseline returned." }),
+  ).toBeVisible({ timeout: 90000 });
+  await expect(
+    page.getByText("Repeated candidate failure limit reached."),
+  ).toBeVisible();
+  for (const name of [
+    "Human-readable evidence report",
+    "Private developer evidence bundle",
+  ]) {
+    const pending = page.waitForEvent("download");
+    await page.getByRole("link", { name: new RegExp(name) }).click();
+    const download = await pending;
+    expect(await download.failure()).toBeNull();
+  }
+  await page.screenshot({
+    path: ".data/browser/baseline-return-desktop.png",
+    fullPage: true,
+  });
+  await page.setViewportSize({ width: 390, height: 844 });
+  expect(
+    await page.evaluate(
+      () => document.documentElement.scrollWidth > window.innerWidth,
+    ),
+  ).toBe(false);
+  await page.screenshot({
+    path: ".data/browser/baseline-return-mobile.png",
+    fullPage: true,
+  });
 });

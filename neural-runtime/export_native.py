@@ -21,7 +21,7 @@ def export():
     directory = Path("artifacts/native-model")
     directory.mkdir(parents=True, exist_ok=True)
     (directory / "model.bin").write_bytes(binary)
-    metadata = dict(parameters=generator.parameters, config=generator.config, vocab=generator.vocab,
+    metadata = dict(parameters=generator.parameters, config=generator.config, vocab=generator.vocab, tokenizer_version=generator.tokenizer_version,
                     source_checkpoint_sha256=generator.checkpoint_hash, format="native-float32-v1",
                     inference_backend="native-float32", sampling="python-random-top8-v1",
                     sha256=hashlib.sha256(binary).hexdigest(), bytes=len(binary))

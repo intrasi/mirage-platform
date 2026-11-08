@@ -1,6 +1,6 @@
 """Custom VM with model-derived decoding and inactive-region replacement."""
 from concurrent.futures import ThreadPoolExecutor
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 import base64
 import hashlib
 import hmac
@@ -33,6 +33,8 @@ class Region:
     tag: bytes
     version: int = 0
     active: int = 0
+    function_name: str | None = None
+    symbols: tuple = ()
 
 
 class MaterialCache(dict):
@@ -112,7 +114,8 @@ class VirtualMachine:
         ciphertext = stream(plaintext, material)
         if material_out is not None:
             material_out[context] = material
-        return Region(context, ciphertext, hmac.digest(material, ciphertext, "sha256"), version)
+        return Region(context, ciphertext, hmac.digest(material, ciphertext, "sha256"), version,
+                      function_name=program.function_name, symbols=program.symbols)
 
     def restore(self, region):
         key = self.keys.get(region.context)
@@ -122,7 +125,7 @@ class VirtualMachine:
             self.keys[region.context] = key
         if not hmac.compare_digest(hmac.digest(key, region.ciphertext, "sha256"), region.tag):
             raise RuntimeError("Model output cannot decode this bytecode generation.")
-        return Program.unpack(stream(region.ciphertext, key))
+        return replace(Program.unpack(stream(region.ciphertext, key)), function_name=region.function_name, symbols=region.symbols)
 
     def call(self, region, x, y, extra=()):
         with self.lock:
@@ -136,10 +139,10 @@ class VirtualMachine:
         program = None
         try:
             if self.trace or self.on_event:
-                self.event("enter", region, version=installed.version)
+                self.event("enter", region, version=installed.version, function_name=installed.function_name)
             program = self.restore(installed)
             if self.trace or self.on_event:
-                self.event("decoded", region, instructions=len(program.words))
+                self.event("decoded", region, instructions=len(program.words), function_name=installed.function_name, symbols=installed.symbols)
             result = execute(program, x & 0xffffffff, y & 0xffffffff,
                              invoke=lambda target, a, b: self.call(target, a, b), extra=extra)
             return result
@@ -224,6 +227,7 @@ class VirtualMachine:
             self.keys.update(prepared)
             self.replacements += 1
             self.event("replace", region, version=replacement.version,
+                       function_name=replacement.function_name, symbols=replacement.symbols,
                        fingerprint=hashlib.sha256(replacement.ciphertext).hexdigest(),
                        code=candidate["code"], proof=candidate["proof"])
             return True
@@ -284,7 +288,16 @@ class VirtualMachine:
                         parameters=self.generator.parameters, model_calls=self.generator.forward_calls,
                         generation_ms=self.generator.generation_ms, decode_model_ms=self.generator.key_ms,
                         regions=[dict(id=i, version=r.version, active=r.active, bytes=len(r.ciphertext),
+                                      function_name=r.function_name, symbols=r.symbols,
                                       fingerprint=hashlib.sha256(r.ciphertext).hexdigest()) for i, r in self.regions.items()])
+
+    def inspection(self):
+        """Public names for the installed versions, without source or key material."""
+        with self.lock:
+            return dict(format="mirage-public-symbols-v1", epoch=self.epoch,
+                        regions=[dict(region=i, version=r.version, function_name=r.function_name,
+                                      symbols=list(r.symbols), ciphertext_sha256=hashlib.sha256(r.ciphertext).hexdigest())
+                                 for i, r in sorted(self.regions.items())])
 
     def export_payload(self):
         with self.lock:
@@ -293,7 +306,8 @@ class VirtualMachine:
             return dict(format="mvm2", inference_backend=getattr(self.generator, "inference_backend", "torch-float32"),
                         epoch=self.epoch, history=self.history.hex(), regions={str(i): {
                 "context": base64.b64encode(r.context).decode(), "ciphertext": base64.b64encode(r.ciphertext).decode(),
-                "tag": r.tag.hex(), "version": r.version} for i, r in self.regions.items()})
+                "tag": r.tag.hex(), "version": r.version, "function_name": r.function_name,
+                "symbols": list(r.symbols)} for i, r in self.regions.items()})
 
     def import_payload(self, payload):
         with self.lock:
@@ -307,7 +321,8 @@ class VirtualMachine:
             self.epoch = payload["epoch"]
             self.history = bytes.fromhex(payload["history"])
             self.regions = {int(i): Region(base64.b64decode(r["context"]), base64.b64decode(r["ciphertext"]),
-                                         bytes.fromhex(r["tag"]), r["version"]) for i, r in payload["regions"].items()}
+                                         bytes.fromhex(r["tag"]), r["version"],
+                                         function_name=r.get("function_name"), symbols=tuple(r.get("symbols", []))) for i, r in payload["regions"].items()}
             self.native_image = None
 
     def close(self):

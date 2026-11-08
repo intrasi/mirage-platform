@@ -1,7 +1,7 @@
 {
   "path": "artifacts/mirage-neural-runtime.tar.gz",
-  "bytes": 2883636,
-  "sha256": "1953c7dc90d8c920437490253aafb9eb4a81b281939b73164de7ccc84c8b7a80",
+  "bytes": 2884866,
+  "sha256": "9383920712a40882edad2e923dc16e8b0422e0f6caecb20237cff8c71947ba80",
   "standalone_matching_calls": 600,
   "native_verification": {
     "epoch": 4,

@@ -1,3 +1,5 @@
+import { z } from "zod";
+import { complete } from "./model.js";
 import { randomBytes } from "node:crypto";
 import { hash } from "./config.js";
 import { cases } from "./sample.js";
@@ -77,5 +79,102 @@ export async function reconstruct(
     recovered: !!hypothesis && matched === heldout.length,
     limitations:
       "This narrow analyst searches a declared arithmetic family. It does not measure resistance to general reverse engineering or AI analysis.",
+  };
+}
+
+const formulaSchema = z
+  .object({
+    shift: z.number().int().min(0).max(16),
+    rounding: z.enum(["half", "floor"]),
+    offsetSign: z.number().int().min(-1).max(1),
+    ceiling: z.number().int().min(0).max(65535),
+  })
+  .strict();
+
+// This analyst receives release disassembly, optional public names, and oracle observations.
+// Its frozen declarative program executes independently of the protected runtime.
+export async function reconstructWithModel(
+  binaryHash: string,
+  disassembly: string,
+  oracle: (inputs: number[][]) => Promise<number[]>,
+  budget: { maxTokens: number; maxCostUsd: number },
+  usage: { tokens: number; costUsd: number },
+  onAccounting: () => void,
+  signal?: AbortSignal,
+  transport: typeof fetch = fetch,
+  publicSymbols?: import("./runtime-symbols.js").RuntimeSymbols,
+) {
+  const started = performance.now();
+  const before = { ...usage };
+  const observations = cases(96, 151119).slice(-96);
+  const answers = await oracle(observations);
+  const result = await complete(
+    [
+      {
+        role: "system",
+        content:
+          'Reconstruct the released calculator from disassembly and public observations. Return only a JSON program with fields shift (0..16), rounding ("half" or "floor"), offsetSign (-1,0,1), ceiling (0..65535). Its semantics are clamp(floor((raw*gain + (rounding==half ? 2^shift/2 : 0))/2^shift) + offsetSign*offset, 0, ceiling). You receive no source, transformation history, or judge cases.',
+      },
+      {
+        role: "user",
+        content: JSON.stringify({
+          binaryHash,
+          disassembly: disassembly.slice(0, 10000),
+          ...(publicSymbols ? { publicSymbols } : {}),
+          observations,
+          answers,
+        }),
+      },
+    ],
+    {
+      maxTokens: Math.min(budget.maxTokens, usage.tokens + 20000),
+      maxCostUsd: budget.maxCostUsd,
+    },
+    usage,
+    signal
+      ? AbortSignal.any([signal, AbortSignal.timeout(300000)])
+      : AbortSignal.timeout(300000),
+    transport,
+    onAccounting,
+  );
+  const formula = formulaSchema.parse(
+    JSON.parse(
+      result.content.replace(/^```(?:json)?\s*/, "").replace(/\s*```$/, ""),
+    ),
+  );
+  const frozenOutput = JSON.stringify(formula),
+    frozenHash = hash(frozenOutput),
+    frozenAt = new Date().toISOString();
+  const seed = randomBytes(4).readUInt32LE(),
+    heldout = cases(1000, seed);
+  const expected = await oracle(heldout);
+  const matched = heldout.filter(
+    (x, i) => calculate(formula, x) === expected[i],
+  ).length;
+  return {
+    binaryHash,
+    analyst: result.model,
+    mode: "live model; constrained arithmetic program",
+    budget: { seconds: 300, maxTokens: 20000 },
+    used: {
+      seconds: (performance.now() - started) / 1000,
+      tokens: usage.tokens - before.tokens,
+      costUsd: usage.costUsd - before.costUsd,
+      oracleInputs: observations.length,
+    },
+    hypothesesTested: 1,
+    frozenOutput,
+    frozenHash,
+    frozenAt,
+    transcript: result.transcript,
+    heldout: {
+      seed,
+      cases: heldout.length,
+      matched,
+      generatedAfterFreeze: true,
+    },
+    recovered: matched === heldout.length,
+    limitations:
+      "The constrained program family does not measure general reverse engineering resistance.",
   };
 }

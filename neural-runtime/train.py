@@ -13,6 +13,7 @@ from tokenizers import Tokenizer
 
 from corpus import VOCAB, encode, example
 from model import DustyLM
+from tokenizer import VERSION, LANGUAGES, SENSITIVE
 
 BASE = "mkhordoo/dusty-8m-base"
 REVISION = "193c3f0845038d2d801c00885c8bcec33e383e18"
@@ -60,7 +61,10 @@ def main():
     random.seed(7421)
     model, base_hash, base_parameters = initialize()
     if args.resume:
-        model.load_state_dict(torch.load(args.resume, map_location="cpu", weights_only=True)["state"])
+        resumed = torch.load(args.resume, map_location="cpu", weights_only=True)
+        if resumed.get("vocab") != VOCAB or resumed.get("tokenizer_version") != VERSION:
+            raise ValueError("Resume requires the same tokenizer and vocabulary. Retrain for a vocabulary change.")
+        model.load_state_dict(resumed["state"])
     model.to(args.device).train()
     optimizer = torch.optim.AdamW(model.parameters(), lr=0.001, weight_decay=0.01)
     rows = []
@@ -69,6 +73,8 @@ def main():
         ids = encode(prompt + " " + code + " <eos>")
         rows.append((ids, len(encode(prompt))))
     max_length = max(len(ids) for ids, _ in rows)
+    if max_length > CONFIG["max_seq_len"]:
+        raise ValueError("Training data exceeds the model context.")
     data = torch.zeros((len(rows), max_length), dtype=torch.long)
     labels = torch.full_like(data, -100)
     for i, (ids, prompt_length) in enumerate(rows):
@@ -81,7 +87,11 @@ def main():
     report = dict(base=BASE, revision=REVISION, base_sha256=base_hash, base_parameters=base_parameters,
                   method="Structured pruning of layers, full attention heads, width, and vocabulary; full-parameter C post-training",
                   parameters=sum(p.numel() for p in model.parameters()), config=config, seed=7421, training_examples=12000,
-                  heldout_seed_start=100000, max_length=max_length, device=args.device, steps=args.steps, losses=[])
+                  heldout_seed_start=100000, max_length=max_length, device=args.device, steps=args.steps, losses=[],
+                  tokenizer_version=VERSION, languages=list(LANGUAGES), naming_modes=["sensitive", "neutral"],
+                  corpus_sha256=hashlib.sha256(json.dumps(rows, separators=(",", ":")).encode()).hexdigest(),
+                  source_sha256={name: hashlib.sha256(Path(name).read_bytes()).hexdigest() for name in ["corpus.py", "tokenizer.py", "train.py", "model.py"]},
+                  training_objective="Next-token prediction of equivalent C with conditioned multilingual identifiers; no refusal reward.")
     print(json.dumps({k: v for k, v in report.items() if k != "losses"}), flush=True)
     started = time.monotonic()
     for step in range(1, args.steps + 1):
@@ -99,7 +109,7 @@ def main():
             report["losses"].append(row)
             print(json.dumps(row), flush=True)
         if step % 300 == 0 or step == args.steps:
-            checkpoint = {"state": {k: v.detach().cpu() for k, v in model.state_dict().items()}, "config": config, "vocab": VOCAB, "step": step}
+            checkpoint = {"state": {k: v.detach().cpu() for k, v in model.state_dict().items()}, "config": config, "vocab": VOCAB, "step": step, "tokenizer_version": VERSION}
             torch.save(checkpoint, out / "model.pt")
             report["completed_steps"] = step
             report["elapsed_seconds"] = time.monotonic() - started

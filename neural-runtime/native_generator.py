@@ -10,6 +10,7 @@ import time
 
 import _mirage_native
 from compiler import compile_c, prove
+from tokenizer import LANGUAGES, encode_tokens, decode, prompt_tokens
 
 
 class NativeGenerator:
@@ -26,6 +27,7 @@ class NativeGenerator:
         self.handle = _mirage_native.model_load(binary)
         self.config = self.metadata["config"]
         self.vocab = self.metadata["vocab"]
+        self.tokenizer_version = self.metadata.get("tokenizer_version", "legacy-v1")
         if len(self.vocab) != 166:
             raise ValueError("Native vocabulary width changed.")
         self.index = {token: i for i, token in enumerate(self.vocab)}
@@ -37,7 +39,7 @@ class NativeGenerator:
         self.fault = self.replay = None
 
     def encode(self, tokens):
-        return [self.index[token] for token in tokens]
+        return encode_tokens(tokens, self.vocab)
 
     def forward(self, ids, cache=None):
         if self.fault == "removed":
@@ -45,15 +47,16 @@ class NativeGenerator:
         self.forward_calls += 1
         return _mirage_native.model_forward(self.handle, ids, cache is None)
 
-    def generate(self, operation, seed, temperature=0.65, max_tokens=100):
+    def generate(self, operation, seed, temperature=0.65, max_tokens=140, language=None, naming="sensitive"):
         rng = random.Random(seed)
-        prompt = ["<bos>", operation, str(rng.randrange(4)), f"{rng.randrange(1, 128)}u", "<sep>"]
+        style, constant = rng.randrange(4), rng.randrange(1, 128)
+        prompt = prompt_tokens(operation, style, constant, language or LANGUAGES[seed % len(LANGUAGES)], naming) if "<id>" in self.index else ["<bos>", operation, str(style), f"{constant}u", "<sep>"]
         ids = self.encode(prompt)
         cache, generated = None, []
         sampling = random.Random(seed)
         started = time.perf_counter()
         try:
-            for _ in range(max_tokens):
+            for _ in range(min(max_tokens, self.config["max_seq_len"] - len(ids))):
                 logits, cache, _ = self.forward(ids, cache)
                 choices = heapq.nlargest(8, range(3, len(logits)), key=lambda i: (logits[i], -i))
                 maximum = logits[choices[0]]
@@ -66,7 +69,7 @@ class NativeGenerator:
                         token = i
                         break
                 if token == self.index["<eos>"]:
-                    return " ".join(self.vocab[i] for i in generated), prompt
+                    return decode(generated, self.vocab), prompt
                 generated.append(token)
                 ids = [token]
             raise ValueError("Generation exceeded its token limit.")

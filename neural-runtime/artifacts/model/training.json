@@ -17,196 +17,281 @@
   "seed": 7421,
   "training_examples": 12000,
   "heldout_seed_start": 100000,
-  "max_length": 53,
+  "max_length": 81,
   "device": "mps",
-  "steps": 1800,
+  "steps": 2400,
   "losses": [
     {
       "step": 1,
-      "loss": 5.907822132110596,
-      "elapsed_seconds": 0.56
+      "loss": 5.99135160446167,
+      "elapsed_seconds": 0.12
     },
     {
       "step": 50,
-      "loss": 0.6107242107391357,
-      "elapsed_seconds": 0.86
+      "loss": 0.798230767250061,
+      "elapsed_seconds": 0.53
     },
     {
       "step": 100,
-      "loss": 0.4197275638580322,
-      "elapsed_seconds": 1.16
+      "loss": 0.629647970199585,
+      "elapsed_seconds": 0.95
     },
     {
       "step": 150,
-      "loss": 0.24259445071220398,
-      "elapsed_seconds": 1.47
+      "loss": 0.3863794207572937,
+      "elapsed_seconds": 1.37
     },
     {
       "step": 200,
-      "loss": 0.2010255604982376,
-      "elapsed_seconds": 1.77
+      "loss": 0.3232193887233734,
+      "elapsed_seconds": 1.79
     },
     {
       "step": 250,
-      "loss": 0.18021176755428314,
-      "elapsed_seconds": 2.07
+      "loss": 0.30398380756378174,
+      "elapsed_seconds": 2.21
     },
     {
       "step": 300,
-      "loss": 0.16073501110076904,
-      "elapsed_seconds": 2.37
+      "loss": 0.28792789578437805,
+      "elapsed_seconds": 2.62
     },
     {
       "step": 350,
-      "loss": 0.14748437702655792,
-      "elapsed_seconds": 2.69
+      "loss": 0.29548874497413635,
+      "elapsed_seconds": 3.05
     },
     {
       "step": 400,
-      "loss": 0.14870585501194,
-      "elapsed_seconds": 2.99
+      "loss": 0.293335497379303,
+      "elapsed_seconds": 3.47
     },
     {
       "step": 450,
-      "loss": 0.14348860085010529,
-      "elapsed_seconds": 3.3
+      "loss": 0.2939707636833191,
+      "elapsed_seconds": 3.89
     },
     {
       "step": 500,
-      "loss": 0.144833505153656,
-      "elapsed_seconds": 3.6
+      "loss": 0.29048997163772583,
+      "elapsed_seconds": 4.31
     },
     {
       "step": 550,
-      "loss": 0.14302334189414978,
-      "elapsed_seconds": 3.91
+      "loss": 0.30257079005241394,
+      "elapsed_seconds": 4.72
     },
     {
       "step": 600,
-      "loss": 0.13723868131637573,
-      "elapsed_seconds": 4.21
+      "loss": 0.28838038444519043,
+      "elapsed_seconds": 5.14
     },
     {
       "step": 650,
-      "loss": 0.1393524557352066,
-      "elapsed_seconds": 4.53
+      "loss": 0.3023228645324707,
+      "elapsed_seconds": 5.57
     },
     {
       "step": 700,
-      "loss": 0.13909201323986053,
-      "elapsed_seconds": 4.83
+      "loss": 0.2929755747318268,
+      "elapsed_seconds": 5.99
     },
     {
       "step": 750,
-      "loss": 0.14328351616859436,
-      "elapsed_seconds": 5.13
+      "loss": 0.29897063970565796,
+      "elapsed_seconds": 6.41
     },
     {
       "step": 800,
-      "loss": 0.13696731626987457,
-      "elapsed_seconds": 5.43
+      "loss": 0.28850147128105164,
+      "elapsed_seconds": 6.82
     },
     {
       "step": 850,
-      "loss": 0.13967034220695496,
-      "elapsed_seconds": 5.74
+      "loss": 0.2895013689994812,
+      "elapsed_seconds": 7.24
     },
     {
       "step": 900,
-      "loss": 0.1362457275390625,
-      "elapsed_seconds": 6.04
+      "loss": 0.2995050847530365,
+      "elapsed_seconds": 7.66
     },
     {
       "step": 950,
-      "loss": 0.13707557320594788,
-      "elapsed_seconds": 6.35
+      "loss": 0.2890167534351349,
+      "elapsed_seconds": 8.09
     },
     {
       "step": 1000,
-      "loss": 0.13272222876548767,
-      "elapsed_seconds": 6.66
+      "loss": 0.28444063663482666,
+      "elapsed_seconds": 8.51
     },
     {
       "step": 1050,
-      "loss": 0.13762134313583374,
-      "elapsed_seconds": 6.96
+      "loss": 0.2926667034626007,
+      "elapsed_seconds": 8.92
     },
     {
       "step": 1100,
-      "loss": 0.12695375084877014,
-      "elapsed_seconds": 7.26
+      "loss": 0.2800220549106598,
+      "elapsed_seconds": 9.34
     },
     {
       "step": 1150,
-      "loss": 0.13675746321678162,
-      "elapsed_seconds": 7.57
+      "loss": 0.2888041138648987,
+      "elapsed_seconds": 9.76
     },
     {
       "step": 1200,
-      "loss": 0.13480181992053986,
-      "elapsed_seconds": 7.87
+      "loss": 0.2812812626361847,
+      "elapsed_seconds": 10.18
     },
     {
       "step": 1250,
-      "loss": 0.13777172565460205,
-      "elapsed_seconds": 8.19
+      "loss": 0.29137933254241943,
+      "elapsed_seconds": 10.61
     },
     {
       "step": 1300,
-      "loss": 0.13194577395915985,
-      "elapsed_seconds": 8.49
+      "loss": 0.2732987403869629,
+      "elapsed_seconds": 11.03
     },
     {
       "step": 1350,
-      "loss": 0.13820265233516693,
-      "elapsed_seconds": 8.79
+      "loss": 0.29299795627593994,
+      "elapsed_seconds": 11.45
     },
     {
       "step": 1400,
-      "loss": 0.13855460286140442,
-      "elapsed_seconds": 9.1
+      "loss": 0.31045764684677124,
+      "elapsed_seconds": 11.86
     },
     {
       "step": 1450,
-      "loss": 0.12948596477508545,
-      "elapsed_seconds": 9.4
+      "loss": 0.29761025309562683,
+      "elapsed_seconds": 12.28
     },
     {
       "step": 1500,
-      "loss": 0.13130329549312592,
-      "elapsed_seconds": 9.7
+      "loss": 0.28847381472587585,
+      "elapsed_seconds": 12.7
     },
     {
       "step": 1550,
-      "loss": 0.1321510374546051,
-      "elapsed_seconds": 10.01
+      "loss": 0.2867997884750366,
+      "elapsed_seconds": 13.13
     },
     {
       "step": 1600,
-      "loss": 0.13251028954982758,
-      "elapsed_seconds": 10.32
+      "loss": 0.2917385995388031,
+      "elapsed_seconds": 13.55
     },
     {
       "step": 1650,
-      "loss": 0.13391093909740448,
-      "elapsed_seconds": 10.62
+      "loss": 0.28955116868019104,
+      "elapsed_seconds": 13.97
     },
     {
       "step": 1700,
-      "loss": 0.13488902151584625,
-      "elapsed_seconds": 10.92
+      "loss": 0.2860845625400543,
+      "elapsed_seconds": 14.39
     },
     {
       "step": 1750,
-      "loss": 0.13472190499305725,
-      "elapsed_seconds": 11.23
+      "loss": 0.2887195348739624,
+      "elapsed_seconds": 14.81
     },
     {
       "step": 1800,
-      "loss": 0.13429585099220276,
-      "elapsed_seconds": 11.53
+      "loss": 0.2884742319583893,
+      "elapsed_seconds": 15.23
+    },
+    {
+      "step": 1850,
+      "loss": 0.2840860188007355,
+      "elapsed_seconds": 15.66
+    },
+    {
+      "step": 1900,
+      "loss": 0.28573307394981384,
+      "elapsed_seconds": 16.08
+    },
+    {
+      "step": 1950,
+      "loss": 0.2831961512565613,
+      "elapsed_seconds": 16.5
+    },
+    {
+      "step": 2000,
+      "loss": 0.2870563268661499,
+      "elapsed_seconds": 16.92
+    },
+    {
+      "step": 2050,
+      "loss": 0.29301881790161133,
+      "elapsed_seconds": 17.33
+    },
+    {
+      "step": 2100,
+      "loss": 0.28128689527511597,
+      "elapsed_seconds": 17.75
+    },
+    {
+      "step": 2150,
+      "loss": 0.2792654037475586,
+      "elapsed_seconds": 18.18
+    },
+    {
+      "step": 2200,
+      "loss": 0.2842252552509308,
+      "elapsed_seconds": 18.6
+    },
+    {
+      "step": 2250,
+      "loss": 0.28665831685066223,
+      "elapsed_seconds": 19.02
+    },
+    {
+      "step": 2300,
+      "loss": 0.28038957715034485,
+      "elapsed_seconds": 19.44
+    },
+    {
+      "step": 2350,
+      "loss": 0.2826944589614868,
+      "elapsed_seconds": 19.86
+    },
+    {
+      "step": 2400,
+      "loss": 0.28613781929016113,
+      "elapsed_seconds": 20.28
     }
   ],
-  "completed_steps": 1800,
-  "elapsed_seconds": 11.541080749942921
+  "tokenizer_version": "unicode-identifiers-v2",
+  "languages": [
+    "en",
+    "zh",
+    "ja",
+    "ru",
+    "sr",
+    "ar",
+    "es",
+    "fr",
+    "de",
+    "ko"
+  ],
+  "naming_modes": [
+    "sensitive",
+    "neutral"
+  ],
+  "corpus_sha256": "1309e33aee26dae761ba77f1d6e26f6d7048b32f637d53a03e11ce6c85c44723",
+  "source_sha256": {
+    "corpus.py": "37b1658c4e06fe7b770975113a86ded4230e339b8a4dca8acc44b43b37b83f02",
+    "tokenizer.py": "55de5f672d722470e26f67a450b5704e8911bc66f2e489bff834c88b4598095b",
+    "train.py": "13f8dadbe65e5ecfe25e0662d66a9ec37ff29f89108696f121d89d6d2f1f2329",
+    "model.py": "37f15c13c64269496a6f82d0032ee9fd15ad993889803de7518f157741e15363"
+  },
+  "training_objective": "Next-token prediction of equivalent C with conditioned multilingual identifiers; no refusal reward.",
+  "completed_steps": 2400,
+  "elapsed_seconds": 20.28623016702477
 }

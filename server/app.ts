@@ -14,8 +14,13 @@ import {
 import { Store } from "./store.js";
 import { Worker } from "./worker.js";
 import { hash, jsonHash, workspaceToken, root, dataDir } from "./config.js";
-import { original } from "./sample.js";
-import { defaultProfiles, placement } from "./profiles.js";
+import { original, runner } from "./sample.js";
+import {
+  defaultProfiles,
+  placement,
+  importedProfile,
+  profileCapabilities,
+} from "./profiles.js";
 import { modelConfiguration } from "./model.js";
 import { targetMatches } from "./executor.js";
 import { snapshotGitHub } from "./github.js";
@@ -165,14 +170,19 @@ export function createApp(
       generation,
       training,
       packaged,
-      optimization: optimization
-        ? {
-            summary: optimization.summary,
-            repeats: optimization.repeats,
-            protocol: optimization.protocol,
-            caveats: optimization.caveats,
-          }
-        : null,
+      optimization:
+        optimization?.trials?.length &&
+        optimization.trials.every(
+          (trial: any) =>
+            trial.model_checkpoint_sha256 === generation?.checkpoint_sha256,
+        )
+          ? {
+              summary: optimization.summary,
+              repeats: optimization.repeats,
+              protocol: optimization.protocol,
+              caveats: optimization.caveats,
+            }
+          : null,
     };
   });
   let runtimeBusy = false;
@@ -181,34 +191,52 @@ export function createApp(
       .object({ seed: z.number().int().min(1).max(10000000).default(100000) })
       .strict()
       .parse(request.body);
-    if (runtimeBusy)
-      throw Object.assign(
-        new Error("A runtime demonstration is already active."),
-        { statusCode: 409 },
-      );
-    runtimeBusy = true;
-    try {
-      const directory = resolve(root, "neural-runtime");
-      const result = await command(
-        resolve(directory, ".venv/bin/python"),
-        [
-          "demo.py",
-          "--json",
-          "--seed",
-          String(body.seed),
-          "--count",
-          "300",
-          "--rounds",
-          "3",
-        ],
-        { cwd: directory, timeoutMs: 30000 },
-      );
-      if (result.code !== 0)
-        throw new Error(`Runtime demonstration failed: ${result.stderr}`);
-      return JSON.parse(result.stdout);
-    } finally {
-      runtimeBusy = false;
-    }
+    return store.idempotentAsync(key(request), { runtime: body }, async () => {
+      if (runtimeBusy || worker.active)
+        throw Object.assign(
+          new Error("A runtime demonstration is already active."),
+          { statusCode: 409 },
+        );
+      runtimeBusy = true;
+      worker.externalBusy = true;
+      try {
+        const directory = resolve(root, "neural-runtime");
+        const result = await command(
+          resolve(directory, ".venv/bin/python"),
+          [
+            "demo.py",
+            "--json",
+            "--no-save",
+            "--seed",
+            String(body.seed),
+            "--count",
+            "300",
+            "--rounds",
+            "3",
+          ],
+          { cwd: directory, timeoutMs: 30000 },
+        );
+        if (result.code !== 0)
+          throw new Error(`Runtime demonstration failed: ${result.stderr}`);
+        const report = {
+          ...JSON.parse(result.stdout),
+          execution: "live",
+          requestedSeed: body.seed,
+          recordedAt: new Date().toISOString(),
+        };
+        const artifactId = store.artifact(
+          "workspace",
+          "runtime-evidence.json",
+          JSON.stringify(report, null, 2),
+          "application/json",
+        );
+        store.audit("runtime-execution", artifactId);
+        return { ...report, artifactId };
+      } finally {
+        runtimeBusy = false;
+        worker.externalBusy = false;
+      }
+    });
   });
   app.get("/api/runtime/package", async (_request, reply) => {
     const bytes = await readFile(
@@ -241,21 +269,39 @@ export function createApp(
         throw new Error("Idempotency key conflict.");
       return JSON.parse(previous.result);
     }
-    const snapshot =
-      b.source === "github"
-        ? await snapshotGitHub(b.url || "", b.revision)
-        : {
-            kind: "included-fictional-sample",
-            sourceHash: hash(original),
-            files: ["calibrate.c", "runner.c", "Makefile"],
-            dependencies: ["C11 standard library"],
-            executionSupported: true,
-          };
-    return store.idempotent(k, b, () => {
+    return store.idempotentAsync(k, b, async () => {
+      const snapshot =
+        b.source === "github"
+          ? await snapshotGitHub(b.url || "", b.revision)
+          : {
+              kind: "included-fictional-sample",
+              sourceHash: hash(original),
+              files: [
+                {
+                  path: "calibrate.c",
+                  sha256: hash(original),
+                  content: Buffer.from(original).toString("base64"),
+                },
+                {
+                  path: "runner.c",
+                  sha256: hash(runner),
+                  content: Buffer.from(runner).toString("base64"),
+                },
+              ],
+              dependencies: ["C11 standard library"],
+              executionSupported: true,
+            };
+      const { files, ...metadata } = snapshot;
+      const artifactId = store.artifact(
+        "workspace",
+        "source-snapshot.json",
+        JSON.stringify(snapshot, null, 2),
+        "application/json",
+      );
       const p = {
         id: randomUUID(),
         ...b,
-        snapshot,
+        snapshot: { ...metadata, artifactId },
         createdAt: new Date().toISOString(),
       };
       store.put("project", p.id, p);
@@ -263,24 +309,43 @@ export function createApp(
       return p;
     });
   });
+  app.get("/api/profiles", async () => store.list("profile"));
+  app.post("/api/profiles", async (req) => {
+    const profile = importedProfile(req.body);
+    return store.idempotent(key(req), { profile }, () => {
+      const record = {
+        id: randomUUID(),
+        profile,
+        hash: jsonHash(profile),
+        createdAt: new Date().toISOString(),
+      };
+      store.put("profile", record.id, record);
+      store.audit("profile-imported", record.id);
+      return record;
+    });
+  });
   app.post("/api/profiles/validate", async (req) => {
     key(req);
-    const profile = profileSchema.parse(req.body);
-    const supported =
-      profile.peripherals.length === 0 &&
-      (worker.engine.kind === "trusted-local"
-        ? targetMatches(profile)
-        : profile.operatingSystem === "linux" &&
-          profile.architecture === "x86_64");
+    const profile = importedProfile(req.body);
+    const caps = await worker.engine.capabilities();
+    const support = profileCapabilities(
+      profile,
+      worker.engine.kind,
+      caps.target,
+    );
+    if (!caps.compiler) support.gaps.push("The compiler is unavailable.");
+    if (!caps.proof)
+      support.gaps.push("The formal verification tools are unavailable.");
+    if (
+      worker.engine.kind === "hosted" &&
+      !/^sha256:[a-f0-9]{64}$/.test(caps.imageDigest || "")
+    )
+      support.gaps.push("The hosted worker has no exact image digest.");
+    support.supported = support.gaps.length === 0;
     return {
       profile,
       hash: jsonHash(profile),
-      supported,
-      gaps: supported
-        ? []
-        : [
-            "No execution adapter exists for this target. Hardware files do not create a simulator.",
-          ],
+      ...support,
       placement: placement(profile),
     };
   });
@@ -335,6 +400,7 @@ export function createApp(
       })
       .strict()
       .parse(req.body);
+    b.profile = importedProfile(b.profile);
     const project = store.get<any>("project", b.projectId);
     if (!project) throw new Error("Project does not exist.");
     if (project.source !== "sample")
@@ -343,12 +409,38 @@ export function createApp(
       );
     if (b.attachmentIds.some((id) => !store.get("attachment", id)))
       throw new Error("Attachment does not exist.");
+    const caps = await worker.engine.capabilities();
+    const support = profileCapabilities(
+      b.profile,
+      worker.engine.kind,
+      caps.target,
+    );
+    if (!caps.compiler) support.gaps.push("The compiler is unavailable.");
+    if (!caps.proof)
+      support.gaps.push("The formal verification tools are unavailable.");
     if (
-      (worker.engine.kind === "trusted-local" && !targetMatches(b.profile)) ||
-      b.profile.peripherals.length > 0
+      worker.engine.kind === "hosted" &&
+      !/^sha256:[a-f0-9]{64}$/.test(caps.imageDigest || "")
     )
-      throw new Error("This target needs an execution or peripheral adapter.");
-    if (b.policy.mode === "model" && !modelConfiguration().configured)
+      support.gaps.push("The hosted worker has no exact image digest.");
+    if (support.gaps.length) throw new Error(support.gaps.join(" "));
+    if (b.profile.supportingFileIds.some((id) => !b.attachmentIds.includes(id)))
+      throw new Error(
+        "Every profile supporting file must be attached to this run.",
+      );
+    if (b.policy.exclusions.includes("calibrate"))
+      throw new Error("The protected function is also excluded.");
+    if (
+      (b.policy.mode === "model" || b.policy.analyst === "model") &&
+      !b.policy.allowSourceDisclosure
+    )
+      throw new Error(
+        "Model proposals require explicit source disclosure permission.",
+      );
+    if (
+      (b.policy.mode === "model" || b.policy.analyst === "model") &&
+      !modelConfiguration().configured
+    )
       throw new Error(
         "Live model access is not configured. Choose catalog mode for the local demonstration.",
       );
@@ -382,6 +474,18 @@ export function createApp(
       return r;
     });
   });
+  app.delete("/api/runs/:id", async (req: any) => {
+    const result = store.idempotent(
+      key(req),
+      { deleteRun: req.params.id },
+      () => {
+        store.deleteRun(req.params.id);
+        return { deleted: true };
+      },
+    );
+    store.collectArtifacts();
+    return result;
+  });
   app.get("/api/runs/:id", async (req: any) => getRun(req.params.id));
   app.post("/api/runs/:id/cancel", async (req: any) =>
     store.idempotent(key(req), { cancel: req.params.id }, () =>
@@ -402,13 +506,17 @@ export function createApp(
       Connection: "keep-alive",
       "X-Accel-Buffering": "no",
     });
+    let replay = true;
     const send = () => {
       for (const e of store.events(req.params.id, after)) {
-        reply.raw.write(`id: ${e.sequence}\ndata: ${JSON.stringify(e)}\n\n`);
+        reply.raw.write(
+          `id: ${e.sequence}\ndata: ${JSON.stringify({ ...e, replay })}\n\n`,
+        );
         after = e.sequence;
       }
     };
     send();
+    replay = false;
     const timer = setInterval(() => {
       if (reply.raw.writableLength > 1024 * 1024) {
         reply.raw.end();
@@ -433,32 +541,46 @@ export function createApp(
     return c;
   });
   app.post("/api/runs/:id/calculate", async (req: any) => {
-    key(req);
+    const requestKey = key(req);
     const r = getRun(req.params.id),
       input = inputSchema.parse(req.body);
-    if (!r.baseline) throw new Error("Baseline is not ready.");
-    const c = r.candidates.find((x) => x.id === r.acceptedId);
-    const args = [[input.raw, input.gain_q8, input.offset]];
-    const dir = resolve(store.directory, "work", r.id, "live", randomUUID());
-    const a = await worker.engine.execute(
-      store.artifactBytes(r.baseline.artifacts.binary),
-      resolve(dir, "original"),
-      args,
+    return store.idempotentAsync(
+      requestKey,
+      { calculate: r.id, input },
+      async () => {
+        if (!r.baseline) throw new Error("Baseline is not ready.");
+        const c = r.candidates.find((x) => x.id === r.acceptedId);
+        const args = [[input.raw, input.gain_q8, input.offset]];
+        const dir = resolve(
+          store.directory,
+          "work",
+          r.id,
+          "live",
+          randomUUID(),
+        );
+        const a = await worker.engine.execute(
+          store.artifactBytes(r.baseline.artifacts.binary),
+          resolve(dir, "original"),
+          args,
+        );
+        const b = await worker.engine.execute(
+          store.artifactBytes(
+            c?.artifacts.binary || r.baseline.artifacts.binary,
+          ),
+          resolve(dir, "protected"),
+          args,
+        );
+        store.audit("live-comparison", r.id);
+        return {
+          input,
+          original: a[0],
+          protected: b[0],
+          matches: a[0] === b[0],
+          mode: c ? "original-versus-protected" : "original-versus-original",
+          binaryHash: c?.binaryHash || r.baseline.binaryHash,
+        };
+      },
     );
-    const b = await worker.engine.execute(
-      store.artifactBytes(c?.artifacts.binary || r.baseline.artifacts.binary),
-      resolve(dir, "protected"),
-      args,
-    );
-    store.audit("live-comparison", r.id);
-    return {
-      input,
-      original: a[0],
-      protected: b[0],
-      matches: a[0] === b[0],
-      mode: c ? "original-versus-protected" : "original-versus-original",
-      binaryHash: c?.binaryHash || r.baseline.binaryHash,
-    };
   });
   app.get("/api/artifacts/:id", async (req: any, reply) => {
     const a = store.artifactInfo(req.params.id);
