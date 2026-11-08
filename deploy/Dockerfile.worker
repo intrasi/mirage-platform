@@ -1,0 +1,18 @@
+# This image contains only the trusted sample worker. It is not a general repository sandbox.
+# Run inside a private ephemeral VM with no production credentials.
+FROM node:24.18.0-bookworm-slim
+RUN apt-get update && apt-get install -y --no-install-recommends clang-14 z3 binutils curl ca-certificates make && rm -rf /var/lib/apt/lists/*
+RUN curl --fail --location https://github.com/diffblue/cbmc/releases/download/cbmc-6.11.0/ubuntu-22.04-cbmc-6.11.0-Linux.deb -o /tmp/cbmc.deb \
+ && echo 'de9fa1cc4cf51c493e708a1c7608b192ad4956717b684d9c4501e22fd22d88a0  /tmp/cbmc.deb' | sha256sum -c - \
+ && apt-get update && apt-get install -y --no-install-recommends /tmp/cbmc.deb && rm /tmp/cbmc.deb && rm -rf /var/lib/apt/lists/*
+WORKDIR /app
+COPY package.json package-lock.json ./
+RUN npm ci
+COPY tsconfig.server.json ./
+COPY server ./server
+COPY shared ./shared
+RUN npx tsc -p tsconfig.server.json && mkdir /app/.data && chown node:node /app/.data
+USER node
+ENV CBMC_PATH=/usr/bin/cbmc CLANG_PATH=/usr/bin/clang-14 MIRAGE_DATA=/app/.data
+EXPOSE 4190
+CMD ["node","dist/server/remote-worker.js"]

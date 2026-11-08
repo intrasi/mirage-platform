@@ -1,0 +1,133 @@
+# Mirage platform
+
+Mirage has a working local software protection demonstration.
+The complete product release still needs a hosted Linux worker and a genuine model run.
+
+The interface accepts a sample project, target profile, resource limits, and protection settings.
+The worker transforms a calibration function, proves output equivalence, and measures the compiled executable.
+It delivers source changes, an executable package, and private evidence.
+
+This project is separate from the earlier image prototype.
+
+## Start
+
+Use Node.js 24 or later, Clang, and the standard command-line build tools.
+
+```sh
+git clone git@github.com:mrsladoje/mirage-platform.git
+cd mirage-platform
+npm ci
+npm run setup:proof
+npm run dev
+```
+
+The interface normally opens at `http://127.0.0.1:4183`.
+The launcher selects another free port when necessary.
+Run `npm run token` in another terminal to read the local workspace access code.
+Enter that code in the interface.
+
+The proof installer supports macOS ARM64.
+It checks pinned CBMC and Z3 downloads before extraction.
+For another host, set `CBMC_PATH` and `Z3_BIN_DIR` to installed tools.
+
+Choose the included sample and the native development profile.
+Select catalog mode, then start the protection run.
+The result page includes proof logs, executable measurements, live input comparison, and downloads.
+
+## Commands
+
+| Command | Purpose |
+|---|---|
+| `npm run dev` | Start the interface and service. |
+| `npm run build` | Compile the service and build the frontend. |
+| `npm start` | Serve the production build on the loopback address. |
+| `npm test` | Run real proof, compiler, API, persistence, and export checks. |
+| `npm run verify:sample` | Execute the full sample workflow in separate verification storage. |
+| `npm run sample:repo` | Generate an independent local sample Git repository. |
+| `npm run typecheck` | Check frontend and service types. |
+| `npm run test:browser` | Run the authored Playwright browser workflows. |
+| `npm run format:check` | Check source formatting. |
+
+Browser tests require Chromium. Install it with `npx playwright install chromium` when needed.
+The browser tests were authored but were not executed in this session.
+The available computer-control tool could not access a browser.
+
+## Architecture
+
+```text
+React interface
+    │ authenticated requests and event stream
+Fastify service ── SQLite records and private artifact store
+    │ persistent queue and worker lease
+Bounded search controller
+    ├── catalog proposals or configured model provider
+    ├── typed transformation tools
+    ├── independent CBMC and Z3 proof
+    ├── compiler, executable comparison, and resource measurements
+    ├── reconstruction analysis with frozen hypotheses
+    └── source archive, patch, executable, manifest, and evidence
+```
+
+The model selects transformations through a restricted schema.
+It cannot change the frozen contract or acceptance limits.
+Failed, incomplete, and timed-out checks cannot produce accepted candidates.
+
+The service stores metadata in SQLite.
+Artifacts use SHA-256 content identities and authenticated download identifiers.
+Worker leases prevent concurrent job execution in the same workspace.
+Interrupted jobs retain evidence and resume from recorded checkpoints.
+
+The current local executor runs only the trusted calibration sample.
+The hosted worker adapter uses the same proof and build interfaces.
+The supplied hosted worker also restricts execution to the trusted catalog.
+General repository execution requires a separate reviewed isolation and build adapter.
+
+## Scope and evidence
+
+The reference function accepts raw readings from 0 to 4095.
+The Q8 gain ranges from 1 to 1024. The offset ranges from −1024 to 1024.
+CBMC checks exact output equivalence across this complete declared domain.
+The harness also checks arithmetic safety and applicable memory properties.
+
+Source proof does not prove compiler correctness.
+Each accepted binary therefore passes 10,000 generated inputs and 240 boundary cases.
+The worker also measures executable size, peak memory, and repeated calculation batches.
+It rejects transformations that disappear from the compiled function.
+
+The current reconstruction analyst queries each real executable.
+It searches a declared arithmetic family, freezes its answer, and then receives fresh judge cases.
+All three sample builds were recovered by this analyst.
+This result establishes no protection benefit against this analyst.
+General and model-based reverse engineering resistance remain unmeasured.
+
+The generated executable is an unsigned demonstration package for its declared operating system and processor.
+It is not firmware for a toothbrush or another physical board.
+Uploaded profiles and hardware files are recorded for review.
+They do not automatically create a hardware simulator.
+
+## External integrations
+
+The `.env.example` file lists configuration names.
+Export values in the service environment; the application does not load that file automatically.
+
+Model mode requires an approved HTTPS chat-completions endpoint, model identifier, credential, and token prices.
+The service reserves the maximum estimated request cost before sending a proposal request.
+Failed requests retain that reservation when actual usage is unavailable.
+Provider contract tests use explicit fixtures. They are not live model evidence.
+
+See [the hosted worker instructions](docs/HOSTED_WORKER.md) for the private worker contract and image.
+No hosted deployment or paid model call was made during implementation.
+No model is included in the shipped executable.
+
+The default retention period is seven days.
+Retention removes expired run artifacts and unused attachments at service startup.
+Downloaded copies remain under the customer's control.
+
+## Project records
+
+- [Product requirements](docs/PRD.md)
+- [Implementation decisions](docs/IMPLEMENTATION_DECISIONS.md)
+- [Implementation status and remaining checks](docs/IMPLEMENTATION_STATUS.md)
+- [Hosted worker setup](docs/HOSTED_WORKER.md)
+
+The editable product requirements remain at https://chatgpt.com/space/page_8ed29204773c8191ab78b4ef7444cac1.

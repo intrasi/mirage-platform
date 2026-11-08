@@ -1,0 +1,41 @@
+{
+  "name": "mirage-platform",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=24.0.0"
+  },
+  "scripts": {
+    "dev": "tsx scripts/dev.ts",
+    "start": "node dist/server/index.js",
+    "build": "tsc -p tsconfig.server.json && vite build",
+    "typecheck": "tsc --noEmit && tsc -p tsconfig.server.json --noEmit",
+    "test": "tsx --test test/*.test.ts",
+    "verify:sample": "MIRAGE_DATA=.data/verification tsx scripts/verify.ts",
+    "test:browser": "npm run build && playwright test",
+    "setup:proof": "tsx scripts/setup-proof.ts",
+    "token": "tsx scripts/token.ts",
+    "format": "prettier --write server shared web scripts test browser *.ts *.json",
+    "format:check": "prettier --check server shared web scripts test browser *.ts *.json",
+    "sample:repo": "tsx scripts/sample-repo.ts",
+    "test:http": "tsx scripts/smoke.ts"
+  },
+  "dependencies": {
+    "fastify": "5.12.8",
+    "react": "19.2.0",
+    "react-dom": "19.2.0",
+    "zod": "4.6.7"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.65.0",
+    "@types/node": "24.10.0",
+    "@types/react": "19.2.2",
+    "@types/react-dom": "19.2.2",
+    "@vitejs/plugin-react": "5.1.0",
+    "prettier": "3.9.10",
+    "tsx": "4.20.6",
+    "typescript": "5.9.3",
+    "vite": "7.3.7"
+  }
+}

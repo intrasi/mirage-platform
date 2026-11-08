@@ -1,0 +1,1 @@
+{"version":1,"product":"Aster sensor calibration","language":"C11","source":"calibrate.c","function":"calibrate","build":"make","contract":{"raw":[0,4095],"gain_q8":[1,1024],"offset":[-1024,1024]},"dependencies":["C standard library","POSIX timing and resource usage"]}
