@@ -19,6 +19,7 @@ import { defaultProfiles, placement } from "./profiles.js";
 import { modelConfiguration } from "./model.js";
 import { targetMatches } from "./executor.js";
 import { snapshotGitHub } from "./github.js";
+import { command } from "./process.js";
 function equal(a: string, b: string) {
   const x = Buffer.from(a),
     y = Buffer.from(b);
@@ -142,6 +143,85 @@ export function createApp(
     };
   });
   app.get("/api/projects", async () => store.list("project"));
+  app.get("/api/runtime", async () => {
+    const directory = resolve(root, "neural-runtime", "artifacts");
+    const read = async (name: string) => {
+      try {
+        return JSON.parse(await readFile(resolve(directory, name), "utf8"));
+      } catch {
+        return null;
+      }
+    };
+    const [demo, generation, training, packaged, optimization] =
+      await Promise.all([
+        read("demo-report.json"),
+        read("generation-report.json"),
+        read("model/training.json"),
+        read("package-report.json"),
+        read("optimization/report.json"),
+      ]);
+    return {
+      demo,
+      generation,
+      training,
+      packaged,
+      optimization: optimization
+        ? {
+            summary: optimization.summary,
+            repeats: optimization.repeats,
+            protocol: optimization.protocol,
+            caveats: optimization.caveats,
+          }
+        : null,
+    };
+  });
+  let runtimeBusy = false;
+  app.post("/api/runtime/demo", async (request) => {
+    const body = z
+      .object({ seed: z.number().int().min(1).max(10000000).default(100000) })
+      .strict()
+      .parse(request.body);
+    if (runtimeBusy)
+      throw Object.assign(
+        new Error("A runtime demonstration is already active."),
+        { statusCode: 409 },
+      );
+    runtimeBusy = true;
+    try {
+      const directory = resolve(root, "neural-runtime");
+      const result = await command(
+        resolve(directory, ".venv/bin/python"),
+        [
+          "demo.py",
+          "--json",
+          "--seed",
+          String(body.seed),
+          "--count",
+          "300",
+          "--rounds",
+          "3",
+        ],
+        { cwd: directory, timeoutMs: 30000 },
+      );
+      if (result.code !== 0)
+        throw new Error(`Runtime demonstration failed: ${result.stderr}`);
+      return JSON.parse(result.stdout);
+    } finally {
+      runtimeBusy = false;
+    }
+  });
+  app.get("/api/runtime/package", async (_request, reply) => {
+    const bytes = await readFile(
+      resolve(root, "neural-runtime/artifacts/mirage-neural-runtime.tar.gz"),
+    );
+    return reply
+      .header(
+        "Content-Disposition",
+        'attachment; filename="mirage-neural-runtime.tar.gz"',
+      )
+      .type("application/gzip")
+      .send(bytes);
+  });
   app.post("/api/projects", async (req) => {
     const b = z
       .object({

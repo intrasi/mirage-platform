@@ -1,5 +1,32 @@
 # Implementation decisions
 
+## Current core architecture
+
+The runtime transformer is required by the corrected product scope.
+The original build-time-only choice did not satisfy that requirement.
+
+The implementation now uses a 764,544-parameter transformer with one restricted C language.
+It prunes the MIT-licensed Dusty checkpoint and post-trains every retained parameter.
+The generator produces function tokens directly.
+It has no procedural fallback when generation fails.
+
+The virtual machine compiles and installs proved functions only in inactive regions.
+Model-derived decoding material expires after 256 application calls.
+Exact representation changes alter model state while preserving generation logits.
+The packaged model is split across admission, scheduler, and dispatch shards.
+
+The optimized harness uses packed binary instructions, a native interpreter, and native float32 transformer inference.
+The Python scheduler retains generation, proof, replacement, and renewal controls.
+Native execution authenticates each activated region and clears its temporary decoded instructions after execution.
+The 256-call decoding lease remains unchanged.
+Fresh model inference authenticates existing regions before renewal.
+The package excludes PyTorch and NumPy.
+Detailed tracing uses the Python reference interpreter.
+Three isolated comparison trials retain raw latency samples and matching input and output identities.
+Physical edge integration remains necessary before claiming edge readiness.
+
+The older decisions below describe the supporting native build workflow.
+
 ## 1. Preserve the earlier prototype
 - Question: Where does the platform belong?
 - Choice: Use a separate `mirage-platform` directory.

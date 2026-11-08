@@ -1,0 +1,212 @@
+{
+  "base": "mkhordoo/dusty-8m-base",
+  "revision": "193c3f0845038d2d801c00885c8bcec33e383e18",
+  "base_sha256": "c191fb3bfbde69c01a05b65d84f4b896eff3b2a11be67f5fe8ee566dfacceeed",
+  "base_parameters": 7868672,
+  "method": "Structured pruning of layers, full attention heads, width, and vocabulary; full-parameter C post-training",
+  "parameters": 764544,
+  "config": {
+    "num_layers": 4,
+    "vocab_size": 166,
+    "max_seq_len": 160,
+    "embed_dim": 128,
+    "num_heads": 4,
+    "num_kv_heads": 2,
+    "hidden_dim": 512
+  },
+  "seed": 7421,
+  "training_examples": 12000,
+  "heldout_seed_start": 100000,
+  "max_length": 53,
+  "device": "mps",
+  "steps": 1800,
+  "losses": [
+    {
+      "step": 1,
+      "loss": 5.907822132110596,
+      "elapsed_seconds": 0.56
+    },
+    {
+      "step": 50,
+      "loss": 0.6107242107391357,
+      "elapsed_seconds": 0.86
+    },
+    {
+      "step": 100,
+      "loss": 0.4197275638580322,
+      "elapsed_seconds": 1.16
+    },
+    {
+      "step": 150,
+      "loss": 0.24259445071220398,
+      "elapsed_seconds": 1.47
+    },
+    {
+      "step": 200,
+      "loss": 0.2010255604982376,
+      "elapsed_seconds": 1.77
+    },
+    {
+      "step": 250,
+      "loss": 0.18021176755428314,
+      "elapsed_seconds": 2.07
+    },
+    {
+      "step": 300,
+      "loss": 0.16073501110076904,
+      "elapsed_seconds": 2.37
+    },
+    {
+      "step": 350,
+      "loss": 0.14748437702655792,
+      "elapsed_seconds": 2.69
+    },
+    {
+      "step": 400,
+      "loss": 0.14870585501194,
+      "elapsed_seconds": 2.99
+    },
+    {
+      "step": 450,
+      "loss": 0.14348860085010529,
+      "elapsed_seconds": 3.3
+    },
+    {
+      "step": 500,
+      "loss": 0.144833505153656,
+      "elapsed_seconds": 3.6
+    },
+    {
+      "step": 550,
+      "loss": 0.14302334189414978,
+      "elapsed_seconds": 3.91
+    },
+    {
+      "step": 600,
+      "loss": 0.13723868131637573,
+      "elapsed_seconds": 4.21
+    },
+    {
+      "step": 650,
+      "loss": 0.1393524557352066,
+      "elapsed_seconds": 4.53
+    },
+    {
+      "step": 700,
+      "loss": 0.13909201323986053,
+      "elapsed_seconds": 4.83
+    },
+    {
+      "step": 750,
+      "loss": 0.14328351616859436,
+      "elapsed_seconds": 5.13
+    },
+    {
+      "step": 800,
+      "loss": 0.13696731626987457,
+      "elapsed_seconds": 5.43
+    },
+    {
+      "step": 850,
+      "loss": 0.13967034220695496,
+      "elapsed_seconds": 5.74
+    },
+    {
+      "step": 900,
+      "loss": 0.1362457275390625,
+      "elapsed_seconds": 6.04
+    },
+    {
+      "step": 950,
+      "loss": 0.13707557320594788,
+      "elapsed_seconds": 6.35
+    },
+    {
+      "step": 1000,
+      "loss": 0.13272222876548767,
+      "elapsed_seconds": 6.66
+    },
+    {
+      "step": 1050,
+      "loss": 0.13762134313583374,
+      "elapsed_seconds": 6.96
+    },
+    {
+      "step": 1100,
+      "loss": 0.12695375084877014,
+      "elapsed_seconds": 7.26
+    },
+    {
+      "step": 1150,
+      "loss": 0.13675746321678162,
+      "elapsed_seconds": 7.57
+    },
+    {
+      "step": 1200,
+      "loss": 0.13480181992053986,
+      "elapsed_seconds": 7.87
+    },
+    {
+      "step": 1250,
+      "loss": 0.13777172565460205,
+      "elapsed_seconds": 8.19
+    },
+    {
+      "step": 1300,
+      "loss": 0.13194577395915985,
+      "elapsed_seconds": 8.49
+    },
+    {
+      "step": 1350,
+      "loss": 0.13820265233516693,
+      "elapsed_seconds": 8.79
+    },
+    {
+      "step": 1400,
+      "loss": 0.13855460286140442,
+      "elapsed_seconds": 9.1
+    },
+    {
+      "step": 1450,
+      "loss": 0.12948596477508545,
+      "elapsed_seconds": 9.4
+    },
+    {
+      "step": 1500,
+      "loss": 0.13130329549312592,
+      "elapsed_seconds": 9.7
+    },
+    {
+      "step": 1550,
+      "loss": 0.1321510374546051,
+      "elapsed_seconds": 10.01
+    },
+    {
+      "step": 1600,
+      "loss": 0.13251028954982758,
+      "elapsed_seconds": 10.32
+    },
+    {
+      "step": 1650,
+      "loss": 0.13391093909740448,
+      "elapsed_seconds": 10.62
+    },
+    {
+      "step": 1700,
+      "loss": 0.13488902151584625,
+      "elapsed_seconds": 10.92
+    },
+    {
+      "step": 1750,
+      "loss": 0.13472190499305725,
+      "elapsed_seconds": 11.23
+    },
+    {
+      "step": 1800,
+      "loss": 0.13429585099220276,
+      "elapsed_seconds": 11.53
+    }
+  ],
+  "completed_steps": 1800,
+  "elapsed_seconds": 11.541080749942921
+}

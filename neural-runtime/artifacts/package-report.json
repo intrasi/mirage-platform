@@ -1,0 +1,14 @@
+{
+  "path": "artifacts/mirage-neural-runtime.tar.gz",
+  "bytes": 2883636,
+  "sha256": "1953c7dc90d8c920437490253aafb9eb4a81b281939b73164de7ccc84c8b7a80",
+  "standalone_matching_calls": 600,
+  "native_verification": {
+    "epoch": 4,
+    "replacements": 1,
+    "torch_imported": false,
+    "numpy_imported": false
+  },
+  "target": "macOS-26.3.1-arm64-arm-64bit",
+  "python_abi": "cpython-312-darwin"
+}

@@ -1,0 +1,9 @@
+{
+  "model_checkpoint_sha256": "413cfaceac6adcfb59bd8a96d8a55e6045a9d3867c516ed34a2f723e507bb2fb",
+  "token_positions": 1260,
+  "maximum_logit_absolute_error": 9.834766387939453e-06,
+  "maximum_hidden_absolute_error": 5.9604644775390625e-06,
+  "shared_sampler_exact_generations": 90,
+  "shared_sampler": "python-random-top8-v1",
+  "note": "Float32 precision is retained. Model-derived keys are backend-specific; packages must be rebuilt when switching inference backend."
+}

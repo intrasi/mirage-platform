@@ -1,0 +1,523 @@
+{
+  "parameters": 764544,
+  "model_sha256": "413cfaceac6adcfb59bd8a96d8a55e6045a9d3867c516ed34a2f723e507bb2fb",
+  "inference_backend": "native-float32",
+  "sampling": "python-random-top8-v1",
+  "language": "restricted C with uint32_t arithmetic",
+  "initial_code": [
+    {
+      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t right = x ^ 119u ; uint32_t mask = right ^ 119u ; return mask + y ; }",
+      "proof": {
+        "state": "proved",
+        "tool": "Z3",
+        "version": "5.3.3",
+        "domain": "all pairs of uint32_t inputs",
+        "operation": "add"
+      },
+      "seed": 100123,
+      "prompt": [
+        "<bos>",
+        "add",
+        "0",
+        "119u",
+        "<sep>"
+      ],
+      "attempts": 1
+    },
+    {
+      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t state = x * y ; uint32_t lane = state + 78u ; uint32_t value = lane - 78u ; return value ; }",
+      "proof": {
+        "state": "proved",
+        "tool": "Z3",
+        "version": "5.3.3",
+        "domain": "all pairs of uint32_t inputs",
+        "operation": "mul"
+      },
+      "seed": 100124,
+      "prompt": [
+        "<bos>",
+        "mul",
+        "3",
+        "78u",
+        "<sep>"
+      ],
+      "attempts": 1
+    },
+    {
+      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t left = x + 9u ; uint32_t mix = left - 9u ; return y ^ mix ; }",
+      "proof": {
+        "state": "proved",
+        "tool": "Z3",
+        "version": "5.3.3",
+        "domain": "all pairs of uint32_t inputs",
+        "operation": "xor"
+      },
+      "seed": 100125,
+      "prompt": [
+        "<bos>",
+        "xor",
+        "1",
+        "9u",
+        "<sep>"
+      ],
+      "attempts": 1
+    }
+  ],
+  "replacement_code": [
+    {
+      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t right = x + 31u ; uint32_t mask = right - 31u ; return y + mask ; }",
+      "proof": {
+        "state": "proved",
+        "tool": "Z3",
+        "version": "5.3.3",
+        "domain": "all pairs of uint32_t inputs",
+        "operation": "add"
+      },
+      "seed": 150123,
+      "prompt": [
+        "<bos>",
+        "add",
+        "1",
+        "31u",
+        "<sep>"
+      ],
+      "attempts": 1
+    },
+    {
+      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t mask = x + 110u ; uint32_t word = mask - 110u ; return y * word ; }",
+      "proof": {
+        "state": "proved",
+        "tool": "Z3",
+        "version": "5.3.3",
+        "domain": "all pairs of uint32_t inputs",
+        "operation": "mul"
+      },
+      "seed": 150124,
+      "prompt": [
+        "<bos>",
+        "mul",
+        "1",
+        "110u",
+        "<sep>"
+      ],
+      "attempts": 1
+    },
+    {
+      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t state = ( x | y ) - ( x & y ) ; uint32_t mask = state + 110u ; uint32_t right = mask - 110u ; return right ; }",
+      "proof": {
+        "state": "proved",
+        "tool": "Z3",
+        "version": "5.3.3",
+        "domain": "all pairs of uint32_t inputs",
+        "operation": "xor"
+      },
+      "seed": 150125,
+      "prompt": [
+        "<bos>",
+        "xor",
+        "3",
+        "110u",
+        "<sep>"
+      ],
+      "attempts": 1
+    }
+  ],
+  "snapshots": [
+    {
+      "epoch": 0,
+      "replacements": 0,
+      "maximum_active": 0,
+      "backend": "native",
+      "instrumented": false,
+      "parameters": 764544,
+      "model_calls": 102,
+      "generation_ms": 7.538915961049497,
+      "decode_model_ms": 2.801581867970526,
+      "regions": [
+        {
+          "id": 0,
+          "version": 0,
+          "active": 0,
+          "bytes": 68,
+          "fingerprint": "75700046818309c81ee345399dca928011adb559becfb20366ccf33bbd55229c"
+        },
+        {
+          "id": 1,
+          "version": 0,
+          "active": 0,
+          "bytes": 78,
+          "fingerprint": "84f3e7f435a46c4ad63134bad131558ded1c1c441fd106aa01677858abe25907"
+        },
+        {
+          "id": 2,
+          "version": 0,
+          "active": 0,
+          "bytes": 68,
+          "fingerprint": "e82c52f7a124281fb11220e714e10543e30ebad27cb6e88fc6d7f46031704f1e"
+        },
+        {
+          "id": 3,
+          "version": 0,
+          "active": 0,
+          "bytes": 93,
+          "fingerprint": "dbca80927fb5bd038d65252632e1c79c5679fe5d9d98a2ad298e39ca70de6d30"
+        }
+      ]
+    },
+    {
+      "epoch": 2,
+      "replacements": 2,
+      "maximum_active": 2,
+      "backend": "native",
+      "instrumented": false,
+      "parameters": 764544,
+      "model_calls": 182,
+      "generation_ms": 13.398666866123676,
+      "decode_model_ms": 14.866873971186578,
+      "regions": [
+        {
+          "id": 0,
+          "version": 3,
+          "active": 0,
+          "bytes": 68,
+          "fingerprint": "086be7e34e13b8eb9ad6c37b1d7af27e709037219fa13e9f1b3beea83f3bc9ec"
+        },
+        {
+          "id": 1,
+          "version": 3,
+          "active": 0,
+          "bytes": 68,
+          "fingerprint": "f2b269fe54887c5501c21ebe43942b45e36136715e3ca5d3bfd79411eaafc76d"
+        },
+        {
+          "id": 2,
+          "version": 2,
+          "active": 0,
+          "bytes": 68,
+          "fingerprint": "348c21744a900043c8c74d4b9e7f3a0a0e6ba36052437dd6ab0dabed8afe77b4"
+        },
+        {
+          "id": 3,
+          "version": 2,
+          "active": 0,
+          "bytes": 93,
+          "fingerprint": "4ae740e63f719871b39f1cefb2268174e8472bcfa0608c4e9f5d749a8dc7dc12"
+        }
+      ]
+    },
+    {
+      "epoch": 4,
+      "replacements": 4,
+      "maximum_active": 2,
+      "backend": "native",
+      "instrumented": false,
+      "parameters": 764544,
+      "model_calls": 258,
+      "generation_ms": 18.070375896058977,
+      "decode_model_ms": 24.14916700217873,
+      "regions": [
+        {
+          "id": 0,
+          "version": 6,
+          "active": 0,
+          "bytes": 68,
+          "fingerprint": "c42f31f4268c62610a677d4386248321aa86c14dff23a94c9f609ac09ce55602"
+        },
+        {
+          "id": 1,
+          "version": 6,
+          "active": 0,
+          "bytes": 68,
+          "fingerprint": "08c017b268ceaf8890301b5e343cbce0d70de02c56715af98f5c2e33eee086c4"
+        },
+        {
+          "id": 2,
+          "version": 4,
+          "active": 0,
+          "bytes": 68,
+          "fingerprint": "dbfab916142dd107307d721b61bbbb804354c8deb431e9fd07e5c17e63fed758"
+        },
+        {
+          "id": 3,
+          "version": 4,
+          "active": 0,
+          "bytes": 93,
+          "fingerprint": "96b96bc01e9db329144b9342b1c0f309c0fa7e366c66b179d69912d82173f894"
+        }
+      ]
+    },
+    {
+      "epoch": 6,
+      "replacements": 6,
+      "maximum_active": 2,
+      "backend": "native",
+      "instrumented": false,
+      "parameters": 764544,
+      "model_calls": 347,
+      "generation_ms": 23.743250872939825,
+      "decode_model_ms": 33.54279138147831,
+      "regions": [
+        {
+          "id": 0,
+          "version": 8,
+          "active": 0,
+          "bytes": 68,
+          "fingerprint": "a91ae5c181c81f22890435ab08b0be1ad6e735f24013eb8cd6d29983fec3237f"
+        },
+        {
+          "id": 1,
+          "version": 8,
+          "active": 0,
+          "bytes": 68,
+          "fingerprint": "d79559f546bf8435ddee8e2c5b1cd924f52b3a416eeec9f09b924d371dec023a"
+        },
+        {
+          "id": 2,
+          "version": 8,
+          "active": 0,
+          "bytes": 98,
+          "fingerprint": "c2016db4cb45f4639d10fa8390ca71958064bf2d9c7faa968c4a31442f16cb4e"
+        },
+        {
+          "id": 3,
+          "version": 6,
+          "active": 0,
+          "bytes": 93,
+          "fingerprint": "947c6ce54976669a01a87a6d486e5ee070233b3434f3af7725949a5c9e21de6d"
+        }
+      ]
+    }
+  ],
+  "attacks": {
+    "removed": {
+      "blocked": true,
+      "reason": "The runtime transformer is missing."
+    },
+    "zero": {
+      "blocked": true,
+      "reason": "Model output cannot renew this bytecode generation."
+    },
+    "replay": {
+      "blocked": true,
+      "reason": "Model output cannot renew this bytecode generation."
+    },
+    "frozen_previous_model": {
+      "blocked": true,
+      "reason": "Model output cannot renew this bytecode generation."
+    }
+  },
+  "matching_calls": 1260,
+  "background_checks": 48,
+  "post_rotation_checks": 120,
+  "median_call_ms": 0.006709,
+  "p95_call_ms": 0.009125,
+  "unprotected_vm_median_ms": 0.005167,
+  "plain_python_median_ms": 0.000208,
+  "lifecycle_slowdown": 1.2984323592026321,
+  "elapsed_ms": 81.96358301211149,
+  "process_peak_bytes": 79806464,
+  "checkpoint_bytes": 3067408,
+  "generation_rejections": [],
+  "final": {
+    "epoch": 8,
+    "replacements": 6,
+    "maximum_active": 2,
+    "backend": "native",
+    "instrumented": false,
+    "parameters": 764544,
+    "model_calls": 368,
+    "generation_ms": 23.743250872939825,
+    "decode_model_ms": 46.2084177415818,
+    "regions": [
+      {
+        "id": 0,
+        "version": 10,
+        "active": 0,
+        "bytes": 68,
+        "fingerprint": "3e351aadc7b95e65069ba8263ddcb400d457a6e0e4d4a9796e9fcb90c4920efc"
+      },
+      {
+        "id": 1,
+        "version": 10,
+        "active": 0,
+        "bytes": 68,
+        "fingerprint": "963981918448733a2696fc9e56b8e2f34b964bbca45bef8db42529ef8e403980"
+      },
+      {
+        "id": 2,
+        "version": 10,
+        "active": 0,
+        "bytes": 98,
+        "fingerprint": "78ca67c32657ef15cd372db5a0991419fbd1fe987a8cdc6c96c9ea6272bbeda0"
+      },
+      {
+        "id": 3,
+        "version": 8,
+        "active": 0,
+        "bytes": 93,
+        "fingerprint": "c85d7bb512c518d1ef1b734bf37ec689373f1d7f329ee380a6907c7cbd0a006d"
+      }
+    ]
+  },
+  "events": [
+    {
+      "action": "evolve",
+      "region": null,
+      "epoch": 1,
+      "active": {},
+      "changed_parameters": "final normalization and matching output projection column"
+    },
+    {
+      "action": "replace",
+      "region": 1,
+      "epoch": 1,
+      "active": {},
+      "version": 2,
+      "fingerprint": "aa72cd80d81d154c58f2e6e1cb257f26c8f536e3b158b0de7e4fa03ce6149825",
+      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t mask = x + 1u ; uint32_t lane = mask - 1u ; return y * lane ; }",
+      "proof": {
+        "state": "proved",
+        "tool": "Z3",
+        "version": "5.3.3",
+        "domain": "all pairs of uint32_t inputs",
+        "operation": "mul"
+      }
+    },
+    {
+      "action": "replace",
+      "region": 0,
+      "epoch": 1,
+      "active": {},
+      "version": 2,
+      "fingerprint": "b9b31cca257b9c763f9acb3cc3ab8fa3a6ae5d0c95f33e18487bdcb2a2eed3b1",
+      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t right = x + 31u ; uint32_t mask = right - 31u ; return y + mask ; }",
+      "proof": {
+        "state": "proved",
+        "tool": "Z3",
+        "version": "5.3.3",
+        "domain": "all pairs of uint32_t inputs",
+        "operation": "add"
+      }
+    },
+    {
+      "action": "evolve",
+      "region": null,
+      "epoch": 2,
+      "active": {},
+      "changed_parameters": "final normalization and matching output projection column"
+    },
+    {
+      "action": "evolve",
+      "region": null,
+      "epoch": 3,
+      "active": {},
+      "changed_parameters": "final normalization and matching output projection column"
+    },
+    {
+      "action": "replace",
+      "region": 0,
+      "epoch": 3,
+      "active": {},
+      "version": 5,
+      "fingerprint": "0e9ac8af0716f7468194bcce46a391dd77f5c8943087eb09619bfbe0385f4cde",
+      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t word = x + 69u ; uint32_t left = word - 69u ; return y + left ; }",
+      "proof": {
+        "state": "proved",
+        "tool": "Z3",
+        "version": "5.3.3",
+        "domain": "all pairs of uint32_t inputs",
+        "operation": "add"
+      }
+    },
+    {
+      "action": "replace",
+      "region": 1,
+      "epoch": 3,
+      "active": {},
+      "version": 5,
+      "fingerprint": "046c7059cd79f7e03a7920b0f6e0ba8da2297bf9522d217dd0776d2f93c12486",
+      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t mask = x + 110u ; uint32_t word = mask - 110u ; return y * word ; }",
+      "proof": {
+        "state": "proved",
+        "tool": "Z3",
+        "version": "5.3.3",
+        "domain": "all pairs of uint32_t inputs",
+        "operation": "mul"
+      }
+    },
+    {
+      "action": "evolve",
+      "region": null,
+      "epoch": 4,
+      "active": {},
+      "changed_parameters": "final normalization and matching output projection column"
+    },
+    {
+      "action": "evolve",
+      "region": null,
+      "epoch": 5,
+      "active": {},
+      "changed_parameters": "final normalization and matching output projection column"
+    },
+    {
+      "action": "replace",
+      "region": 2,
+      "epoch": 5,
+      "active": {},
+      "version": 6,
+      "fingerprint": "e56fb82bc5056c7e0170206b963e0582701af51576b94779121a031a83bae1b0",
+      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t value = x ^ 114u ; uint32_t lane = value ^ 114u ; return lane ^ y ; }",
+      "proof": {
+        "state": "proved",
+        "tool": "Z3",
+        "version": "5.3.3",
+        "domain": "all pairs of uint32_t inputs",
+        "operation": "xor"
+      }
+    },
+    {
+      "action": "replace",
+      "region": 2,
+      "epoch": 5,
+      "active": {},
+      "version": 7,
+      "fingerprint": "84a59a9086bc3db4a1e6382149aa24e2fe71b3e70bc50349e9a9ef84e93c3713",
+      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t state = ( x | y ) - ( x & y ) ; uint32_t mask = state + 110u ; uint32_t right = mask - 110u ; return right ; }",
+      "proof": {
+        "state": "proved",
+        "tool": "Z3",
+        "version": "5.3.3",
+        "domain": "all pairs of uint32_t inputs",
+        "operation": "xor"
+      }
+    },
+    {
+      "action": "evolve",
+      "region": null,
+      "epoch": 6,
+      "active": {},
+      "changed_parameters": "final normalization and matching output projection column"
+    },
+    {
+      "action": "evolve",
+      "region": null,
+      "epoch": 7,
+      "active": {},
+      "changed_parameters": "final normalization and matching output projection column"
+    },
+    {
+      "action": "evolve",
+      "region": null,
+      "epoch": 8,
+      "active": {},
+      "changed_parameters": "final normalization and matching output projection column"
+    }
+  ],
+  "limits": [
+    "Native CPU inference is verified on the development computer; physical edge deployment is not verified.",
+    "Generation covers three unsigned arithmetic operations and four training families.",
+    "Weights change through an exact representation transformation, not online learning.",
+    "Model-derived decoding material is cached for one bytecode generation.",
+    "An analyst can extract decoded bytecode and build an independent interpreter."
+  ]
+}

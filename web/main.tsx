@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { createRoot } from "react-dom/client";
 import type { Run, RunEvent, Candidate, DeviceProfile } from "../shared/schema";
 import "./style.css";
+import { RuntimeView } from "./RuntimeView";
 const done = new Set(["succeeded", "failed", "cancelled"]);
 async function api<T = any>(
   path: string,
@@ -39,7 +40,9 @@ function App() {
     [token, setToken] = useState(""),
     [caps, setCaps] = useState<any>(),
     [error, setError] = useState("");
-  const [view, setView] = useState<"setup" | "run" | "history">("setup"),
+  const [view, setView] = useState<"runtime" | "setup" | "run" | "history">(
+      "runtime",
+    ),
     [source, setSource] = useState<"sample" | "github">("sample"),
     [name, setName] = useState("Aster · Sensor calibration"),
     [url, setUrl] = useState(""),
@@ -233,7 +236,7 @@ function App() {
           </div>
         )}
         <footer>
-          Source stays in your workspace. Model access requires configuration.
+          Source stays in your workspace. The runtime model runs locally.
         </footer>
       </main>
     );
@@ -245,7 +248,7 @@ function App() {
           href="#"
           onClick={(e) => {
             e.preventDefault();
-            setView("setup");
+            setView("runtime");
           }}
         >
           ◈ MIRAGE
@@ -257,6 +260,12 @@ function App() {
           </div>
         </div>
         <nav aria-label="Workspace navigation">
+          <button
+            className={view === "runtime" ? "active" : ""}
+            onClick={() => setView("runtime")}
+          >
+            <span>◈</span> Runtime model
+          </button>
           <button
             className={view === "setup" ? "active" : ""}
             onClick={() => setView("setup")}
@@ -310,17 +319,24 @@ function App() {
         <header className="topbar">
           <span>
             Workspace <b>/</b>{" "}
-            {view === "setup"
-              ? "New protection run"
-              : view === "history"
-                ? "Run history"
-                : "Protection run"}
+            {view === "runtime"
+              ? "Runtime model"
+              : view === "setup"
+                ? "New protection run"
+                : view === "history"
+                  ? "Run history"
+                  : "Protection run"}
           </span>
-          <Tag tone={caps.proof ? "lime" : "amber"}>
-            {caps.proof ? "CBMC CONNECTED" : "PROOF UNAVAILABLE"}
+          <Tag tone={view === "runtime" || caps.proof ? "lime" : "amber"}>
+            {view === "runtime"
+              ? "LOCAL TRANSFORMER"
+              : caps.proof
+                ? "CBMC CONNECTED"
+                : "PROOF UNAVAILABLE"}
           </Tag>
         </header>
         <main>
+          {view === "runtime" && <RuntimeView />}
           {error && (
             <div className="error global-error" role="alert">
               <span>{error}</span>

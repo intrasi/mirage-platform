@@ -19,7 +19,14 @@
     "format": "prettier --write server shared web scripts test browser *.ts *.json",
     "format:check": "prettier --check server shared web scripts test browser *.ts *.json",
     "sample:repo": "tsx scripts/sample-repo.ts",
-    "test:http": "tsx scripts/smoke.ts"
+    "test:http": "tsx scripts/smoke.ts",
+    "runtime:setup": "uv venv neural-runtime/.venv --python 3.12 && uv pip install --python neural-runtime/.venv/bin/python -r neural-runtime/requirements.lock",
+    "runtime:train": "cd neural-runtime && .venv/bin/python train.py && .venv/bin/python build_native.py && .venv/bin/python export_native.py",
+    "runtime:build": "cd neural-runtime && .venv/bin/python build_native.py && .venv/bin/python export_native.py",
+    "runtime:test": "cd neural-runtime && .venv/bin/python -m unittest -v test_runtime.py test_native.py && .venv/bin/python validate_inference.py && .venv/bin/python evaluate.py",
+    "runtime:benchmark": "cd neural-runtime && .venv/bin/python benchmark_runtime.py",
+    "runtime:demo": "cd neural-runtime && .venv/bin/python demo.py",
+    "runtime:package": "cd neural-runtime && .venv/bin/python package_target.py"
   },
   "dependencies": {
     "fastify": "5.12.8",

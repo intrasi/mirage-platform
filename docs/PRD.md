@@ -28,6 +28,23 @@ Finish with runnable instructions, evidence, the decision log, and a short list 
 
 # Product purpose and customer
 
+The central mechanism is a small local generative transformer inside a custom virtual machine.
+The model generates replacement code for inactive application regions during execution.
+The virtual machine executes custom bytecode and uses model output to restore real instructions.
+Model input includes virtual-machine state.
+Model representation and dormant bytecode change together at safe points.
+Active calls must finish before their code changes.
+
+Prefer about one million parameters or fewer when generation quality passes.
+Support one language first, with a second language only when needed.
+Measure parameter count, runtime memory, generation latency, and application overhead separately.
+Post-train existing small weights when this reduces implementation work.
+The build service and proof workflow support this mechanism.
+They do not satisfy the runtime-model requirement by themselves.
+
+The current implementation uses a 764,544-parameter transformer and a restricted unsigned C language.
+Its Python reference harness does not establish physical edge performance or resistance to model removal by a skilled analyst.
+
 Mirage helps consumer-electronics companies protect proprietary firmware algorithms while preserving device behavior and resource limits.
 
 The customer supplies a repository, a target device profile, and acceptance requirements. An agent then searches for obfuscation transformations inside an isolated build environment. Independent tools evaluate each candidate. Mirage returns a reproducible protected build with its evidence.
@@ -322,9 +339,11 @@ A run that finds no acceptable transformation must return the unchanged baseline
 
 A build-time model can propose private transformation patterns or generate constrained code. Its output still passes the same independent verification gates.
 
-An optional device model can generate runtime decoys or participate in instruction decoding. The model requires independent correctness, resource, and resistance evidence.
+The required runtime model generates replacements for inactive code and supplies values needed to decode application bytecode.
+The model requires independent correctness, resource, and resistance evidence.
 
-The first release must implement model-placement assessment. It must not require an on-device model to complete the demonstration.
+The first release must demonstrate actual local model inference inside the virtual-machine harness.
+Model-placement assessment cannot replace that requirement.
 
 Assess available memory, storage, processor features, execution deadlines, startup time, and measured inference cost. Include model weights, inference buffers, generated code, and interpreter cost.
 
@@ -633,11 +652,12 @@ Add one ARM target, device-tree import, peripheral models, and a customer hardwa
 
 Exit condition: the same project workflow builds, verifies, tests, and packages firmware for a named board.
 
-## Later Optional neural runtime
+## Required neural runtime
 
 Compare build-time model proposals, procedural generation, and device-model generation.
 
-Implement device inference or model-dependent decoding only after defining finite correctness domains and resource limits.
+Implement local inference, inactive-region replacement, and model-dependent decoding within a finite correctness domain.
+Measure resource limits on the development host before moving to a named edge device.
 
 Exit condition: the model provides a measured benefit under equivalent evaluation conditions.
 
@@ -692,7 +712,7 @@ Do not store credentials or customer secrets in either file. The final handoff l
 | Demonstration | Included calibration calculator and a generated local sample repository |
 | Initial build | C11, pinned Clang, Linux x86-64, and documented release optimization flags |
 | Proof | CBMC relational harness with exact integer output equality |
-| Model placement | Automatic assessment; no on-device model until actual evidence supports inclusion |
+| Model placement | Local runtime model is required; physical edge deployment needs separate measurements |
 | Authentication | One demonstration workspace with a server-side login mechanism |
 | Local development | Bind to the local computer and generate a development credential when required |
 | Hosted access | Use an existing authorized private endpoint; do not expose a public unauthenticated service |
@@ -725,7 +745,7 @@ Use project-local dependencies and tool images where possible. Do not alter unre
 | No usable proof environment | Complete the adapter, negative controls, frontend states, and remaining tests | Formal verification remains incomplete |
 | Linux x86-64 execution is unavailable | Build the adapter and use a separately labeled host-native development target | Do not report host results as Linux x86-64 results |
 | GitHub access fails | Continue the complete workflow with the sample repository | Record the connector test that remains incomplete |
-| A runtime model does not fit | Continue with build-time model operation | Show the measured limit or missing measurement |
+| A runtime model does not fit | Reduce model size or language scope and repeat measurements | Build-time operation does not satisfy runtime acceptance |
 | A transformation fails proof | Retain its counterexample and try the next candidate | Reject the failed candidate |
 | The compiler removes obfuscation | Try another supported transformation and inspect the release binary | Removed code does not count as protection |
 | A run reaches its budget | Return its best accepted candidate and start the next development task | Do not stop the overall implementation |

@@ -1,0 +1,1909 @@
+{
+  "parameters": 764544,
+  "checkpoint_sha256": "413cfaceac6adcfb59bd8a96d8a55e6045a9d3867c516ed34a2f723e507bb2fb",
+  "inference_backend": "native-float32",
+  "sampling": "python-random-top8-v1",
+  "attempts": 90,
+  "first_pass_accepted": 90,
+  "distinct_functions": 89,
+  "exact_training_function_matches": 10,
+  "native_checks": 94320,
+  "compiler": "clang -std=c11 -O2 -Wall -Wextra -Werror",
+  "generation_median_ms": 2.383958490099758,
+  "generation_p95_ms": 3.7119999760761857,
+  "generation_times_ms": [
+    2.394207986071706,
+    2.5352080119773746,
+    2.3870000150054693,
+    2.3776249727234244,
+    2.3642920423299074,
+    2.3509999737143517,
+    2.36920895986259,
+    2.4310839362442493,
+    2.3514169733971357,
+    3.7119999760761857,
+    2.447000006213784,
+    3.4294589422643185,
+    2.5480000767856836,
+    2.800457994453609,
+    2.4079170543700457,
+    2.409667009487748,
+    2.3948749294504523,
+    2.3560000117868185,
+    2.3699169978499413,
+    2.3820410715416074,
+    3.3914579544216394,
+    2.4265419924631715,
+    2.5442499900236726,
+    2.3327500093728304,
+    2.4899999843910336,
+    2.3692920804023743,
+    2.357749966904521,
+    3.6722089862450957,
+    2.437334042042494,
+    3.3597919391468167,
+    3.774584038183093,
+    2.4451250210404396,
+    2.4096659617498517,
+    2.3586669703945518,
+    2.3694580886512995,
+    2.352791023440659,
+    2.349124988541007,
+    2.361958031542599,
+    3.3752499148249626,
+    3.7656669737771153,
+    2.410167013294995,
+    2.4075419642031193,
+    2.3553750943392515,
+    2.3442499805241823,
+    2.365416963584721,
+    2.351999981328845,
+    2.3806249955669045,
+    2.354874974116683,
+    2.34233308583498,
+    2.3515839129686356,
+    2.4134579580277205,
+    3.722707973793149,
+    2.42470798548311,
+    2.3857090855017304,
+    3.6989999935030937,
+    2.371957991272211,
+    2.3520420072600245,
+    3.667999990284443,
+    2.382791950367391,
+    2.338874968700111,
+    2.3851250298321247,
+    2.40433297585696,
+    2.3653750540688634,
+    2.320874948054552,
+    2.3914159974083304,
+    2.3357500322163105,
+    3.681791014969349,
+    2.7719580102711916,
+    2.377500059083104,
+    2.3647909983992577,
+    2.351125003769994,
+    3.3351669553667307,
+    3.7222920218482614,
+    2.388249966315925,
+    3.35762498434633,
+    2.3954169591888785,
+    2.3567500757053494,
+    2.355000004172325,
+    2.328084083274007,
+    2.7080000145360827,
+    2.3464590776711702,
+    2.348833018913865,
+    2.3331670090556145,
+    3.319125040434301,
+    2.397166914306581,
+    2.354124910198152,
+    2.3450000444427133,
+    2.3319580359384418,
+    2.3280829191207886,
+    2.3715420393273234
+  ],
+  "samples": [
+    {
+      "seed": 900000,
+      "operation": "add",
+      "prompt": [
+        "<bos>",
+        "add",
+        "0",
+        "94u",
+        "<sep>"
+      ],
+      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t mask = x ^ 94u ; uint32_t right = mask ^ 94u ; return right + y ; }",
+      "proof": {
+        "state": "proved",
+        "tool": "Z3",
+        "version": "5.3.3",
+        "domain": "all pairs of uint32_t inputs",
+        "operation": "add"
+      },
+      "accepted": true
+    },
+    {
+      "seed": 900001,
+      "operation": "mul",
+      "prompt": [
+        "<bos>",
+        "mul",
+        "2",
+        "83u",
+        "<sep>"
+      ],
+      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t mask = x * y ; uint32_t value = mask ^ 83u ; return value ^ 83u ; }",
+      "proof": {
+        "state": "proved",
+        "tool": "Z3",
+        "version": "5.3.3",
+        "domain": "all pairs of uint32_t inputs",
+        "operation": "mul"
+      },
+      "accepted": true
+    },
+    {
+      "seed": 900002,
+      "operation": "xor",
+      "prompt": [
+        "<bos>",
+        "xor",
+        "2",
+        "78u",
+        "<sep>"
+      ],
+      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t mask = x ^ y ; uint32_t state = mask ^ 78u ; return state ^ 78u ; }",
+      "proof": {
+        "state": "proved",
+        "tool": "Z3",
+        "version": "5.3.3",
+        "domain": "all pairs of uint32_t inputs",
+        "operation": "xor"
+      },
+      "accepted": true
+    },
+    {
+      "seed": 900003,
+      "operation": "add",
+      "prompt": [
+        "<bos>",
+        "add",
+        "0",
+        "106u",
+        "<sep>"
+      ],
+      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t mix = x ^ 106u ; uint32_t mask = mix ^ 106u ; return mask + y ; }",
+      "proof": {
+        "state": "proved",
+        "tool": "Z3",
+        "version": "5.3.3",
+        "domain": "all pairs of uint32_t inputs",
+        "operation": "add"
+      },
+      "accepted": true
+    },
+    {
+      "seed": 900004,
+      "operation": "mul",
+      "prompt": [
+        "<bos>",
+        "mul",
+        "0",
+        "78u",
+        "<sep>"
+      ],
+      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t word = x ^ 78u ; uint32_t mask = word ^ 78u ; return mask * y ; }",
+      "proof": {
+        "state": "proved",
+        "tool": "Z3",
+        "version": "5.3.3",
+        "domain": "all pairs of uint32_t inputs",
+        "operation": "mul"
+      },
+      "accepted": true
+    },
+    {
+      "seed": 900005,
+      "operation": "xor",
+      "prompt": [
+        "<bos>",
+        "xor",
+        "2",
+        "69u",
+        "<sep>"
+      ],
+      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t state = x ^ y ; uint32_t mix = state ^ 69u ; return mix ^ 69u ; }",
+      "proof": {
+        "state": "proved",
+        "tool": "Z3",
+        "version": "5.3.3",
+        "domain": "all pairs of uint32_t inputs",
+        "operation": "xor"
+      },
+      "accepted": true
+    },
+    {
+      "seed": 900006,
+      "operation": "add",
+      "prompt": [
+        "<bos>",
+        "add",
+        "1",
+        "88u",
+        "<sep>"
+      ],
+      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t lane = x + 88u ; uint32_t value = lane - 88u ; return y + value ; }",
+      "proof": {
+        "state": "proved",
+        "tool": "Z3",
+        "version": "5.3.3",
+        "domain": "all pairs of uint32_t inputs",
+        "operation": "add"
+      },
+      "accepted": true
+    },
+    {
+      "seed": 900007,
+      "operation": "mul",
+      "prompt": [
+        "<bos>",
+        "mul",
+        "0",
+        "117u",
+        "<sep>"
+      ],
+      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t left = x ^ 117u ; uint32_t value = left ^ 117u ; return value * y ; }",
+      "proof": {
+        "state": "proved",
+        "tool": "Z3",
+        "version": "5.3.3",
+        "domain": "all pairs of uint32_t inputs",
+        "operation": "mul"
+      },
+      "accepted": true
+    },
+    {
+      "seed": 900008,
+      "operation": "xor",
+      "prompt": [
+        "<bos>",
+        "xor",
+        "0",
+        "28u",
+        "<sep>"
+      ],
+      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t mix = x ^ 28u ; uint32_t left = mix ^ 28u ; return left ^ y ; }",
+      "proof": {
+        "state": "proved",
+        "tool": "Z3",
+        "version": "5.3.3",
+        "domain": "all pairs of uint32_t inputs",
+        "operation": "xor"
+      },
+      "accepted": true
+    },
+    {
+      "seed": 900009,
+      "operation": "add",
+      "prompt": [
+        "<bos>",
+        "add",
+        "3",
+        "69u",
+        "<sep>"
+      ],
+      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t right = ( x ^ y ) + ( ( x & y ) << 1u ) ; uint32_t mix = right + 69u ; uint32_t mask = mix - 69u ; return mask ; }",
+      "proof": {
+        "state": "proved",
+        "tool": "Z3",
+        "version": "5.3.3",
+        "domain": "all pairs of uint32_t inputs",
+        "operation": "add"
+      },
+      "accepted": true
+    },
+    {
+      "seed": 900010,
+      "operation": "mul",
+      "prompt": [
+        "<bos>",
+        "mul",
+        "1",
+        "108u",
+        "<sep>"
+      ],
+      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t mix = x + 108u ; uint32_t mask = mix - 108u ; return y * mask ; }",
+      "proof": {
+        "state": "proved",
+        "tool": "Z3",
+        "version": "5.3.3",
+        "domain": "all pairs of uint32_t inputs",
+        "operation": "mul"
+      },
+      "accepted": true
+    },
+    {
+      "seed": 900011,
+      "operation": "xor",
+      "prompt": [
+        "<bos>",
+        "xor",
+        "3",
+        "96u",
+        "<sep>"
+      ],
+      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t left = ( x | y ) - ( x & y ) ; uint32_t word = left + 96u ; uint32_t value = word - 96u ; return value ; }",
+      "proof": {
+        "state": "proved",
+        "tool": "Z3",
+        "version": "5.3.3",
+        "domain": "all pairs of uint32_t inputs",
+        "operation": "xor"
+      },
+      "accepted": true
+    },
+    {
+      "seed": 900012,
+      "operation": "add",
+      "prompt": [
+        "<bos>",
+        "add",
+        "2",
+        "30u",
+        "<sep>"
+      ],
+      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t state = x + y ; uint32_t mix = state ^ 30u ; return mix ^ 30u ; }",
+      "proof": {
+        "state": "proved",
+        "tool": "Z3",
+        "version": "5.3.3",
+        "domain": "all pairs of uint32_t inputs",
+        "operation": "add"
+      },
+      "accepted": true
+    },
+    {
+      "seed": 900013,
+      "operation": "mul",
+      "prompt": [
+        "<bos>",
+        "mul",
+        "3",
+        "6u",
+        "<sep>"
+      ],
+      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t mask = x * y ; uint32_t left = mask + 6u ; uint32_t value = left - 6u ; return value ; }",
+      "proof": {
+        "state": "proved",
+        "tool": "Z3",
+        "version": "5.3.3",
+        "domain": "all pairs of uint32_t inputs",
+        "operation": "mul"
+      },
+      "accepted": true
+    },
+    {
+      "seed": 900014,
+      "operation": "xor",
+      "prompt": [
+        "<bos>",
+        "xor",
+        "1",
+        "109u",
+        "<sep>"
+      ],
+      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t value = x + 109u ; uint32_t lane = value - 109u ; return y ^ lane ; }",
+      "proof": {
+        "state": "proved",
+        "tool": "Z3",
+        "version": "5.3.3",
+        "domain": "all pairs of uint32_t inputs",
+        "operation": "xor"
+      },
+      "accepted": true
+    },
+    {
+      "seed": 900015,
+      "operation": "add",
+      "prompt": [
+        "<bos>",
+        "add",
+        "1",
+        "51u",
+        "<sep>"
+      ],
+      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t lane = x + 51u ; uint32_t state = lane - 51u ; return y + state ; }",
+      "proof": {
+        "state": "proved",
+        "tool": "Z3",
+        "version": "5.3.3",
+        "domain": "all pairs of uint32_t inputs",
+        "operation": "add"
+      },
+      "accepted": true
+    },
+    {
+      "seed": 900016,
+      "operation": "mul",
+      "prompt": [
+        "<bos>",
+        "mul",
+        "1",
+        "67u",
+        "<sep>"
+      ],
+      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t right = x + 67u ; uint32_t value = right - 67u ; return y * value ; }",
+      "proof": {
+        "state": "proved",
+        "tool": "Z3",
+        "version": "5.3.3",
+        "domain": "all pairs of uint32_t inputs",
+        "operation": "mul"
+      },
+      "accepted": true
+    },
+    {
+      "seed": 900017,
+      "operation": "xor",
+      "prompt": [
+        "<bos>",
+        "xor",
+        "2",
+        "35u",
+        "<sep>"
+      ],
+      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t mask = x ^ y ; uint32_t lane = mask ^ 35u ; return lane ^ 35u ; }",
+      "proof": {
+        "state": "proved",
+        "tool": "Z3",
+        "version": "5.3.3",
+        "domain": "all pairs of uint32_t inputs",
+        "operation": "xor"
+      },
+      "accepted": true
+    },
+    {
+      "seed": 900018,
+      "operation": "add",
+      "prompt": [
+        "<bos>",
+        "add",
+        "1",
+        "38u",
+        "<sep>"
+      ],
+      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t mix = x + 38u ; uint32_t right = mix - 38u ; return y + right ; }",
+      "proof": {
+        "state": "proved",
+        "tool": "Z3",
+        "version": "5.3.3",
+        "domain": "all pairs of uint32_t inputs",
+        "operation": "add"
+      },
+      "accepted": true
+    },
+    {
+      "seed": 900019,
+      "operation": "mul",
+      "prompt": [
+        "<bos>",
+        "mul",
+        "0",
+        "29u",
+        "<sep>"
+      ],
+      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t mask = x ^ 29u ; uint32_t right = mask ^ 29u ; return right * y ; }",
+      "proof": {
+        "state": "proved",
+        "tool": "Z3",
+        "version": "5.3.3",
+        "domain": "all pairs of uint32_t inputs",
+        "operation": "mul"
+      },
+      "accepted": true
+    },
+    {
+      "seed": 900020,
+      "operation": "xor",
+      "prompt": [
+        "<bos>",
+        "xor",
+        "3",
+        "124u",
+        "<sep>"
+      ],
+      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t right = ( x | y ) - ( x & y ) ; uint32_t mix = right + 124u ; uint32_t state = mix - 124u ; return state ; }",
+      "proof": {
+        "state": "proved",
+        "tool": "Z3",
+        "version": "5.3.3",
+        "domain": "all pairs of uint32_t inputs",
+        "operation": "xor"
+      },
+      "accepted": true
+    },
+    {
+      "seed": 900021,
+      "operation": "add",
+      "prompt": [
+        "<bos>",
+        "add",
+        "2",
+        "42u",
+        "<sep>"
+      ],
+      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t lane = x + y ; uint32_t value = lane ^ 42u ; return value ^ 42u ; }",
+      "proof": {
+        "state": "proved",
+        "tool": "Z3",
+        "version": "5.3.3",
+        "domain": "all pairs of uint32_t inputs",
+        "operation": "add"
+      },
+      "accepted": true
+    },
+    {
+      "seed": 900022,
+      "operation": "mul",
+      "prompt": [
+        "<bos>",
+        "mul",
+        "0",
+        "19u",
+        "<sep>"
+      ],
+      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t state = x ^ 19u ; uint32_t mix = state ^ 19u ; return mix * y ; }",
+      "proof": {
+        "state": "proved",
+        "tool": "Z3",
+        "version": "5.3.3",
+        "domain": "all pairs of uint32_t inputs",
+        "operation": "mul"
+      },
+      "accepted": true
+    },
+    {
+      "seed": 900023,
+      "operation": "xor",
+      "prompt": [
+        "<bos>",
+        "xor",
+        "0",
+        "44u",
+        "<sep>"
+      ],
+      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t left = x ^ 44u ; uint32_t value = left ^ 44u ; return value ^ y ; }",
+      "proof": {
+        "state": "proved",
+        "tool": "Z3",
+        "version": "5.3.3",
+        "domain": "all pairs of uint32_t inputs",
+        "operation": "xor"
+      },
+      "accepted": true
+    },
+    {
+      "seed": 900024,
+      "operation": "add",
+      "prompt": [
+        "<bos>",
+        "add",
+        "1",
+        "15u",
+        "<sep>"
+      ],
+      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t mask = x + 15u ; uint32_t left = mask - 15u ; return y + left ; }",
+      "proof": {
+        "state": "proved",
+        "tool": "Z3",
+        "version": "5.3.3",
+        "domain": "all pairs of uint32_t inputs",
+        "operation": "add"
+      },
+      "accepted": true
+    },
+    {
+      "seed": 900025,
+      "operation": "mul",
+      "prompt": [
+        "<bos>",
+        "mul",
+        "2",
+        "98u",
+        "<sep>"
+      ],
+      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t right = x * y ; uint32_t word = right ^ 98u ; return word ^ 98u ; }",
+      "proof": {
+        "state": "proved",
+        "tool": "Z3",
+        "version": "5.3.3",
+        "domain": "all pairs of uint32_t inputs",
+        "operation": "mul"
+      },
+      "accepted": true
+    },
+    {
+      "seed": 900026,
+      "operation": "xor",
+      "prompt": [
+        "<bos>",
+        "xor",
+        "2",
+        "37u",
+        "<sep>"
+      ],
+      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t state = x ^ y ; uint32_t value = state ^ 37u ; return value ^ 37u ; }",
+      "proof": {
+        "state": "proved",
+        "tool": "Z3",
+        "version": "5.3.3",
+        "domain": "all pairs of uint32_t inputs",
+        "operation": "xor"
+      },
+      "accepted": true
+    },
+    {
+      "seed": 900027,
+      "operation": "add",
+      "prompt": [
+        "<bos>",
+        "add",
+        "3",
+        "69u",
+        "<sep>"
+      ],
+      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t word = ( x ^ y ) + ( ( x & y ) << 1u ) ; uint32_t left = word + 69u ; uint32_t mix = left - 69u ; return mix ; }",
+      "proof": {
+        "state": "proved",
+        "tool": "Z3",
+        "version": "5.3.3",
+        "domain": "all pairs of uint32_t inputs",
+        "operation": "add"
+      },
+      "accepted": true
+    },
+    {
+      "seed": 900028,
+      "operation": "mul",
+      "prompt": [
+        "<bos>",
+        "mul",
+        "0",
+        "87u",
+        "<sep>"
+      ],
+      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t mix = x ^ 87u ; uint32_t value = mix ^ 87u ; return value * y ; }",
+      "proof": {
+        "state": "proved",
+        "tool": "Z3",
+        "version": "5.3.3",
+        "domain": "all pairs of uint32_t inputs",
+        "operation": "mul"
+      },
+      "accepted": true
+    },
+    {
+      "seed": 900029,
+      "operation": "xor",
+      "prompt": [
+        "<bos>",
+        "xor",
+        "3",
+        "36u",
+        "<sep>"
+      ],
+      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t value = ( x | y ) - ( x & y ) ; uint32_t state = value + 36u ; uint32_t mix = state - 36u ; return mix ; }",
+      "proof": {
+        "state": "proved",
+        "tool": "Z3",
+        "version": "5.3.3",
+        "domain": "all pairs of uint32_t inputs",
+        "operation": "xor"
+      },
+      "accepted": true
+    },
+    {
+      "seed": 900030,
+      "operation": "add",
+      "prompt": [
+        "<bos>",
+        "add",
+        "3",
+        "17u",
+        "<sep>"
+      ],
+      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t mask = ( x ^ y ) + ( ( x & y ) << 1u ) ; uint32_t lane = mask + 17u ; uint32_t mix = lane - 17u ; return mix ; }",
+      "proof": {
+        "state": "proved",
+        "tool": "Z3",
+        "version": "5.3.3",
+        "domain": "all pairs of uint32_t inputs",
+        "operation": "add"
+      },
+      "accepted": true
+    },
+    {
+      "seed": 900031,
+      "operation": "mul",
+      "prompt": [
+        "<bos>",
+        "mul",
+        "1",
+        "31u",
+        "<sep>"
+      ],
+      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t value = x + 31u ; uint32_t mask = value - 31u ; return y * mask ; }",
+      "proof": {
+        "state": "proved",
+        "tool": "Z3",
+        "version": "5.3.3",
+        "domain": "all pairs of uint32_t inputs",
+        "operation": "mul"
+      },
+      "accepted": true
+    },
+    {
+      "seed": 900032,
+      "operation": "xor",
+      "prompt": [
+        "<bos>",
+        "xor",
+        "0",
+        "76u",
+        "<sep>"
+      ],
+      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t lane = x ^ 76u ; uint32_t left = lane ^ 76u ; return left ^ y ; }",
+      "proof": {
+        "state": "proved",
+        "tool": "Z3",
+        "version": "5.3.3",
+        "domain": "all pairs of uint32_t inputs",
+        "operation": "xor"
+      },
+      "accepted": true
+    },
+    {
+      "seed": 900033,
+      "operation": "add",
+      "prompt": [
+        "<bos>",
+        "add",
+        "1",
+        "112u",
+        "<sep>"
+      ],
+      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t mask = x + 112u ; uint32_t value = mask - 112u ; return y + value ; }",
+      "proof": {
+        "state": "proved",
+        "tool": "Z3",
+        "version": "5.3.3",
+        "domain": "all pairs of uint32_t inputs",
+        "operation": "add"
+      },
+      "accepted": true
+    },
+    {
+      "seed": 900034,
+      "operation": "mul",
+      "prompt": [
+        "<bos>",
+        "mul",
+        "2",
+        "99u",
+        "<sep>"
+      ],
+      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t right = x * y ; uint32_t state = right ^ 99u ; return state ^ 99u ; }",
+      "proof": {
+        "state": "proved",
+        "tool": "Z3",
+        "version": "5.3.3",
+        "domain": "all pairs of uint32_t inputs",
+        "operation": "mul"
+      },
+      "accepted": true
+    },
+    {
+      "seed": 900035,
+      "operation": "xor",
+      "prompt": [
+        "<bos>",
+        "xor",
+        "2",
+        "84u",
+        "<sep>"
+      ],
+      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t value = x ^ y ; uint32_t state = value ^ 84u ; return state ^ 84u ; }",
+      "proof": {
+        "state": "proved",
+        "tool": "Z3",
+        "version": "5.3.3",
+        "domain": "all pairs of uint32_t inputs",
+        "operation": "xor"
+      },
+      "accepted": true
+    },
+    {
+      "seed": 900036,
+      "operation": "add",
+      "prompt": [
+        "<bos>",
+        "add",
+        "1",
+        "27u",
+        "<sep>"
+      ],
+      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t left = x + 27u ; uint32_t state = left - 27u ; return y + state ; }",
+      "proof": {
+        "state": "proved",
+        "tool": "Z3",
+        "version": "5.3.3",
+        "domain": "all pairs of uint32_t inputs",
+        "operation": "add"
+      },
+      "accepted": true
+    },
+    {
+      "seed": 900037,
+      "operation": "mul",
+      "prompt": [
+        "<bos>",
+        "mul",
+        "1",
+        "65u",
+        "<sep>"
+      ],
+      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t left = x + 65u ; uint32_t value = left - 65u ; return y * value ; }",
+      "proof": {
+        "state": "proved",
+        "tool": "Z3",
+        "version": "5.3.3",
+        "domain": "all pairs of uint32_t inputs",
+        "operation": "mul"
+      },
+      "accepted": true
+    },
+    {
+      "seed": 900038,
+      "operation": "xor",
+      "prompt": [
+        "<bos>",
+        "xor",
+        "3",
+        "105u",
+        "<sep>"
+      ],
+      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t value = ( x | y ) - ( x & y ) ; uint32_t word = value + 105u ; uint32_t lane = word - 105u ; return lane ; }",
+      "proof": {
+        "state": "proved",
+        "tool": "Z3",
+        "version": "5.3.3",
+        "domain": "all pairs of uint32_t inputs",
+        "operation": "xor"
+      },
+      "accepted": true
+    },
+    {
+      "seed": 900039,
+      "operation": "add",
+      "prompt": [
+        "<bos>",
+        "add",
+        "3",
+        "122u",
+        "<sep>"
+      ],
+      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t value = ( x ^ y ) + ( ( x & y ) << 1u ) ; uint32_t right = value + 122u ; uint32_t mix = right - 122u ; return mix ; }",
+      "proof": {
+        "state": "proved",
+        "tool": "Z3",
+        "version": "5.3.3",
+        "domain": "all pairs of uint32_t inputs",
+        "operation": "add"
+      },
+      "accepted": true
+    },
+    {
+      "seed": 900040,
+      "operation": "mul",
+      "prompt": [
+        "<bos>",
+        "mul",
+        "1",
+        "96u",
+        "<sep>"
+      ],
+      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t left = x + 96u ; uint32_t mix = left - 96u ; return y * mix ; }",
+      "proof": {
+        "state": "proved",
+        "tool": "Z3",
+        "version": "5.3.3",
+        "domain": "all pairs of uint32_t inputs",
+        "operation": "mul"
+      },
+      "accepted": true
+    },
+    {
+      "seed": 900041,
+      "operation": "xor",
+      "prompt": [
+        "<bos>",
+        "xor",
+        "2",
+        "58u",
+        "<sep>"
+      ],
+      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t state = x ^ y ; uint32_t value = state ^ 58u ; return value ^ 58u ; }",
+      "proof": {
+        "state": "proved",
+        "tool": "Z3",
+        "version": "5.3.3",
+        "domain": "all pairs of uint32_t inputs",
+        "operation": "xor"
+      },
+      "accepted": true
+    },
+    {
+      "seed": 900042,
+      "operation": "add",
+      "prompt": [
+        "<bos>",
+        "add",
+        "0",
+        "53u",
+        "<sep>"
+      ],
+      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t lane = x ^ 53u ; uint32_t mask = lane ^ 53u ; return mask + y ; }",
+      "proof": {
+        "state": "proved",
+        "tool": "Z3",
+        "version": "5.3.3",
+        "domain": "all pairs of uint32_t inputs",
+        "operation": "add"
+      },
+      "accepted": true
+    },
+    {
+      "seed": 900043,
+      "operation": "mul",
+      "prompt": [
+        "<bos>",
+        "mul",
+        "1",
+        "104u",
+        "<sep>"
+      ],
+      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t right = x + 104u ; uint32_t lane = right - 104u ; return y * lane ; }",
+      "proof": {
+        "state": "proved",
+        "tool": "Z3",
+        "version": "5.3.3",
+        "domain": "all pairs of uint32_t inputs",
+        "operation": "mul"
+      },
+      "accepted": true
+    },
+    {
+      "seed": 900044,
+      "operation": "xor",
+      "prompt": [
+        "<bos>",
+        "xor",
+        "1",
+        "10u",
+        "<sep>"
+      ],
+      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t mix = x + 10u ; uint32_t value = mix - 10u ; return y ^ value ; }",
+      "proof": {
+        "state": "proved",
+        "tool": "Z3",
+        "version": "5.3.3",
+        "domain": "all pairs of uint32_t inputs",
+        "operation": "xor"
+      },
+      "accepted": true
+    },
+    {
+      "seed": 900045,
+      "operation": "add",
+      "prompt": [
+        "<bos>",
+        "add",
+        "1",
+        "65u",
+        "<sep>"
+      ],
+      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t mask = x + 65u ; uint32_t state = mask - 65u ; return y + state ; }",
+      "proof": {
+        "state": "proved",
+        "tool": "Z3",
+        "version": "5.3.3",
+        "domain": "all pairs of uint32_t inputs",
+        "operation": "add"
+      },
+      "accepted": true
+    },
+    {
+      "seed": 900046,
+      "operation": "mul",
+      "prompt": [
+        "<bos>",
+        "mul",
+        "1",
+        "46u",
+        "<sep>"
+      ],
+      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t right = x + 46u ; uint32_t mix = right - 46u ; return y * mix ; }",
+      "proof": {
+        "state": "proved",
+        "tool": "Z3",
+        "version": "5.3.3",
+        "domain": "all pairs of uint32_t inputs",
+        "operation": "mul"
+      },
+      "accepted": true
+    },
+    {
+      "seed": 900047,
+      "operation": "xor",
+      "prompt": [
+        "<bos>",
+        "xor",
+        "0",
+        "65u",
+        "<sep>"
+      ],
+      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t value = x ^ 65u ; uint32_t left = value ^ 65u ; return left ^ y ; }",
+      "proof": {
+        "state": "proved",
+        "tool": "Z3",
+        "version": "5.3.3",
+        "domain": "all pairs of uint32_t inputs",
+        "operation": "xor"
+      },
+      "accepted": true
+    },
+    {
+      "seed": 900048,
+      "operation": "add",
+      "prompt": [
+        "<bos>",
+        "add",
+        "0",
+        "84u",
+        "<sep>"
+      ],
+      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t value = x ^ 84u ; uint32_t word = value ^ 84u ; return word + y ; }",
+      "proof": {
+        "state": "proved",
+        "tool": "Z3",
+        "version": "5.3.3",
+        "domain": "all pairs of uint32_t inputs",
+        "operation": "add"
+      },
+      "accepted": true
+    },
+    {
+      "seed": 900049,
+      "operation": "mul",
+      "prompt": [
+        "<bos>",
+        "mul",
+        "0",
+        "36u",
+        "<sep>"
+      ],
+      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t mask = x ^ 36u ; uint32_t left = mask ^ 36u ; return left * y ; }",
+      "proof": {
+        "state": "proved",
+        "tool": "Z3",
+        "version": "5.3.3",
+        "domain": "all pairs of uint32_t inputs",
+        "operation": "mul"
+      },
+      "accepted": true
+    },
+    {
+      "seed": 900050,
+      "operation": "xor",
+      "prompt": [
+        "<bos>",
+        "xor",
+        "0",
+        "58u",
+        "<sep>"
+      ],
+      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t state = x ^ 58u ; uint32_t value = state ^ 58u ; return value ^ y ; }",
+      "proof": {
+        "state": "proved",
+        "tool": "Z3",
+        "version": "5.3.3",
+        "domain": "all pairs of uint32_t inputs",
+        "operation": "xor"
+      },
+      "accepted": true
+    },
+    {
+      "seed": 900051,
+      "operation": "add",
+      "prompt": [
+        "<bos>",
+        "add",
+        "3",
+        "17u",
+        "<sep>"
+      ],
+      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t left = ( x ^ y ) + ( ( x & y ) << 1u ) ; uint32_t state = left + 17u ; uint32_t lane = state - 17u ; return lane ; }",
+      "proof": {
+        "state": "proved",
+        "tool": "Z3",
+        "version": "5.3.3",
+        "domain": "all pairs of uint32_t inputs",
+        "operation": "add"
+      },
+      "accepted": true
+    },
+    {
+      "seed": 900052,
+      "operation": "mul",
+      "prompt": [
+        "<bos>",
+        "mul",
+        "0",
+        "120u",
+        "<sep>"
+      ],
+      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t lane = x ^ 120u ; uint32_t value = lane ^ 120u ; return value * y ; }",
+      "proof": {
+        "state": "proved",
+        "tool": "Z3",
+        "version": "5.3.3",
+        "domain": "all pairs of uint32_t inputs",
+        "operation": "mul"
+      },
+      "accepted": true
+    },
+    {
+      "seed": 900053,
+      "operation": "xor",
+      "prompt": [
+        "<bos>",
+        "xor",
+        "0",
+        "9u",
+        "<sep>"
+      ],
+      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t mask = x ^ 9u ; uint32_t state = mask ^ 9u ; return state ^ y ; }",
+      "proof": {
+        "state": "proved",
+        "tool": "Z3",
+        "version": "5.3.3",
+        "domain": "all pairs of uint32_t inputs",
+        "operation": "xor"
+      },
+      "accepted": true
+    },
+    {
+      "seed": 900054,
+      "operation": "add",
+      "prompt": [
+        "<bos>",
+        "add",
+        "3",
+        "40u",
+        "<sep>"
+      ],
+      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t mask = ( x ^ y ) + ( ( x & y ) << 1u ) ; uint32_t word = mask + 40u ; uint32_t value = word - 40u ; return value ; }",
+      "proof": {
+        "state": "proved",
+        "tool": "Z3",
+        "version": "5.3.3",
+        "domain": "all pairs of uint32_t inputs",
+        "operation": "add"
+      },
+      "accepted": true
+    },
+    {
+      "seed": 900055,
+      "operation": "mul",
+      "prompt": [
+        "<bos>",
+        "mul",
+        "1",
+        "76u",
+        "<sep>"
+      ],
+      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t left = x + 76u ; uint32_t mix = left - 76u ; return y * mix ; }",
+      "proof": {
+        "state": "proved",
+        "tool": "Z3",
+        "version": "5.3.3",
+        "domain": "all pairs of uint32_t inputs",
+        "operation": "mul"
+      },
+      "accepted": true
+    },
+    {
+      "seed": 900056,
+      "operation": "xor",
+      "prompt": [
+        "<bos>",
+        "xor",
+        "0",
+        "23u",
+        "<sep>"
+      ],
+      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t right = x ^ 23u ; uint32_t left = right ^ 23u ; return left ^ y ; }",
+      "proof": {
+        "state": "proved",
+        "tool": "Z3",
+        "version": "5.3.3",
+        "domain": "all pairs of uint32_t inputs",
+        "operation": "xor"
+      },
+      "accepted": true
+    },
+    {
+      "seed": 900057,
+      "operation": "add",
+      "prompt": [
+        "<bos>",
+        "add",
+        "3",
+        "66u",
+        "<sep>"
+      ],
+      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t right = ( x ^ y ) + ( ( x & y ) << 1u ) ; uint32_t mix = right + 66u ; uint32_t mask = mix - 66u ; return mask ; }",
+      "proof": {
+        "state": "proved",
+        "tool": "Z3",
+        "version": "5.3.3",
+        "domain": "all pairs of uint32_t inputs",
+        "operation": "add"
+      },
+      "accepted": true
+    },
+    {
+      "seed": 900058,
+      "operation": "mul",
+      "prompt": [
+        "<bos>",
+        "mul",
+        "2",
+        "110u",
+        "<sep>"
+      ],
+      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t state = x * y ; uint32_t lane = state ^ 110u ; return lane ^ 110u ; }",
+      "proof": {
+        "state": "proved",
+        "tool": "Z3",
+        "version": "5.3.3",
+        "domain": "all pairs of uint32_t inputs",
+        "operation": "mul"
+      },
+      "accepted": true
+    },
+    {
+      "seed": 900059,
+      "operation": "xor",
+      "prompt": [
+        "<bos>",
+        "xor",
+        "2",
+        "42u",
+        "<sep>"
+      ],
+      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t value = x ^ y ; uint32_t word = value ^ 42u ; return word ^ 42u ; }",
+      "proof": {
+        "state": "proved",
+        "tool": "Z3",
+        "version": "5.3.3",
+        "domain": "all pairs of uint32_t inputs",
+        "operation": "xor"
+      },
+      "accepted": true
+    },
+    {
+      "seed": 900060,
+      "operation": "add",
+      "prompt": [
+        "<bos>",
+        "add",
+        "2",
+        "91u",
+        "<sep>"
+      ],
+      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t mask = x + y ; uint32_t value = mask ^ 91u ; return value ^ 91u ; }",
+      "proof": {
+        "state": "proved",
+        "tool": "Z3",
+        "version": "5.3.3",
+        "domain": "all pairs of uint32_t inputs",
+        "operation": "add"
+      },
+      "accepted": true
+    },
+    {
+      "seed": 900061,
+      "operation": "mul",
+      "prompt": [
+        "<bos>",
+        "mul",
+        "0",
+        "44u",
+        "<sep>"
+      ],
+      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t state = x ^ 44u ; uint32_t value = state ^ 44u ; return value * y ; }",
+      "proof": {
+        "state": "proved",
+        "tool": "Z3",
+        "version": "5.3.3",
+        "domain": "all pairs of uint32_t inputs",
+        "operation": "mul"
+      },
+      "accepted": true
+    },
+    {
+      "seed": 900062,
+      "operation": "xor",
+      "prompt": [
+        "<bos>",
+        "xor",
+        "0",
+        "112u",
+        "<sep>"
+      ],
+      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t word = x ^ 112u ; uint32_t left = word ^ 112u ; return left ^ y ; }",
+      "proof": {
+        "state": "proved",
+        "tool": "Z3",
+        "version": "5.3.3",
+        "domain": "all pairs of uint32_t inputs",
+        "operation": "xor"
+      },
+      "accepted": true
+    },
+    {
+      "seed": 900063,
+      "operation": "add",
+      "prompt": [
+        "<bos>",
+        "add",
+        "1",
+        "4u",
+        "<sep>"
+      ],
+      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t state = x + 4u ; uint32_t right = state - 4u ; return y + right ; }",
+      "proof": {
+        "state": "proved",
+        "tool": "Z3",
+        "version": "5.3.3",
+        "domain": "all pairs of uint32_t inputs",
+        "operation": "add"
+      },
+      "accepted": true
+    },
+    {
+      "seed": 900064,
+      "operation": "mul",
+      "prompt": [
+        "<bos>",
+        "mul",
+        "2",
+        "12u",
+        "<sep>"
+      ],
+      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t left = x * y ; uint32_t right = left ^ 12u ; return right ^ 12u ; }",
+      "proof": {
+        "state": "proved",
+        "tool": "Z3",
+        "version": "5.3.3",
+        "domain": "all pairs of uint32_t inputs",
+        "operation": "mul"
+      },
+      "accepted": true
+    },
+    {
+      "seed": 900065,
+      "operation": "xor",
+      "prompt": [
+        "<bos>",
+        "xor",
+        "2",
+        "49u",
+        "<sep>"
+      ],
+      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t word = x ^ y ; uint32_t mask = word ^ 49u ; return mask ^ 49u ; }",
+      "proof": {
+        "state": "proved",
+        "tool": "Z3",
+        "version": "5.3.3",
+        "domain": "all pairs of uint32_t inputs",
+        "operation": "xor"
+      },
+      "accepted": true
+    },
+    {
+      "seed": 900066,
+      "operation": "add",
+      "prompt": [
+        "<bos>",
+        "add",
+        "3",
+        "3u",
+        "<sep>"
+      ],
+      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t value = ( x ^ y ) + ( ( x & y ) << 1u ) ; uint32_t left = value + 3u ; uint32_t word = left - 3u ; return word ; }",
+      "proof": {
+        "state": "proved",
+        "tool": "Z3",
+        "version": "5.3.3",
+        "domain": "all pairs of uint32_t inputs",
+        "operation": "add"
+      },
+      "accepted": true
+    },
+    {
+      "seed": 900067,
+      "operation": "mul",
+      "prompt": [
+        "<bos>",
+        "mul",
+        "3",
+        "99u",
+        "<sep>"
+      ],
+      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t lane = x * y ; uint32_t state = lane + 99u ; uint32_t left = state - 99u ; return left ; }",
+      "proof": {
+        "state": "proved",
+        "tool": "Z3",
+        "version": "5.3.3",
+        "domain": "all pairs of uint32_t inputs",
+        "operation": "mul"
+      },
+      "accepted": true
+    },
+    {
+      "seed": 900068,
+      "operation": "xor",
+      "prompt": [
+        "<bos>",
+        "xor",
+        "1",
+        "38u",
+        "<sep>"
+      ],
+      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t left = x + 38u ; uint32_t value = left - 38u ; return y ^ value ; }",
+      "proof": {
+        "state": "proved",
+        "tool": "Z3",
+        "version": "5.3.3",
+        "domain": "all pairs of uint32_t inputs",
+        "operation": "xor"
+      },
+      "accepted": true
+    },
+    {
+      "seed": 900069,
+      "operation": "add",
+      "prompt": [
+        "<bos>",
+        "add",
+        "0",
+        "35u",
+        "<sep>"
+      ],
+      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t lane = x ^ 35u ; uint32_t value = lane ^ 35u ; return value + y ; }",
+      "proof": {
+        "state": "proved",
+        "tool": "Z3",
+        "version": "5.3.3",
+        "domain": "all pairs of uint32_t inputs",
+        "operation": "add"
+      },
+      "accepted": true
+    },
+    {
+      "seed": 900070,
+      "operation": "mul",
+      "prompt": [
+        "<bos>",
+        "mul",
+        "1",
+        "93u",
+        "<sep>"
+      ],
+      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t left = x + 93u ; uint32_t mask = left - 93u ; return y * mask ; }",
+      "proof": {
+        "state": "proved",
+        "tool": "Z3",
+        "version": "5.3.3",
+        "domain": "all pairs of uint32_t inputs",
+        "operation": "mul"
+      },
+      "accepted": true
+    },
+    {
+      "seed": 900071,
+      "operation": "xor",
+      "prompt": [
+        "<bos>",
+        "xor",
+        "3",
+        "18u",
+        "<sep>"
+      ],
+      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t lane = ( x | y ) - ( x & y ) ; uint32_t state = lane + 18u ; uint32_t value = state - 18u ; return value ; }",
+      "proof": {
+        "state": "proved",
+        "tool": "Z3",
+        "version": "5.3.3",
+        "domain": "all pairs of uint32_t inputs",
+        "operation": "xor"
+      },
+      "accepted": true
+    },
+    {
+      "seed": 900072,
+      "operation": "add",
+      "prompt": [
+        "<bos>",
+        "add",
+        "3",
+        "76u",
+        "<sep>"
+      ],
+      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t mix = ( x ^ y ) + ( ( x & y ) << 1u ) ; uint32_t left = mix + 76u ; uint32_t lane = left - 76u ; return lane ; }",
+      "proof": {
+        "state": "proved",
+        "tool": "Z3",
+        "version": "5.3.3",
+        "domain": "all pairs of uint32_t inputs",
+        "operation": "add"
+      },
+      "accepted": true
+    },
+    {
+      "seed": 900073,
+      "operation": "mul",
+      "prompt": [
+        "<bos>",
+        "mul",
+        "0",
+        "36u",
+        "<sep>"
+      ],
+      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t mask = x ^ 36u ; uint32_t left = mask ^ 36u ; return left * y ; }",
+      "proof": {
+        "state": "proved",
+        "tool": "Z3",
+        "version": "5.3.3",
+        "domain": "all pairs of uint32_t inputs",
+        "operation": "mul"
+      },
+      "accepted": true
+    },
+    {
+      "seed": 900074,
+      "operation": "xor",
+      "prompt": [
+        "<bos>",
+        "xor",
+        "3",
+        "68u",
+        "<sep>"
+      ],
+      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t word = ( x | y ) - ( x & y ) ; uint32_t mix = word + 68u ; uint32_t lane = mix - 68u ; return lane ; }",
+      "proof": {
+        "state": "proved",
+        "tool": "Z3",
+        "version": "5.3.3",
+        "domain": "all pairs of uint32_t inputs",
+        "operation": "xor"
+      },
+      "accepted": true
+    },
+    {
+      "seed": 900075,
+      "operation": "add",
+      "prompt": [
+        "<bos>",
+        "add",
+        "1",
+        "33u",
+        "<sep>"
+      ],
+      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t word = x + 33u ; uint32_t right = word - 33u ; return y + right ; }",
+      "proof": {
+        "state": "proved",
+        "tool": "Z3",
+        "version": "5.3.3",
+        "domain": "all pairs of uint32_t inputs",
+        "operation": "add"
+      },
+      "accepted": true
+    },
+    {
+      "seed": 900076,
+      "operation": "mul",
+      "prompt": [
+        "<bos>",
+        "mul",
+        "1",
+        "112u",
+        "<sep>"
+      ],
+      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t word = x + 112u ; uint32_t mix = word - 112u ; return y * mix ; }",
+      "proof": {
+        "state": "proved",
+        "tool": "Z3",
+        "version": "5.3.3",
+        "domain": "all pairs of uint32_t inputs",
+        "operation": "mul"
+      },
+      "accepted": true
+    },
+    {
+      "seed": 900077,
+      "operation": "xor",
+      "prompt": [
+        "<bos>",
+        "xor",
+        "2",
+        "43u",
+        "<sep>"
+      ],
+      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t lane = x ^ y ; uint32_t word = lane ^ 43u ; return word ^ 43u ; }",
+      "proof": {
+        "state": "proved",
+        "tool": "Z3",
+        "version": "5.3.3",
+        "domain": "all pairs of uint32_t inputs",
+        "operation": "xor"
+      },
+      "accepted": true
+    },
+    {
+      "seed": 900078,
+      "operation": "add",
+      "prompt": [
+        "<bos>",
+        "add",
+        "0",
+        "81u",
+        "<sep>"
+      ],
+      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t right = x ^ 81u ; uint32_t left = right ^ 81u ; return left + y ; }",
+      "proof": {
+        "state": "proved",
+        "tool": "Z3",
+        "version": "5.3.3",
+        "domain": "all pairs of uint32_t inputs",
+        "operation": "add"
+      },
+      "accepted": true
+    },
+    {
+      "seed": 900079,
+      "operation": "mul",
+      "prompt": [
+        "<bos>",
+        "mul",
+        "3",
+        "31u",
+        "<sep>"
+      ],
+      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t mask = x * y ; uint32_t lane = mask + 31u ; uint32_t value = lane - 31u ; return value ; }",
+      "proof": {
+        "state": "proved",
+        "tool": "Z3",
+        "version": "5.3.3",
+        "domain": "all pairs of uint32_t inputs",
+        "operation": "mul"
+      },
+      "accepted": true
+    },
+    {
+      "seed": 900080,
+      "operation": "xor",
+      "prompt": [
+        "<bos>",
+        "xor",
+        "1",
+        "10u",
+        "<sep>"
+      ],
+      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t left = x + 10u ; uint32_t word = left - 10u ; return y ^ word ; }",
+      "proof": {
+        "state": "proved",
+        "tool": "Z3",
+        "version": "5.3.3",
+        "domain": "all pairs of uint32_t inputs",
+        "operation": "xor"
+      },
+      "accepted": true
+    },
+    {
+      "seed": 900081,
+      "operation": "add",
+      "prompt": [
+        "<bos>",
+        "add",
+        "2",
+        "58u",
+        "<sep>"
+      ],
+      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t right = x + y ; uint32_t left = right ^ 58u ; return left ^ 58u ; }",
+      "proof": {
+        "state": "proved",
+        "tool": "Z3",
+        "version": "5.3.3",
+        "domain": "all pairs of uint32_t inputs",
+        "operation": "add"
+      },
+      "accepted": true
+    },
+    {
+      "seed": 900082,
+      "operation": "mul",
+      "prompt": [
+        "<bos>",
+        "mul",
+        "0",
+        "76u",
+        "<sep>"
+      ],
+      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t right = x ^ 76u ; uint32_t value = right ^ 76u ; return value * y ; }",
+      "proof": {
+        "state": "proved",
+        "tool": "Z3",
+        "version": "5.3.3",
+        "domain": "all pairs of uint32_t inputs",
+        "operation": "mul"
+      },
+      "accepted": true
+    },
+    {
+      "seed": 900083,
+      "operation": "xor",
+      "prompt": [
+        "<bos>",
+        "xor",
+        "3",
+        "110u",
+        "<sep>"
+      ],
+      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t word = ( x | y ) - ( x & y ) ; uint32_t mask = word + 110u ; uint32_t state = mask - 110u ; return state ; }",
+      "proof": {
+        "state": "proved",
+        "tool": "Z3",
+        "version": "5.3.3",
+        "domain": "all pairs of uint32_t inputs",
+        "operation": "xor"
+      },
+      "accepted": true
+    },
+    {
+      "seed": 900084,
+      "operation": "add",
+      "prompt": [
+        "<bos>",
+        "add",
+        "2",
+        "14u",
+        "<sep>"
+      ],
+      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t mask = x + y ; uint32_t lane = mask ^ 14u ; return lane ^ 14u ; }",
+      "proof": {
+        "state": "proved",
+        "tool": "Z3",
+        "version": "5.3.3",
+        "domain": "all pairs of uint32_t inputs",
+        "operation": "add"
+      },
+      "accepted": true
+    },
+    {
+      "seed": 900085,
+      "operation": "mul",
+      "prompt": [
+        "<bos>",
+        "mul",
+        "1",
+        "3u",
+        "<sep>"
+      ],
+      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t state = x + 3u ; uint32_t left = state - 3u ; return y * left ; }",
+      "proof": {
+        "state": "proved",
+        "tool": "Z3",
+        "version": "5.3.3",
+        "domain": "all pairs of uint32_t inputs",
+        "operation": "mul"
+      },
+      "accepted": true
+    },
+    {
+      "seed": 900086,
+      "operation": "xor",
+      "prompt": [
+        "<bos>",
+        "xor",
+        "0",
+        "39u",
+        "<sep>"
+      ],
+      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t left = x ^ 39u ; uint32_t mix = left ^ 39u ; return mix ^ y ; }",
+      "proof": {
+        "state": "proved",
+        "tool": "Z3",
+        "version": "5.3.3",
+        "domain": "all pairs of uint32_t inputs",
+        "operation": "xor"
+      },
+      "accepted": true
+    },
+    {
+      "seed": 900087,
+      "operation": "add",
+      "prompt": [
+        "<bos>",
+        "add",
+        "1",
+        "12u",
+        "<sep>"
+      ],
+      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t lane = x + 12u ; uint32_t right = lane - 12u ; return y + right ; }",
+      "proof": {
+        "state": "proved",
+        "tool": "Z3",
+        "version": "5.3.3",
+        "domain": "all pairs of uint32_t inputs",
+        "operation": "add"
+      },
+      "accepted": true
+    },
+    {
+      "seed": 900088,
+      "operation": "mul",
+      "prompt": [
+        "<bos>",
+        "mul",
+        "0",
+        "76u",
+        "<sep>"
+      ],
+      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t lane = x ^ 76u ; uint32_t left = lane ^ 76u ; return left * y ; }",
+      "proof": {
+        "state": "proved",
+        "tool": "Z3",
+        "version": "5.3.3",
+        "domain": "all pairs of uint32_t inputs",
+        "operation": "mul"
+      },
+      "accepted": true
+    },
+    {
+      "seed": 900089,
+      "operation": "xor",
+      "prompt": [
+        "<bos>",
+        "xor",
+        "0",
+        "110u",
+        "<sep>"
+      ],
+      "code": "uint32_t region ( uint32_t x , uint32_t y ) { uint32_t state = x ^ 110u ; uint32_t mix = state ^ 110u ; return mix ^ y ; }",
+      "proof": {
+        "state": "proved",
+        "tool": "Z3",
+        "version": "5.3.3",
+        "domain": "all pairs of uint32_t inputs",
+        "operation": "xor"
+      },
+      "accepted": true
+    }
+  ],
+  "scope": "Fresh generation seeds within the same four training families. Exact training matches are counted separately. This is not an unseen-family benchmark."
+}

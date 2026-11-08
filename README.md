@@ -1,7 +1,33 @@
 # Mirage platform
 
-Mirage has a working local software protection demonstration.
-The complete product release still needs a hosted Linux worker and a genuine model run.
+Mirage now runs a 764,544-parameter generative transformer inside a custom virtual-machine demonstration.
+The model generates C functions and replaces inactive bytecode regions during application execution.
+Model-derived values decode real application instructions.
+Model representation and dormant bytecode evolve together.
+
+The optimized harness uses native inference and native bytecode execution.
+Normal calls are 16.2 times faster than the frozen Python baseline on this computer.
+The full generation and renewal cycle is 4.3 times faster and uses about 70 percent less peak process memory.
+The 256-call decoding lease remains unchanged.
+
+The default interface opens the runtime model demonstration.
+It shows generated functions, exact equivalence checks, runtime replacement, model-dependence tests, and a downloadable package.
+
+```sh
+npm run runtime:setup
+npm run runtime:train
+npm run runtime:test
+npm run runtime:demo
+npm run runtime:package
+npm run dev
+```
+
+Training downloads one pinned pretrained checkpoint and runs locally.
+No paid provider or cloud worker is required.
+See [runtime implementation and limits](neural-runtime/README.md).
+
+The earlier native C build workflow remains available under Protection setup.
+Its hosted release still needs a hosted Linux worker and a genuine provider-model run.
 
 The interface accepts a sample project, target profile, resource limits, and protection settings.
 The worker transforms a calibration function, proves output equivalence, and measures the compiled executable.
@@ -49,8 +75,8 @@ The result page includes proof logs, executable measurements, live input compari
 | `npm run format:check` | Check source formatting. |
 
 Browser tests require Chromium. Install it with `npx playwright install chromium` when needed.
-The browser tests were authored but were not executed in this session.
-The available computer-control tool could not access a browser.
+All three browser workflows passed after the runtime update.
+Desktop and mobile runtime screenshots are available under `.data/browser/`.
 
 ## Architecture
 
@@ -117,7 +143,8 @@ Provider contract tests use explicit fixtures. They are not live model evidence.
 
 See [the hosted worker instructions](docs/HOSTED_WORKER.md) for the private worker contract and image.
 No hosted deployment or paid model call was made during implementation.
-No model is included in the shipped executable.
+The native C build workflow includes no model in its executable.
+The separate runtime package includes the small transformer, custom interpreter, and encoded application bytecode.
 
 The default retention period is seven days.
 Retention removes expired run artifacts and unused attachments at service startup.

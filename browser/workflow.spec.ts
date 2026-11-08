@@ -10,6 +10,7 @@ test("sample setup, proof failure, accepted candidate, live comparison, and down
   ).trim();
   await page.getByLabel("Workspace access code").fill(token);
   await page.getByRole("button", { name: "Open workspace" }).click();
+  await page.getByRole("button", { name: "Protection setup" }).click();
   await expect(
     page.getByRole("heading", { name: "Connect the software" }),
   ).toBeVisible();
@@ -78,6 +79,7 @@ test("an active run can be cancelled and remains cancelled after reload", async 
   ).trim();
   await page.getByLabel("Workspace access code").fill(token);
   await page.getByRole("button", { name: "Open workspace" }).click();
+  await page.getByRole("button", { name: "Protection setup" }).click();
   await page.getByLabel("Candidate attempts").fill("12");
   await page.getByRole("button", { name: "Start protection run" }).click();
   await page.getByRole("button", { name: "Cancel run", exact: true }).click();

@@ -1,12 +1,47 @@
 # Implementation status
 
-The native local demonstration works. The complete hosted agent release is not yet verified.
+The runtime model demonstration now works locally.
+The complete hosted release and physical edge deployment remain unverified.
+
+## Runtime model
+
+- A pretrained transformer was pruned and post-trained on synthetic unsigned C functions.
+- The resulting model contains 764,544 parameters, including embeddings.
+- Native generation produced 90 accepted functions from 90 first attempts.
+- Each accepted function passed exact equivalence over all uint32_t input pairs.
+- Native C and custom bytecode matched in 94,320 comparisons.
+- The application executes custom bytecode with nested region calls.
+- Background generation replaces inactive regions and defers active replacements.
+- Model-derived decoding material expires after 256 application calls.
+- Model representation changes preserve generation logits and require matching bytecode resealing.
+- Removal, zero output, stale-output replay, and an earlier model state blocked fresh bytecode decoding.
+- A positive attack control successfully executed extracted bytecode without the model.
+- A standalone package passed 600 application calls, including automatic model renewal and a generated replacement.
+- All 15 platform tests and all 19 runtime and native tests passed.
+- The 19 runtime and native tests also passed with address and undefined-behavior sanitizers.
+- Native inference matched reference generation text in 90 shared-sampler comparisons.
+- Normal-call median latency fell from 109.67 to 6.75 microseconds across three isolated trials.
+- Average call cost including generation and renewal fell from 172.92 to 39.76 microseconds.
+- Peak process memory during generation and renewal fell from 267.45 to 80.89 megabytes.
+- All three browser workflows passed, including the new runtime screen.
+- Desktop and mobile screenshots showed no horizontal overflow in the runtime screen.
+
+The model has four learned transformation families for addition, multiplication, and exclusive OR.
+It is not a general C generator.
+The optimized harness uses native inference and interpretation with a Python scheduler.
+The deployment package does not import PyTorch or NumPy.
+The proof solver still contributes to process memory.
+These measurements do not establish embedded-device performance or a protection advantage.
+
+See [the runtime record](../neural-runtime/README.md) for reproduction commands and artifact paths.
+
+The sections below describe the earlier native build workflow.
 
 ## Milestones
 
 | Milestone | State | Completed work | Remaining dependency |
 |---|---|---|---|
-| Sample and frontend | Implemented; visual verification incomplete | Calculator, profile intake, resource settings, run interface, candidate evidence, live comparison, downloads | Working browser access |
+| Sample and frontend | Implemented; browser workflows passed | Calculator, profile intake, runtime model, run interface, candidate evidence, live comparison, downloads | None for the tested local workflows |
 | Agent and independent proof | Local proof passed; live model incomplete | Typed transformations, provider adapter, durable budgets, CBMC and Z3, negative control, strict acceptance | Approved application model endpoint and credential |
 | Hosted execution and delivery | Native workflow passed; hosted workflow incomplete | Private worker protocol, container recipe, durable jobs, recovery, cancellation, exports, authentication | Isolated hosted Linux x86-64 worker and private HTTPS endpoint |
 | Reconstruction and model assessment | Procedural analysis passed; model analysis incomplete | Real executable queries, frozen hypotheses, fresh judge inputs, declared device assessment | Model analyst and measured device runtime |
@@ -18,7 +53,7 @@ The GitHub connector records public commit and tree metadata.
 ## Verified local checks
 
 - The production build and frontend/service type checks passed.
-- Fourteen automated tests passed.
+- Fifteen platform tests passed after the runtime update.
 - CBMC rejected an intentionally incorrect transformation with a counterexample.
 - CBMC proved accepted transformations across the complete declared input domain.
 - The accepted binary matched 10,000 generated inputs and 240 boundary cases.
@@ -64,16 +99,15 @@ The independent sample Git repository is in `.data/sample-repository`.
 
 | Check | Reason | Next executable action |
 |---|---|---|
-| Visual browser workflow | Browser connection unavailable; native Chrome access timed out | Install Chromium if needed, then run `npm run test:browser` |
 | Genuine model proposal | No application model configuration | Set the approved provider configuration and select model mode |
 | Hosted Linux x86-64 execution | No running Linux worker or hosted access | Deploy the prepared worker privately, then select the Linux target |
 | Hosted image build | Docker client exists, but its daemon is unavailable | Build `deploy/Dockerfile.worker` on the intended Linux host |
 | Model reconstruction comparison | No configured analyst model | Add the approved analyst provider and retain the same evaluation budgets |
 | Physical hardware behavior | No board adapter or physical hardware | Implement a named device adapter and its executable model |
 
-The browser suite contains two discovered workflows. It has not been run in a browser.
-The first covers target selection, proof failures, candidate inspection, fresh inputs, downloads, and viewport screenshots.
-The second covers cancellation and reload persistence.
+The browser suite contains three executed workflows.
+They cover the runtime model, target selection, proof failures, candidate inspection, fresh inputs, downloads, cancellation, and reload persistence.
+Runtime screenshots cover desktop and mobile layouts.
 
 ## Continue implementation
 
